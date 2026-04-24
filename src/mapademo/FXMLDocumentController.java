@@ -486,7 +486,6 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void about(ActionEvent event) {
         Alert mensaje = new Alert(Alert.AlertType.INFORMATION);
-
         // Personalizamos el icono de la ventana del diálogo
         Stage dialogStage = (Stage) mensaje.getDialogPane().getScene().getWindow();
         dialogStage.getIcons().add(
