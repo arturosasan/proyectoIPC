@@ -18,8 +18,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-
-<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mapademo.FXMLDocumentController">
+<BorderPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mapademo.FXMLDocumentController">
    <center>
       <VBox prefHeight="556.0" prefWidth="853.0" stylesheets="@../resources/estilos.css">
          <children>
@@ -62,6 +61,7 @@
             <Button mnemonicParsing="false" onAction="#zoomOut" text="-" />
             <Slider fx:id="zoom_slider" HBox.hgrow="SOMETIMES" />
             <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#zoomIn" text="+" />
+            <Button mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesión" />
          </children>
          <BorderPane.margin>
             <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />

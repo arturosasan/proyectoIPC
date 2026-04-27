@@ -66,6 +66,10 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 
 /**
  * Controlador principal de la aplicación de mapa con POIs.
@@ -617,7 +621,16 @@ public class FXMLDocumentController implements Initializable {
         circle.setCenterY(y);
         mapPane.getChildren().add(circle); // Se añade sobre el mapa como cualquier nodo
     }
-
-
+@FXML
+private void cerrarSesion(ActionEvent event) {
+    try {
+        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
 
 }
