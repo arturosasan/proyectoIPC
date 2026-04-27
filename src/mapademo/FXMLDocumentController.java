@@ -631,6 +631,7 @@ private void cerrarSesion(ActionEvent event) {
     } catch (IOException e) {
         e.printStackTrace();
     }
+    
 }
 
 }
