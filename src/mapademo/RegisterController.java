@@ -202,7 +202,7 @@ public class RegisterController implements Initializable {
 
     @FXML
     private void backLogin(ActionEvent event) {
-        cargarPantalla("/mapademo/Login.fxml", null);
+        cargarPantalla("/mapademo/Login.fxml", (String) null);
     }
 
     @FXML

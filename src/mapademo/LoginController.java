@@ -144,8 +144,10 @@ public class LoginController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlDestino));
             Parent root = loader.load();
             
-            FXMLDocumentController controller = loader.getController();
-            controller.setNickname(nickname);
+            if (fxmlDestino.equals("/mapademo/FXMLDocument.fxml")) {
+                FXMLDocumentController controller = loader.getController();
+                controller.setNickname(nickname);
+            }
             
             Stage stage = (Stage) nicknameField.getScene().getWindow();
             stage.setScene(new Scene(root));
