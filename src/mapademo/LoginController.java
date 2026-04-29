@@ -88,7 +88,7 @@ public class LoginController implements Initializable {
 
         if (app.login(nick, pass)) {
             User user = app.getCurrentUser();
-            cargarPantalla("/mapademo/FXMLDocument.fxml");
+            cargarPantalla("/mapademo/FXMLDocument.fxml", nick);
         } else {
             mostrarError("Usuario o contraseña incorrectos.");
         }
@@ -139,10 +139,14 @@ public class LoginController implements Initializable {
     }
     
     
-    private void cargarPantalla(String fxmlDestino) { // MÉTODO PARA CARGAR LA PAGINA DE REGISTRO O LA PRINCIPAL
+    private void cargarPantalla(String fxmlDestino, String nickname) { // MÉTODO PARA CARGAR LA PAGINA DE REGISTRO O LA PRINCIPAL
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlDestino));
             Parent root = loader.load();
+            
+            FXMLDocumentController controller = loader.getController();
+            controller.setNickname(nickname);
+            
             Stage stage = (Stage) nicknameField.getScene().getWindow();
             stage.setScene(new Scene(root));
             if (fxmlDestino.equals("/mapademo/Register.fxml")) {
@@ -184,6 +188,6 @@ public class LoginController implements Initializable {
 
     @FXML
     private void handleRegister(ActionEvent event) {
-        cargarPantalla("/mapademo/Register.fxml");
+        cargarPantalla("/mapademo/Register.fxml", null);
     }
 }

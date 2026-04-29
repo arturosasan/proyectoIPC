@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mapademo.PrincipalController">
+    <left>
+        <VBox alignment="TOP_CENTER" prefHeight="1173.0" prefWidth="263.0" style="-fx-background-color: #0d1b2a;">
+            <children>
+                <Region prefHeight="30.0" />
+                <StackPane prefHeight="130.0" prefWidth="130.0">
+                    <children>
+                        <Circle fill="#1b263b" radius="60.0" stroke="#e94560" strokeWidth="3.0" />
+                        <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../resources/user.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </StackPane>
+                <Region prefHeight="25.0" />
+                <Text fill="WHITE" style="-fx-font-size: 22; -fx-font-weight: bold;" text="testeando" />
+                <Region prefHeight="10.0" />
+                <Region prefHeight="30.0" />
+                <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="220.0" style="-fx-background-color: #1b263b; -fx-text-fill: white; -fx-background-radius: 10; -fx-font-size: 14;" text="Editar perfil" />
+                <Region prefHeight="15.0" />
+                <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="220.0" style="-fx-background-color: #1b263b; -fx-text-fill: white; -fx-background-radius: 10; -fx-font-size: 14;" text="Historial de sesiones" />
+                <Region prefHeight="37.0" prefWidth="280.0" />
+                <VBox alignment="TOP_CENTER" prefHeight="320.0" prefWidth="260.0" style="-fx-background-color: #192a4a; -fx-background-radius: 16; -fx-padding: 16;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+                    <children>
+                        <Text fill="#4ecca3" style="-fx-font-size: 13; -fx-font-weight: bold;" text="ESTADÍSTICAS DEL MES" />
+                        <Region prefHeight="16.0" />
+                        <HBox prefHeight="65.0" prefWidth="228.0" spacing="10.0">
+                            <children>
+                                <VBox prefHeight="65.0" prefWidth="108.0" style="-fx-background-color: #1b263b; -fx-background-radius: 10; -fx-padding: 10;">
+                                    <children>
+                                        <Text fill="#778da9" style="-fx-font-size: 11;" text="Tiempo" />
+                                        <Text fill="WHITE" style="-fx-font-size: 16; -fx-font-weight: bold;" text="12h 35m" />
+                                    </children>
+                                </VBox>
+                                <VBox prefHeight="65.0" prefWidth="108.0" style="-fx-background-color: #1b263b; -fx-background-radius: 10; -fx-padding: 10;">
+                                    <children>
+                                        <Text fill="#778da9" style="-fx-font-size: 11;" text="Distancia" />
+                                        <Text fill="WHITE" style="-fx-font-size: 16; -fx-font-weight: bold;" text="85.2 km" />
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                        <Region prefHeight="10.0" />
+                        <HBox prefHeight="65.0" prefWidth="228.0" spacing="10.0">
+                            <children>
+                                <VBox prefHeight="65.0" prefWidth="108.0" style="-fx-background-color: #1b263b; -fx-background-radius: 10; -fx-padding: 10;">
+                                    <children>
+                                        <Text fill="#778da9" style="-fx-font-size: 11;" text="Ascenso" />
+                                        <Text fill="#4ecca3" style="-fx-font-size: 16; -fx-font-weight: bold;" text="+1.240 m" />
+                                    </children>
+                                </VBox>
+                                <VBox prefHeight="65.0" prefWidth="108.0" style="-fx-background-color: #1b263b; -fx-background-radius: 10; -fx-padding: 10;">
+                                    <children>
+                                        <Text fill="#778da9" style="-fx-font-size: 11;" text="Descenso" />
+                                        <Text fill="#e94560" style="-fx-font-size: 16; -fx-font-weight: bold;" text="-980 m" />
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                        <Region prefHeight="18.0" />
+                        <Text fill="#778da9" style="-fx-font-size: 12;" text="Últimas actividades" />
+                        <Region prefHeight="8.0" />
+                        <VBox prefHeight="85.0" prefWidth="228.0" spacing="6.0">
+                            <children>
+                                <HBox prefHeight="38.0" prefWidth="228.0" spacing="10.0" style="-fx-background-color: #1b263b; -fx-background-radius: 8; -fx-padding: 8 12;">
+                                    <children>
+                                        <Text fill="#4ecca3" style="-fx-font-size: 13;" text="•" />
+                                        <Text fill="WHITE" style="-fx-font-size: 13;" text="Carrera urbana" />
+                                        <Region HBox.hgrow="ALWAYS" />
+                                        <Text fill="#778da9" style="-fx-font-size: 12;" text="5.2 km" />
+                                    </children>
+                                </HBox>
+                                <HBox prefHeight="38.0" prefWidth="228.0" spacing="10.0" style="-fx-background-color: #1b263b; -fx-background-radius: 8; -fx-padding: 8 12;">
+                                    <children>
+                                        <Text fill="#e94560" style="-fx-font-size: 13;" text="•" />
+                                        <Text fill="WHITE" style="-fx-font-size: 13;" text="Ruta montaña" />
+                                        <Region HBox.hgrow="ALWAYS" />
+                                        <Text fill="#778da9" style="-fx-font-size: 12;" text="12.8 km" />
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+                <Region prefHeight="28.0" prefWidth="280.0" />
+                <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="240.0" style="-fx-background-color: transparent; -fx-border-color: #4ecca3; -fx-border-width: 2; -fx-text-fill: #4ecca3; -fx-background-radius: 10; -fx-border-radius: 10; -fx-font-weight: bold; -fx-font-size: 15;" text="+ Nueva Actividad" />
+                <Region VBox.vgrow="ALWAYS" />
+                <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="220.0" style="-fx-background-color: #e94560; -fx-text-fill: white; -fx-background-radius: 10; -fx-font-size: 14; -fx-font-weight: bold;" text="Cerrar Sesión" />
+                <Region prefHeight="30.0" />
+            </children>
+            <BorderPane.margin>
+                <Insets />
+            </BorderPane.margin>
+        </VBox>
+    </left>
+    <center>
+        <VBox style="-fx-background-color: #1b263b;">
+            <children>
+                <HBox alignment="CENTER_RIGHT" prefHeight="70.0" style="-fx-background-color: #0d1b2a; -fx-padding: 15 25;" BorderPane.alignment="CENTER">
+                    <children>
+                        <Region prefHeight="29.0" prefWidth="1378.0" HBox.hgrow="ALWAYS" />
+                        <Label prefHeight="38.0" prefWidth="91.0" style="-fx-background-color: #1b263b; -fx-padding: 10 18; -fx-background-radius: 5;" text="Valencia" textFill="#778da9" />
+                        <Region prefHeight="60.0" prefWidth="26.0" />
+                        <Button mnemonicParsing="false" style="-fx-background-color: #4ecca3; -fx-text-fill: #0d1b2a; -fx-background-radius: 5; -fx-font-weight: bold;" text="Cambiar mapa" />
+                    </children>
+                </HBox>
+                <ScrollPane fx:id="map_scrollpane" hbarPolicy="ALWAYS" onMouseMoved="#showPosition" pannable="true" style="-fx-background-color: #0a0a14;" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
+                    <content>
+                        <StackPane>
+                            <children>
+                                <Pane>
+                                    <children>
+                                        <ImageView pickOnBounds="true">
+                                            <image>
+                                                <Image url="@../resources/upv.jpg" />
+                                            </image>
+                                        </ImageView>
+                                    </children>
+                                </Pane>
+                                <HBox alignment="CENTER_RIGHT" prefHeight="50.0" StackPane.alignment="TOP_RIGHT">
+                                    <children>
+                                        <Region prefWidth="20.0" />
+                                        <VBox prefHeight="50.0" spacing="5.0">
+                                            <children>
+                                                <Button mnemonicParsing="false" prefHeight="22.0" prefWidth="45.0" style="-fx-background-color: #1b263b; -fx-text-fill: white; -fx-background-radius: 6; -fx-font-size: 16;" text="+" />
+                                                <Button mnemonicParsing="false" prefHeight="22.0" prefWidth="45.0" style="-fx-background-color: #1b263b; -fx-text-fill: white; -fx-background-radius: 6; -fx-font-size: 16;" text="-" />
+                                            </children>
+                                        </VBox>
+                                        <Region prefWidth="15.0" />
+                                    </children>
+                                    <StackPane.margin>
+                                        <Insets top="15.0" />
+                                    </StackPane.margin>
+                                </HBox>
+                            </children>
+                        </StackPane>
+                    </content>
+                </ScrollPane>
+                <HBox alignment="CENTER_RIGHT" prefHeight="38.0" style="-fx-background-color: #0d1b2a;" BorderPane.alignment="CENTER">
+                    <children>
+                        <Label fx:id="mousePosition" style="-fx-font-size: 12;" text="X: 0 | Y: 0" textFill="#778da9" wrapText="true" HBox.hgrow="ALWAYS" />
+                    </children>
+                    <BorderPane.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                    </BorderPane.margin>
+                </HBox>
+            </children>
+        </VBox>
+    </center>
+</BorderPane>

@@ -71,6 +71,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
+import upv.ipc.sportlib.SportActivityApp;
+import upv.ipc.sportlib.User;
+
 /**
  * Controlador principal de la aplicación de mapa con POIs.
  *
@@ -81,6 +84,8 @@ import javafx.scene.Scene;
  * inicialización una vez que el FXML ha sido cargado completamente.
  */
 public class FXMLDocumentController implements Initializable {
+
+    private SportActivityApp app = SportActivityApp.getInstance();
 
     // =========================================================
     //  ESTRUCTURA DE NODOS PARA ZOOM
@@ -158,8 +163,15 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Label mousePosition;
     @FXML
+    private Text nicknameText;
+
+    @FXML
     private SplitPane splitPane;
  
+
+    public void setNickname(String nickname) {
+        nicknameText.setText(nickname);
+    }
 
     // =========================================================
     //  MANEJADORES DE ZOOM
@@ -624,6 +636,7 @@ public class FXMLDocumentController implements Initializable {
 @FXML
 private void cerrarSesion(ActionEvent event) {
     try {
+        app.logout();
         Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));

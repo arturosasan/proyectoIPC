@@ -147,9 +147,9 @@ public class RegisterController implements Initializable {
         }
         
         
-        if (app.registerUser(nick, email, pass, birthDate, (String) null)) { // DE MOMENTO EL USUARIO NO SE REGISTRA CON EL AVA
+        if (app.registerUser(nick, email, pass, birthDate, (String) null)) {
             app.login(nick, pass);
-            cargarPantalla("FXMLDocument.fxml");
+            cargarPantalla("FXMLDocument.fxml", nick);
         } else {
             mostrarError("Error al registrar. El nickname o email puede estar en uso.");
         }
@@ -202,7 +202,7 @@ public class RegisterController implements Initializable {
 
     @FXML
     private void backLogin(ActionEvent event) {
-        cargarPantalla("/mapademo/Login.fxml"); // PREGUNTAR SI SE PUEDE HACER QUE SOLO SE MUESTRE UNA PANTALLA Y QUE SE GUARDE EL CONTENIDO
+        cargarPantalla("/mapademo/Login.fxml", null);
     }
 
     @FXML
@@ -213,10 +213,16 @@ public class RegisterController implements Initializable {
         File selectedFile = fileChooser.showOpenDialog(((Node)event.getSource()).getScene().getWindow());
     }
     
-    private void cargarPantalla(String fxmlDestino) {
+    private void cargarPantalla(String fxmlDestino, String nickname) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlDestino));
             Parent root = loader.load();
+            
+            if (fxmlDestino.equals("FXMLDocument.fxml")) {
+                FXMLDocumentController controller = loader.getController();
+                controller.setNickname(nickname);
+            }
+            
             Stage stage = (Stage) nicknameField.getScene().getWindow();
             stage.setScene(new Scene(root));
             if (fxmlDestino.equals("/mapademo/Login.fxml")) {

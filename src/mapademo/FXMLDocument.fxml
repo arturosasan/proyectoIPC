@@ -16,37 +16,16 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mapademo.FXMLDocumentController">
-   <center>
-      <VBox prefHeight="556.0" prefWidth="853.0" stylesheets="@../resources/estilos.css">
-         <children>
-            <SplitPane fx:id="splitPane" dividerPositions="0.19699727024567792" VBox.vgrow="ALWAYS">
-               <items>
-                  <ListView fx:id="map_listview" onMouseClicked="#listClicked" prefHeight="399.0" prefWidth="87.0" />
-                  <ScrollPane fx:id="map_scrollpane" hbarPolicy="ALWAYS" onMouseMoved="#showPosition" pannable="true" prefHeight="398.0" prefWidth="358.0" vbarPolicy="ALWAYS">
-                     <content>
-                        <Pane>
-                           <children>
-                              <ImageView pickOnBounds="true">
-                                 <image>
-                                    <Image url="@../resources/upv.jpg" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </Pane>
-                     </content>
-                  </ScrollPane>
-               </items>
-            </SplitPane>
-         </children>
-      </VBox>
-   </center>
+<BorderPane prefHeight="885.0" prefWidth="1275.0" style="-fx-background-color: #0d1b2a;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mapademo.FXMLDocumentController">
    <top>
-      <HBox alignment="CENTER_RIGHT" fillHeight="false" spacing="5.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER_RIGHT" fillHeight="false" prefHeight="39.0" prefWidth="1263.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
-            <MenuBar>
+            <MenuBar style="-fx-background-color: #F5FFFA; -fx-text-fill: #0d1b2a; -fx-background-radius: 5; -fx-font-weight: bold;">
               <menus>
                 <Menu mnemonicParsing="false" text="Ayuda">
                   <items>
@@ -54,14 +33,14 @@
                   </items>
                 </Menu>
               </menus>
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
             </MenuBar>
-            <Button mnemonicParsing="false" onAction="#cambiarMapa" text="Cambiar mapa" />
-            <Region HBox.hgrow="ALWAYS" />
-            <Label text="Zoom" />
-            <Button mnemonicParsing="false" onAction="#zoomOut" text="-" />
-            <Slider fx:id="zoom_slider" HBox.hgrow="SOMETIMES" />
-            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#zoomIn" text="+" />
-            <Button mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesión" />
+            <Button mnemonicParsing="false" onAction="#cambiarMapa" style="-fx-background-color: #4ecca3; -fx-text-fill: #0d1b2a; -fx-background-radius: 5; -fx-font-weight: bold;" text="Cambiar mapa">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin></Button>
          </children>
          <BorderPane.margin>
             <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
@@ -71,11 +50,117 @@
    <bottom>
       <HBox alignment="CENTER_RIGHT" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="mousePosition" minHeight="-Infinity" minWidth="-Infinity" text="SceneX:     ScenY:     " wrapText="true" HBox.hgrow="ALWAYS" />
+            <Label fx:id="mousePosition" minHeight="-Infinity" minWidth="-Infinity" text="X:     Y:     " textFill="WHITE" wrapText="true" HBox.hgrow="ALWAYS" />
          </children>
          <BorderPane.margin>
             <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
          </BorderPane.margin>
       </HBox>
    </bottom>
+   <right>
+      <VBox prefHeight="556.0" prefWidth="51.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#zoomIn" text="+">
+               <VBox.margin>
+                  <Insets left="12.0" right="10.0" top="30.0" />
+               </VBox.margin></Button>
+            <Slider fx:id="zoom_slider" orientation="VERTICAL" prefHeight="243.0" prefWidth="16.0">
+               <opaqueInsets>
+                  <Insets right="10.0" />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets left="18.0" top="20.0" />
+               </VBox.margin></Slider>
+            <Button mnemonicParsing="false" onAction="#zoomOut" text="-">
+               <VBox.margin>
+                  <Insets left="15.0" right="10.0" top="30.0" />
+               </VBox.margin></Button>
+         </children>
+      </VBox>
+   </right>
+   <center>
+      <ScrollPane fx:id="map_scrollpane" hbarPolicy="ALWAYS" onMouseMoved="#showPosition" pannable="true" prefHeight="398.0" prefWidth="358.0" vbarPolicy="ALWAYS" BorderPane.alignment="CENTER">
+         <content>
+            <Pane>
+               <children>
+                  <ImageView pickOnBounds="true">
+                     <image>
+                        <Image url="@../resources/upv.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </content>
+      </ScrollPane>
+   </center>
+   <left>
+      <VBox prefHeight="729.0" prefWidth="225.0" style="-fx-background-color: #0d1b2a;" BorderPane.alignment="CENTER">
+         <children>
+            <StackPane prefHeight="150.0" prefWidth="200.0">
+               <children>
+                  <Circle fill="#1b263b" radius="68.0" stroke="#e94560" strokeType="INSIDE" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/user.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
+            <Region prefHeight="9.0" prefWidth="225.0" />
+            <StackPane prefWidth="225.0">
+                <children>
+                   <Text fx:id="nicknameText" fill="WHITE" style="-fx-font-size: 22; -fx-font-weight: bold;" text="[nickname]" textAlignment="CENTER">
+                     <StackPane.margin>
+                        <Insets left="5.0" />
+                     </StackPane.margin></Text>
+                </children>
+             </StackPane>
+            <HBox prefHeight="86.0" prefWidth="225.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="49.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10;" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="34.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/edit.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets left="50.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" style="-fx-background-color: #ffffff; -fx-background-radius: 10;">
+                     <HBox.margin>
+                        <Insets left="20.0" top="20.0" />
+                     </HBox.margin>
+                     <graphic>
+                        <ImageView fitHeight="34.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/history.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+            <SplitPane fx:id="splitPane">
+               <items>
+                  <ListView fx:id="map_listview" onMouseClicked="#listClicked" prefHeight="245.0" prefWidth="223.0" />
+               </items>
+            </SplitPane>
+            <Region prefHeight="30.0" prefWidth="225.0" VBox.vgrow="NEVER" />
+            <Button mnemonicParsing="false" prefHeight="47.0" prefWidth="196.0" style="-fx-background-color: transparent; -fx-border-color: #4ecca3; -fx-border-width: 2; -fx-text-fill: #4ecca3; -fx-background-radius: 10; -fx-border-radius: 10; -fx-font-weight: bold; -fx-font-size: 15;" text="+ Nueva Actividad" VBox.vgrow="NEVER">
+               <VBox.margin>
+                  <Insets left="15.0" />
+               </VBox.margin>
+            </Button>
+            <Region prefHeight="177.0" prefWidth="225.0" VBox.vgrow="ALWAYS" />
+            <Button mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="46.0" prefWidth="153.0" style="-fx-background-color: #e94560; -fx-text-fill: white; -fx-background-radius: 10; -fx-font-size: 14; -fx-font-weight: bold;" text="Cerrar Sesión" VBox.vgrow="NEVER">
+               <VBox.margin>
+                  <Insets left="40.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+   </left>
 </BorderPane>
