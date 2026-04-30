@@ -167,10 +167,23 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private SplitPane splitPane;
- 
-
+    
+    @FXML
+    private ImageView avatarView;
+    
+    
     public void setNickname(String nickname) {
         nicknameText.setText(nickname);
+    }
+    
+    public void viewAvatar(String avatarPath) {
+        if (avatarPath != null && !avatarPath.isEmpty()) {
+            File avatarFile = new File(avatarPath);
+            if (avatarFile.exists()) {
+                Image avatarImage = new Image(avatarFile.toURI().toString(), 136, 136, true, true);
+                avatarView.setImage(avatarImage);
+            }
+        }
     }
 
     // =========================================================
@@ -461,6 +474,13 @@ public class FXMLDocumentController implements Initializable {
         // ── Carga del mapa inicial ─────────────────────────────────────
         // El fichero se busca relativo al directorio de trabajo del proyecto.
         buildMap(new File("maps/upv.jpg"));
+        
+        // ── Carga del avatar del usuario ───────────────────────────────
+        User user = app.getCurrentUser();
+        if (user != null) {
+            viewAvatar(user.getAvatarPath());
+        }
+        
     }
 
     // =========================================================
@@ -633,18 +653,36 @@ public class FXMLDocumentController implements Initializable {
         circle.setCenterY(y);
         mapPane.getChildren().add(circle); // Se añade sobre el mapa como cualquier nodo
     }
-@FXML
-private void cerrarSesion(ActionEvent event) {
-    try {
-        app.logout();
-        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.show();
-    } catch (IOException e) {
-        e.printStackTrace();
+    
+    @FXML
+    private void cerrarSesion(ActionEvent event) {
+        try {
+            app.logout();
+            Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
-}
-
+//    class ImagenTabCell extends ComboBoxListCell<String> { // COPIA Y PEGA DEL PDF, PARA QUE SE VEAN LAS IMAGENES
+//        private ImageView view = new ImageView();
+//        private Image imagen;
+//
+//        @Override
+//        public void updateItem(String t, boolean bln) {
+//            super.updateItem(t, bln); 
+//            if (t == null || bln) {
+//                setText(null);
+//                setGraphic(null);
+//            } else {
+//                imagen = new Image(t,25,25,true,true);
+//                view.setImage(imagen);
+//                setGraphic(view);
+//                setText(null);
+//            }
+//        }
+//    }
 }

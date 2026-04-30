@@ -62,6 +62,11 @@ public class RegisterController implements Initializable {
     private TextField emailField;
     @FXML
     private DatePicker fechaNac;
+    @FXML 
+    private Button botonAvatar;
+    
+    // VARIABLE AUXILIAR AVATAR
+    private String avatarPath;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -116,7 +121,7 @@ public class RegisterController implements Initializable {
         String email = emailField.getText().trim();
         String pass = passwordField.isVisible() ? passwordField.getText() : passwordVisibleField.getText();
         LocalDate birthDate = fechaNac.getValue();
-        // String avatar_path // No se como conseguir el path de la imagen desde este método :(  
+        String avatar_path = avatarPath;
         
         // COMPROBACIÓN DE CAMPOS VACÍOS
         if (nick.isEmpty() || email.isEmpty() || pass.isEmpty() || birthDate == null) {
@@ -146,8 +151,7 @@ public class RegisterController implements Initializable {
             return; 
         }
         
-        
-        if (app.registerUser(nick, email, pass, birthDate, (String) null)) {
+        if (app.registerUser(nick, email, pass, birthDate, avatar_path)) {
             app.login(nick, pass);
             cargarPantalla("FXMLDocument.fxml", nick);
         } else {
@@ -211,6 +215,11 @@ public class RegisterController implements Initializable {
         fileChooser.setTitle("Abrir fichero");
         fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Imágenes", "*.png", "*.jpg"));
         File selectedFile = fileChooser.showOpenDialog(((Node)event.getSource()).getScene().getWindow());
+        if (selectedFile != null) {
+            avatarPath = selectedFile.getAbsolutePath();
+            //setAvatarPath(avatarPath);
+            System.out.println(avatarPath); // funciona
+        }
     }
     
     private void cargarPantalla(String fxmlDestino, String nickname) {

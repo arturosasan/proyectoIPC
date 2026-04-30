@@ -48,7 +48,7 @@
                </GridPane.margin>
             </PasswordField>
             <DatePicker fx:id="fechaNac" prefHeight="26.0" prefWidth="129.0" promptText="dd/mm/aaaa*" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" onAction="#selectAvatar" prefHeight="26.0" prefWidth="148.0" text="Selecciona tu avatar" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Button fx:id="botonAvatar" mnemonicParsing="false" onAction="#selectAvatar" prefHeight="26.0" prefWidth="148.0" text="Selecciona tu avatar" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Button fx:id="enterButton" defaultButton="true" mnemonicParsing="false" onAction="#handleNewUser" prefHeight="55.0" prefWidth="148.0" text="Registrarse" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets />
