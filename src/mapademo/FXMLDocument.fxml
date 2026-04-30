@@ -99,7 +99,7 @@
             <StackPane prefHeight="150.0" prefWidth="200.0">
                <children>
                   <Circle fill="#1b263b" radius="68.0" stroke="#e94560" strokeType="INSIDE" />
-                  <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="avatarView" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../resources/user.png" />
                      </image>
