@@ -180,7 +180,7 @@ public class FXMLDocumentController implements Initializable {
         if (avatarPath != null && !avatarPath.isEmpty()) {
             File avatarFile = new File(avatarPath);
             if (avatarFile.exists()) {
-                Image avatarImage = new Image(avatarFile.toURI().toString(), 80, 80, true, true);
+                Image avatarImage = new Image(avatarFile.toURI().toString(), 136, 136, true, true);
                 avatarView.setImage(avatarImage);
             }
         }
