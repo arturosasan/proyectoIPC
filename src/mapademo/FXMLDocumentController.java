@@ -177,8 +177,13 @@ public class FXMLDocumentController implements Initializable {
     }
     
     public void viewAvatar(String avatarPath) {
-       //avatarView.setImage();
-       //setAvatarPath();
+        if (avatarPath != null && !avatarPath.isEmpty()) {
+            File avatarFile = new File(avatarPath);
+            if (avatarFile.exists()) {
+                Image avatarImage = new Image(avatarFile.toURI().toString(), 80, 80, true, true);
+                avatarView.setImage(avatarImage);
+            }
+        }
     }
 
     // =========================================================
@@ -469,6 +474,12 @@ public class FXMLDocumentController implements Initializable {
         // ── Carga del mapa inicial ─────────────────────────────────────
         // El fichero se busca relativo al directorio de trabajo del proyecto.
         buildMap(new File("maps/upv.jpg"));
+        
+        // ── Carga del avatar del usuario ───────────────────────────────
+        User user = app.getCurrentUser();
+        if (user != null) {
+            viewAvatar(user.getAvatarPath());
+        }
         
     }
 
