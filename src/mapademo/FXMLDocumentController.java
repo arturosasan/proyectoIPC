@@ -656,33 +656,43 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private void cerrarSesion(ActionEvent event) {
-        try {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmación");
+        alert.setHeaderText("Vas a salir del programa");
+        alert.setContentText("¿Seguro que quieres salir?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) { 
             app.logout();
-            Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            cargarPantalla("Login.fxml");
+          }  
+    }
+    
+    private void cargarPantalla(String fxmlDestino) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlDestino));
+            Parent root = loader.load();
+            
+            
+            Stage stage = (Stage) nicknameText.getScene().getWindow();
             stage.setScene(new Scene(root));
+            if (fxmlDestino.equals("/mapademo/Login.fxml")) {
+                stage.setTitle("Login");
+            } else {
+                stage.setTitle("Pantalla principal");
+            }
             stage.show();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
     
-//    class ImagenTabCell extends ComboBoxListCell<String> { // COPIA Y PEGA DEL PDF, PARA QUE SE VEAN LAS IMAGENES
-//        private ImageView view = new ImageView();
-//        private Image imagen;
-//
-//        @Override
-//        public void updateItem(String t, boolean bln) {
-//            super.updateItem(t, bln); 
-//            if (t == null || bln) {
-//                setText(null);
-//                setGraphic(null);
-//            } else {
-//                imagen = new Image(t,25,25,true,true);
-//                view.setImage(imagen);
-//                setGraphic(view);
-//                setText(null);
-//            }
-//        }
-//    }
+    @FXML 
+    private void modificarPerfil() {
+        cargarPantalla("ModificarPerfil.fxml");
+    }
+    
+    @FXML 
+    private void historialSesiones() {
+        cargarPantalla("HistorialSesiones.fxml");
+    }
 }

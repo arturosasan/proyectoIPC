@@ -14,7 +14,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -50,20 +49,12 @@ public class RegisterController implements Initializable {
     @FXML
     private ImageView eye;
     
-    @FXML
-    private Button enterButton;
-    
-    @FXML
-    private Button togglePasswordBtn;
-    
     private SportActivityApp app = SportActivityApp.getInstance();
     
     @FXML
     private TextField emailField;
     @FXML
     private DatePicker fechaNac;
-    @FXML 
-    private Button botonAvatar;
     
     // VARIABLE AUXILIAR AVATAR
     private String avatarPath;
@@ -217,8 +208,6 @@ public class RegisterController implements Initializable {
         File selectedFile = fileChooser.showOpenDialog(((Node)event.getSource()).getScene().getWindow());
         if (selectedFile != null) {
             avatarPath = selectedFile.getAbsolutePath();
-            //setAvatarPath(avatarPath);
-            System.out.println(avatarPath); // funciona
         }
     }
     
