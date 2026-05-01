@@ -1,0 +1,73 @@
+#principal {
+    -fx-background-color: #0d1b2a;  
+}
+
+#cambiarMapa {
+    -fx-background-color: #4ecca3;
+    -fx-text-fill: #0d1b2a;
+    -fx-background-radius: 5;
+    -fx-font-weight: bold;
+}
+
+#cambiarMapa:hover {
+    -fx-background-color: #007672;
+    -fx-cursor: hand;
+}
+
+#ayuda {
+    -fx-background-color: #F5FFFA;
+    -fx-text-fill: #0d1b2a;
+    -fx-background-radius: 5;
+    -fx-font-weight: bold;
+}
+
+#ayuda:hover {
+    -fx-background-color: #7c7c7c;
+    -fx-cursor: hand; 
+}   
+
+#botonesPerfil {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10;
+}
+
+#botonesPerfil:hover {
+    -fx-background-color: #7c7c7c;
+    -fx-cursor: hand;
+}
+
+#zoom:hover {
+    -fx-background-color: #7c7c7c;
+    -fx-cursor: hand;
+}
+
+#nuevaActividad {
+    -fx-background-color: transparent;
+    -fx-border-color: #4ecca3;
+    -fx-border-width: 2;
+    -fx-text-fill: #4ecca3;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-font-weight: bold;
+    -fx-font-size: 15;
+}
+
+#nuevaActividad:hover {
+    -fx-background-color: #4ecca3;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+#cerrarSesion {
+    -fx-background-color: #e94560;
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+}
+
+#cerrarSesion:hover {
+    -fx-background-color: #701a1a;
+    -fx-cursor: hand;
+}
+
