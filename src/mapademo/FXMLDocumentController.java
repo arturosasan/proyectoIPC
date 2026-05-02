@@ -86,6 +86,7 @@ import upv.ipc.sportlib.User;
 public class FXMLDocumentController implements Initializable {
 
     private SportActivityApp app = SportActivityApp.getInstance();
+    
 
     // =========================================================
     //  ESTRUCTURA DE NODOS PARA ZOOM
@@ -148,7 +149,7 @@ public class FXMLDocumentController implements Initializable {
      */
     @FXML
     private Slider zoom_slider;
-
+    
     /**
      * Botón de pin visible sobre el mapa.
      * Se desplaza hasta la posición del POI seleccionado en la lista.
@@ -171,7 +172,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private ImageView avatarView;
     
-    
+
     public void setNickname(String nickname) {
         nicknameText.setText(nickname);
     }
@@ -237,6 +238,8 @@ public class FXMLDocumentController implements Initializable {
         map_scrollpane.setHvalue(scrollH);
         map_scrollpane.setVvalue(scrollV);
     }
+    
+    
 
     // =========================================================
     //  SELECCIÓN EN EL LISTVIEW → CENTRADO EN EL MAPA
@@ -479,8 +482,8 @@ public class FXMLDocumentController implements Initializable {
         User user = app.getCurrentUser();
         if (user != null) {
             viewAvatar(user.getAvatarPath());
-        }
-        
+    }
+
     }
 
     // =========================================================
@@ -656,16 +659,15 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private void cerrarSesion(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmación");
-        alert.setHeaderText("Vas a salir del programa");
-        alert.setContentText("¿Seguro que quieres salir?");
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) { 
-            app.logout();
-            cargarPantalla("Login.fxml");
-          }  
+    try {
+        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+}
     
     private void cargarPantalla(String fxmlDestino) {
         try {
@@ -688,11 +690,23 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML 
     private void modificarPerfil() {
-        cargarPantalla("ModificarPerfil.fxml");
+        try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ModificarPerfil.fxml"));
+        Parent root = loader.load();
+        ModificarPerfilController controller = loader.getController();
+        controller.setNickname(nicknameText.getText()); // o como tengas guardado el nick actual
+        
+        Stage stage = (Stage) nicknameText.getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
     }
     
     @FXML 
     private void historialSesiones() {
         cargarPantalla("HistorialSesiones.fxml");
     }
+
 }
