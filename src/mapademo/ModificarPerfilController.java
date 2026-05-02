@@ -24,6 +24,7 @@ import upv.ipc.sportlib.SportActivityApp;
 import upv.ipc.sportlib.User;
 public class ModificarPerfilController implements Initializable {
     
+    @FXML
     private String currentUserNick;
     @FXML
     private Button salirButton;
