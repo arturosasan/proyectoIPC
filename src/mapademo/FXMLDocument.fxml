@@ -86,15 +86,15 @@
    <left>
       <VBox id="principal" prefHeight="729.0" prefWidth="225.0" stylesheets="@../styles/main.css" BorderPane.alignment="CENTER">
          <children>
-            <StackPane prefHeight="150.0" prefWidth="200.0">
-               <children>
-                  <Circle fill="#1b263b" radius="68.0" stroke="#e94560" strokeType="INSIDE" />
-                  <ImageView fx:id="avatarView" fitHeight="136.0" fitWidth="136.0" pickOnBounds="true" preserveRatio="false">
-                     <clip>
-                        <Circle centerX="68.0" centerY="68.0" radius="68.0" />
-                     </clip>
+             <StackPane prefHeight="150.0" prefWidth="150.0">
+                <children>
+                   <Circle fill="#1b263b" radius="66.0" stroke="#e94560" strokeType="INSIDE" strokeWidth="3.0" />
+                   <ImageView fx:id="avatarView" fitHeight="126.0" fitWidth="126.0" pickOnBounds="true" preserveRatio="false">
+                      <clip>
+                         <Circle centerX="63.0" centerY="63.0" radius="63.0" />
+                      </clip>
                      <image>
-                        <Image url="@../resources/user.png" />
+                        <Image url="@../resources/icons/user.png" />
                      </image>
                   </ImageView>
                </children>
