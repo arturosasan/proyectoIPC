@@ -1,0 +1,89 @@
+#sessionContainer{
+    -fx-background-color: #0d1b2a;
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+}
+
+.titleText{
+    -fx-fill: #4ecca3;
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4ecca3;
+    -fx-alignment: center;
+}
+
+#tableSession{
+    -fx-alignment: center;
+    -fx-background-color: #1b263b;
+    -fx-background-radius: 10;
+    -fx-border-color: #4ecca3;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-padding: 5;
+}
+
+#tableSession .column-header-background {
+    -fx-background-color: #0d1b2a;
+    -fx-background-radius: 10 10 0 0;
+    -fx-background-insets: 0 0 0 0, 0 0 0 0;
+}
+
+#tableSession .column-header, #tableSession .filler {
+    -fx-background-color: transparent;
+    -fx-size: 35;
+    -fx-border-color: transparent transparent #4ecca3 transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+#tableSession .column-header .label {
+    -fx-text-fill: #4ecca3;
+    -fx-font-weight: bold;
+    -fx-font-size: 13;
+}
+
+#tableSession .table-cell {
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 12;
+    -fx-alignment: center;
+}
+
+#tableSession .table-row-cell {
+    -fx-background-color: #1b263b;
+    -fx-border-color: transparent;
+}
+
+#tableSession .table-row-cell:odd {
+    -fx-background-color: #22304a;
+}
+
+#tableSession .table-row-cell:selected {
+    -fx-background-color: #4ecca3;
+}
+
+#tableSession .table-row-cell:selected .table-cell {
+    -fx-text-fill: #0d1b2a;
+}
+.tableColumn{
+    -fx-text-fill: #0d1b2a;
+    -fx-fill: #0d1b2a;
+}
+
+#total{
+    
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+
+.totalLabel{
+    -fx-text-fill: #4ecca3;
+}
+
+#exitButton{
+    -fx-background-color: #e94560;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 10;
+    -fx-font-weight: bold;
+    -fx-font-size: 14;
+    -fx-cursor: hand;
+}
