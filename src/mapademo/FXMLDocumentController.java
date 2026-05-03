@@ -35,6 +35,7 @@ import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -181,7 +182,7 @@ public class FXMLDocumentController implements Initializable {
         if (avatarPath != null && !avatarPath.isEmpty()) {
             File avatarFile = new File(avatarPath);
             if (avatarFile.exists()) {
-                Image avatarImage = new Image(avatarFile.toURI().toString(), 136, 136, true, true);
+                Image avatarImage = new Image(avatarFile.toURI().toString(), 128, 128, true, true);
                 avatarView.setImage(avatarImage);
             }
         }
@@ -659,15 +660,17 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private void cerrarSesion(ActionEvent event) {
-    try {
-        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.show();
-    } catch (IOException e) {
-        e.printStackTrace();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Cerrar sesión");
+        alert.setHeaderText("Estás a punto de cerrar sesión");
+        alert.setContentText("¿Seguro que quieres salir?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) { // Si se muestra la ventana && el usuario le de a "Aceptar" / "Ok"
+            app.logout();
+            cargarPantalla("Login.fxml");
+        }
     }
-}
     
     private void cargarPantalla(String fxmlDestino) {
         try {
