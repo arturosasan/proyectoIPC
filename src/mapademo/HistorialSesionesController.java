@@ -4,12 +4,18 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 public class HistorialSesionesController implements Initializable {
 
@@ -17,22 +23,22 @@ public class HistorialSesionesController implements Initializable {
     private TableView<Sesion> tablaSesiones;
 
     @FXML
-    private TableColumn<Sesion, String> inicioColum;
+    private TableColumn<Sesion, String> inicioColumn;
 
     @FXML
-    private TableColumn<Sesion, String> finColum;
+    private TableColumn<Sesion, String> finColumn;
 
     @FXML
-    private TableColumn<Sesion, String> duracionColum;
+    private TableColumn<Sesion, String> duracionColumn;
 
     @FXML
-    private TableColumn<Sesion, Integer> importadasColum;
+    private TableColumn<Sesion, Integer> importadasColumn;
 
     @FXML
-    private TableColumn<Sesion, Integer> vistasColum;
+    private TableColumn<Sesion, Integer> vistasColumn;
 
     @FXML
-    private TableColumn<Sesion, Integer> anotacionesColum;
+    private TableColumn<Sesion, Integer> anotacionesColumn;
 
     @FXML
     private Label totalImportadasLabel;
@@ -42,16 +48,23 @@ public class HistorialSesionesController implements Initializable {
 
     @FXML
     private Label totalAnotacionesLabel;
-
+    
+    private String currentUserNick;
+    
+    
+    public void setNickname(String nick) {
+        this.currentUserNick = nick;
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        inicioColum.setCellValueFactory(new PropertyValueFactory<>("inicio"));
-        finColum.setCellValueFactory(new PropertyValueFactory<>("fin"));
-        duracionColum.setCellValueFactory(new PropertyValueFactory<>("duracion"));
-        importadasColum.setCellValueFactory(new PropertyValueFactory<>("importadas"));
-        vistasColum.setCellValueFactory(new PropertyValueFactory<>("vistas"));
-        anotacionesColum.setCellValueFactory(new PropertyValueFactory<>("anotaciones"));
+        inicioColumn.setCellValueFactory(new PropertyValueFactory<>("inicio"));
+        finColumn.setCellValueFactory(new PropertyValueFactory<>("fin"));
+        duracionColumn.setCellValueFactory(new PropertyValueFactory<>("duracion"));
+        importadasColumn.setCellValueFactory(new PropertyValueFactory<>("importadas"));
+        vistasColumn.setCellValueFactory(new PropertyValueFactory<>("vistas"));
+        anotacionesColumn.setCellValueFactory(new PropertyValueFactory<>("anotaciones"));
 
         ObservableList<Sesion> sesiones = FXCollections.observableArrayList(
                 new Sesion("10:00", "10:45", "45 min", 3, 5, 2),
@@ -117,6 +130,23 @@ public class HistorialSesionesController implements Initializable {
 
         public int getAnotaciones() {
             return anotaciones;
+        }
+    }
+    
+    @FXML
+    private void handleSalir(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLDocument.fxml"));
+            Parent root = loader.load();
+            FXMLDocumentController controller = loader.getController();
+            
+            controller.setNickname(currentUserNick);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("Pantalla principal");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
