@@ -709,7 +709,19 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML 
     private void historialSesiones() {
-        cargarPantalla("HistorialSesiones.fxml");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("HistorialSesiones.fxml"));
+            Parent root = loader.load();
+            HistorialSesionesController controller = loader.getController();
+            controller.setNickname(nicknameText.getText());
+            
+            Stage stage = (Stage) nicknameText.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Historial de sesiones");
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
