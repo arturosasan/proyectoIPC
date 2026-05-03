@@ -182,7 +182,7 @@ public class FXMLDocumentController implements Initializable {
         if (avatarPath != null && !avatarPath.isEmpty()) {
             File avatarFile = new File(avatarPath);
             if (avatarFile.exists()) {
-                Image avatarImage = new Image(avatarFile.toURI().toString(), 128, 128, true, true);
+                Image avatarImage = new Image(avatarFile.toURI().toString(), 126, 126, true, true);
                 avatarView.setImage(avatarImage);
             }
         }
