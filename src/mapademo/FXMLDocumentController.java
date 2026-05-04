@@ -35,6 +35,7 @@ import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -71,6 +72,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
+import upv.ipc.sportlib.SportActivityApp;
+import upv.ipc.sportlib.User;
+
 /**
  * Controlador principal de la aplicación de mapa con POIs.
  *
@@ -81,6 +85,9 @@ import javafx.scene.Scene;
  * inicialización una vez que el FXML ha sido cargado completamente.
  */
 public class FXMLDocumentController implements Initializable {
+
+    private SportActivityApp app = SportActivityApp.getInstance();
+    
 
     // =========================================================
     //  ESTRUCTURA DE NODOS PARA ZOOM
@@ -143,7 +150,7 @@ public class FXMLDocumentController implements Initializable {
      */
     @FXML
     private Slider zoom_slider;
-
+    
     /**
      * Botón de pin visible sobre el mapa.
      * Se desplaza hasta la posición del POI seleccionado en la lista.
@@ -158,8 +165,28 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Label mousePosition;
     @FXML
+    private Text nicknameText;
+
+    @FXML
     private SplitPane splitPane;
- 
+    
+    @FXML
+    private ImageView avatarView;
+    
+
+    public void setNickname(String nickname) {
+        nicknameText.setText(nickname);
+    }
+    
+    public void viewAvatar(String avatarPath) {
+        if (avatarPath != null && !avatarPath.isEmpty()) {
+            File avatarFile = new File(avatarPath);
+            if (avatarFile.exists()) {
+                Image avatarImage = new Image(avatarFile.toURI().toString(), 126, 126, true, true);
+                avatarView.setImage(avatarImage);
+            }
+        }
+    }
 
     // =========================================================
     //  MANEJADORES DE ZOOM
@@ -212,6 +239,8 @@ public class FXMLDocumentController implements Initializable {
         map_scrollpane.setHvalue(scrollH);
         map_scrollpane.setVvalue(scrollV);
     }
+    
+    
 
     // =========================================================
     //  SELECCIÓN EN EL LISTVIEW → CENTRADO EN EL MAPA
@@ -449,6 +478,13 @@ public class FXMLDocumentController implements Initializable {
         // ── Carga del mapa inicial ─────────────────────────────────────
         // El fichero se busca relativo al directorio de trabajo del proyecto.
         buildMap(new File("maps/upv.jpg"));
+        
+        // ── Carga del avatar del usuario ───────────────────────────────
+        User user = app.getCurrentUser();
+        if (user != null) {
+            viewAvatar(user.getAvatarPath());
+    }
+
     }
 
     // =========================================================
@@ -621,17 +657,71 @@ public class FXMLDocumentController implements Initializable {
         circle.setCenterY(y);
         mapPane.getChildren().add(circle); // Se añade sobre el mapa como cualquier nodo
     }
-@FXML
-private void cerrarSesion(ActionEvent event) {
-    try {
-        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.show();
-    } catch (IOException e) {
-        e.printStackTrace();
+    
+    @FXML
+    private void cerrarSesion(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Cerrar sesión");
+        alert.setHeaderText("Estás a punto de cerrar sesión");
+        alert.setContentText("¿Seguro que quieres salir?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) { // Si se muestra la ventana && el usuario le de a "Aceptar" / "Ok"
+            app.logout();
+            cargarPantalla("Login.fxml");
+        }
     }
     
-}
+    private void cargarPantalla(String fxmlDestino) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlDestino));
+            Parent root = loader.load();
+            
+            
+            Stage stage = (Stage) nicknameText.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            if (fxmlDestino.equals("/mapademo/Login.fxml")) {
+                stage.setTitle("Login");
+            } else {
+                stage.setTitle("Pantalla principal");
+            }
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @FXML 
+    private void modificarPerfil() {
+        try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ModificarPerfil.fxml"));
+        Parent root = loader.load();
+        ModificarPerfilController controller = loader.getController();
+        controller.setNickname(nicknameText.getText()); // o como tengas guardado el nick actual
+        
+        Stage stage = (Stage) nicknameText.getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    }
+    
+    @FXML 
+    private void historialSesiones() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("HistorialSesiones.fxml"));
+            Parent root = loader.load();
+            HistorialSesionesController controller = loader.getController();
+            controller.setNickname(nicknameText.getText());
+            
+            Stage stage = (Stage) nicknameText.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Historial de sesiones");
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

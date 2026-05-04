@@ -1,0 +1,136 @@
+.root {
+    -fx-background-color: #0d1b2a;
+}
+
+#registerContainer {
+    -fx-background-color: #1b263b;
+    /*-fx-background-radius: 15;*/
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 20, 0, 0, 5);
+    -fx-padding: 30;
+}
+
+.titleText {
+    -fx-fill: #4ecca3;
+    -fx-font-size: 28;
+    -fx-font-weight: bold;
+}
+
+.subtitleText {
+    -fx-fill: #e0e0e0;
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+}
+
+.text-field, .password-field, .date-picker {
+    -fx-background-color: #0d1b2a;
+    -fx-text-fill: #ffffff;
+    -fx-prompt-text-fill: #888888;
+    -fx-border-color: #4ecca3;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 8 12;
+    -fx-font-size: 14;
+}
+
+.text-field:focused, .password-field:focused, .date-picker:focused {
+    -fx-border-color: #00b4d8;
+    -fx-border-width: 2;
+}
+
+.date-picker {
+    -fx-background-color: #0d1b2a;
+    -fx-text-fill: #ffffff;
+    -fx-prompt-text-fill: #888888;
+    -fx-border-color: #4ecca3;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 0;
+    -fx-font-size: 13;
+}
+
+.date-picker:focused {
+    -fx-border-color: #00b4d8;
+    -fx-border-width: 2;
+}
+
+.date-picker > .text-field {
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+    -fx-pref-height: 30;
+}
+
+.date-picker > .arrow-button {
+    -fx-background-color: #4ecca3;
+    -fx-pref-width: 38;
+    -fx-pref-height: 34;
+    -fx-cursor: hand;
+}
+
+.date-picker > .arrow-button:hover {
+    -fx-background-color: #00b4d8;
+}
+
+.date-picker > .arrow-button > .arrow {
+    -fx-background-color: #0d1b2a;
+    -fx-pref-width: 18;
+    -fx-pref-height: 18;
+}
+
+.icon-image {
+    -fx-opacity: 0.8;
+}
+
+#botonAvatar {
+    -fx-background-color: transparent;
+    -fx-border-color: #4ecca3;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-text-fill: #4ecca3;
+    -fx-background-radius: 8;
+    -fx-font-size: 13;
+    -fx-cursor: hand;
+    -fx-padding: 8 15;
+}
+
+#botonAvatar:hover {
+    -fx-background-color: #4ecca3;
+    -fx-text-fill: #0d1b2a;
+}
+
+#enterButton {
+    -fx-background-color: #4ecca3;
+    -fx-text-fill: #0d1b2a;
+    -fx-background-radius: 10;
+    -fx-font-weight: bold;
+    -fx-font-size: 15;
+    -fx-padding: 12;
+    -fx-cursor: hand;
+}
+
+#enterButton:hover {
+    -fx-background-color: #00b4d8;
+}
+
+#togglePasswordBtn {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-padding: 5;
+}
+
+.footerText {
+    -fx-fill: #e0e0e0;
+    -fx-font-size: 13;
+}
+
+.hyperlink {
+    -fx-text-fill: #4ecca3;
+    -fx-font-size: 13;
+    -fx-font-weight: bold;
+    -fx-underline: false;
+}
+
+.hyperlink:hover {
+    -fx-text-fill: #00b4d8;
+}

@@ -16,6 +16,13 @@ Integrantes del grupo (2D1) : [Carlotta Casanova Pérez](https://github.com/carl
     - [🗺️ Categoría 3 — Ruta en el mapa](#️-categoría-3--ruta-en-el-mapa)
     - [📊 Categoría 4 — Adicionales](#-categoría-4--adicionales)
     - [🌍 Categoría 5 — Mapas](#-categoría-5--mapas)
+  - [Cómo colaborar en este repositorio (desde la terminal)](#cómo-colaborar-en-este-repositorio-desde-la-terminal)
+    - [1. Clonar el repositorio](#1-clonar-el-repositorio)
+    - [2. Asignarse una issue](#2-asignarse-una-issue)
+    - [3. Actualizar la rama principal](#3-actualizar-la-rama-principal)
+    - [4. Crear una rama para tu tarea](#4-crear-una-rama-para-tu-tarea)
+    - [5. Registrar los cambios](#5-registrar-los-cambios)
+    - [6. Subir cambios y abrir Pull Request](#6-subir-cambios-y-abrir-pull-request)
   - [Cómo colaborar en este repositorio](#cómo-colaborar-en-este-repositorio)
     - [1. Clonar el repositorio en NetBeans](#1-clonar-el-repositorio-en-netbeans)
     - [2. Asignarse una issue](#2-asignarse-una-issue)
@@ -76,6 +83,96 @@ El seguimiento del trabajo se hace mediante **issues de GitHub**: hay una issue 
 | # | Escenario | Descripción |
 |---|-----------|-------------|
 | 7.1 | Añadir mapa | El usuario añade un mapa nuevo introduciendo la imagen JPG y las coordenadas de su bounding box. |
+
+---
+
+## Cómo colaborar en este repositorio (desde la terminal)
+
+El flujo de trabajo es siempre el mismo: **una issue → una rama → una pull request**. No se hace commit directamente sobre `main`.
+
+### 1. Clonar el repositorio
+
+```bash
+git clone https://github.com/arturosasan/proyectoIPC.git
+cd proyectoIPC
+```
+
+---
+
+### 2. Asignarse una issue
+
+Antes de tocar código, entra en [**Issues**](https://github.com/arturosasan/proyectoIPC/issues):
+
+- Si la tarea ya existe, pulsa **Assign yourself**.
+- Si encontraste un bug, crea una issue nueva **ANTES** de empezar.
+
+---
+
+### 3. Actualizar la rama principal
+
+Antes de trabajar, sincroniza tu rama principal con el repositorio remoto:
+
+```bash
+# Cambiar a la rama principal
+git switch master
+
+# Obtener los últimos cambios del remoto
+git fetch origin
+
+# Actualizar tu rama local con los cambios remotos
+git pull origin master
+```
+
+> **Nota:** Si el repo usa `main` en lugar de `master`, sustituye `master` por `main` en los comandos anteriores.
+
+---
+
+### 4. Crear una rama para tu tarea
+
+Nunca trabajes directamente en `main`/`master`. Crea una rama propia:
+
+```bash
+# Crear y cambiar a una nueva rama
+git checkout -b <nombre_rama>
+```
+
+Ejemplos de nombres: `feature/registro-usuario`, `fix/bug-zoom-mapa`.
+
+---
+
+### 5. Registrar los cambios
+
+Cuando hayas hecho cambios en tu código:
+
+```bash
+# Añadir todos los archivos modificados
+git add .
+
+# Hacer commit con un mensaje descriptivo
+git commit -m "mensaje_descriptivo_de_los_cambios"
+```
+
+Ejemplo: `git commit -m "Añadir validación de nickname en registro"`.
+
+---
+
+### 6. Subir cambios y abrir Pull Request
+
+Una vez listos los commits, sube tu rama al repositorio remoto:
+
+```bash
+# Subir la rama al remoto
+git push origin <nombre_rama>
+```
+
+Después de subir la rama, ve a GitHub y **abre una Pull Request**:
+
+1. En el repositorio, verás un aviso con tu rama recién subida — pulsa **Compare & pull request**.
+2. Escribe un título descriptivo.
+3. En la descripción, menciona la issue que resuelve con `Closes #número`.
+4. Crea la Pull Request.
+
+Cuando se revise y apruebe, se hará el merge a `main`/`master`.
 
 ---
 

@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -38,7 +39,6 @@ public class LoginController implements Initializable {
     @FXML
     private Button enterButton;
     
-    
     @FXML
     private GridPane gridPane;
     
@@ -54,14 +54,14 @@ public class LoginController implements Initializable {
         //CREACION DEL TEXTFIELD NUEVO PARA MOSTRAR LA CONTRASEÑA
         passwordVisibleField = new TextField();
         passwordVisibleField.setPromptText("Tu contraseña"); // tiene que ser igual al que ya está creado en SceneBuilder
-        passwordVisibleField.setPrefHeight(28);
-        passwordVisibleField.setPrefWidth(126);
+        passwordVisibleField.setPrefHeight(36);
         passwordVisibleField.setVisible(false); // oculto por defecto
+        passwordVisibleField.setManaged(false); // no ocupa espacio en el layout
 
         // Lo colocamos en la misma celda que el PasswordField (col 1, fila 1)
         GridPane.setColumnIndex(passwordVisibleField, 1);
         GridPane.setRowIndex(passwordVisibleField, 1);
-        GridPane.setMargin(passwordVisibleField, new Insets(-10, 0, 0, 0)); // mismo margen que el FXML
+        GridPane.setHalignment(passwordVisibleField, javafx.geometry.HPos.CENTER);
 
         gridPane.getChildren().add(passwordVisibleField);
 
@@ -88,7 +88,7 @@ public class LoginController implements Initializable {
 
         if (app.login(nick, pass)) {
             User user = app.getCurrentUser();
-            cargarPantalla("/mapademo/FXMLDocument.fxml");
+            cargarPantalla("/mapademo/FXMLDocument.fxml", nick);
         } else {
             mostrarError("Usuario o contraseña incorrectos.");
         }
@@ -108,13 +108,17 @@ public class LoginController implements Initializable {
             "-fx-wrap-text: true;"          // ALINEACION 
         );
         errorLabel.setMaxWidth(Double.MAX_VALUE);
+        errorLabel.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
+        errorLabel.setAlignment(javafx.geometry.Pos.CENTER);
 
         // LÓGICA DE CREACIÓN DE ERROR
         int nuevaFila = gridPane.getRowCount(); // fila 6, justo después del botón
         GridPane.setRowIndex(errorLabel, nuevaFila);
         GridPane.setColumnIndex(errorLabel, 0);
         GridPane.setColumnSpan(errorLabel, 3);   // las 3 columnas del FXML
-        GridPane.setMargin(errorLabel, new Insets(4, 0, 0, 0));
+        GridPane.setHalignment(errorLabel, HPos.CENTER);
+        GridPane.setValignment(errorLabel, javafx.geometry.VPos.CENTER);
+        GridPane.setMargin(errorLabel, new Insets(8, 10, 0, 10));
 
         // Añadimos la RowConstraint para que la fila tenga altura
         RowConstraints rc = new RowConstraints();
@@ -139,10 +143,16 @@ public class LoginController implements Initializable {
     }
     
     
-    private void cargarPantalla(String fxmlDestino) { // MÉTODO PARA CARGAR LA PAGINA DE REGISTRO O LA PRINCIPAL
+    private void cargarPantalla(String fxmlDestino, String nickname) { // MÉTODO PARA CARGAR LA PAGINA DE REGISTRO O LA PRINCIPAL
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlDestino));
             Parent root = loader.load();
+            
+            if (fxmlDestino.equals("/mapademo/FXMLDocument.fxml")) {
+                FXMLDocumentController controller = loader.getController();
+                controller.setNickname(nickname);
+            }
+            
             Stage stage = (Stage) nicknameField.getScene().getWindow();
             stage.setScene(new Scene(root));
             if (fxmlDestino.equals("/mapademo/Register.fxml")) {
@@ -159,31 +169,35 @@ public class LoginController implements Initializable {
     @FXML
     private void toggleEye(ActionEvent event) {
         if (passwordField.isVisible()) {
-            // OCULTAR PasswordField MOSTRAR TextField
             passwordVisibleField.setText(passwordField.getText());
+            
             passwordField.setVisible(false);
+            passwordField.setManaged(false);
+            
             passwordVisibleField.setVisible(true);
-            passwordVisibleField.requestFocus(); // MANTENER FOCO EN EL CAMPO DE TEXTO DE CONTRASEÑA, PARA NO HACER 2 CLICKS
-            passwordVisibleField.positionCaret(passwordVisibleField.getText().length()); // PARA QUE EL FOCO VUELVA AL FINAL DE LA CONTRASEÑA ESCRITA
+            passwordVisibleField.setManaged(true);
+            passwordVisibleField.requestFocus();
+            passwordVisibleField.positionCaret(passwordVisibleField.getText().length());
 
-            // Cambiamos la imagen a eyeOFF
-            eye.setImage(new Image(getClass().getResourceAsStream("/resources/eyeOFF.png")));
+            eye.setImage(new Image(getClass().getResourceAsStream("/resources/icons/eyeOFF.png")));
 
         } else {
-            // OCULTAR TextField MOSTRAR PasswordField
             passwordField.setText(passwordVisibleField.getText());
+            
             passwordVisibleField.setVisible(false);
+            passwordVisibleField.setManaged(false);
+            
             passwordField.setVisible(true);
-            passwordField.requestFocus(); // MANTENER FOCO EN EL CAMPO DE TEXTO DE CONTRASEÑA, PARA NO HACER 2 CLICKS
-            passwordField.positionCaret(passwordField.getText().length()); // PARA QUE EL FOCO VUELVA AL FINAL DE LA CONTRASEÑA ESCRITA
+            passwordField.setManaged(true);
+            passwordField.requestFocus();
+            passwordField.positionCaret(passwordField.getText().length());
 
-            // Cambiamos la imagen a eyeON
-            eye.setImage(new Image(getClass().getResourceAsStream("/resources/eyeON.png")));
+            eye.setImage(new Image(getClass().getResourceAsStream("/resources/icons/eyeON.png")));
         }
     }
 
     @FXML
     private void handleRegister(ActionEvent event) {
-        cargarPantalla("/mapademo/Register.fxml");
+        cargarPantalla("/mapademo/Register.fxml", null);
     }
 }
