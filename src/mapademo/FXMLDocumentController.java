@@ -724,4 +724,31 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
+    private void cargarPantalla(String fxml, String titulo) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+            Parent root = loader.load();
+            Stage stage = (Stage) nicknameText.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle(titulo);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void nuevaActividad() {
+        cargarPantalla("RegistrarActividad.fxml", "Registrar actividad");
+    }
+
+    @FXML
+    private void visualizarActividad() {
+        cargarPantalla("VisualizarActividad.fxml", "Visualizar actividad");
+    }
+
+    @FXML
+    private void anotacionesActividad() {
+        cargarPantalla("AnotacionesActividad.fxml", "Anotaciones");
+    }
 }

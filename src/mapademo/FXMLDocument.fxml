@@ -136,18 +136,38 @@
                   </Button>
                </children>
             </HBox>
-            <SplitPane fx:id="splitPane">
-               <items>
-                  <ListView fx:id="map_listview" onMouseClicked="#listClicked" prefHeight="245.0" prefWidth="223.0" />
-               </items>
-            </SplitPane>
-            <Region prefHeight="30.0" prefWidth="225.0" VBox.vgrow="NEVER" />
-            <Button id="nuevaActividad" mnemonicParsing="false" prefHeight="47.0" prefWidth="196.0" stylesheets="@../styles/main.css" text="+ Nueva Actividad" VBox.vgrow="NEVER">
+            <Region prefHeight="16.0" prefWidth="225.0" VBox.vgrow="NEVER" />
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <SplitPane fx:id="splitPane">
+                     <items>
+                        <ListView fx:id="map_listview" onMouseClicked="#listClicked" prefHeight="245.0" prefWidth="223.0" />
+                     </items>
+                  </SplitPane>
+               </children>
                <VBox.margin>
-                  <Insets left="15.0" />
+                  <Insets left="18.0" right="18.0" />
                </VBox.margin>
-            </Button>
-            <Region prefHeight="177.0" prefWidth="225.0" VBox.vgrow="ALWAYS" />
+            </VBox>
+             <Region prefHeight="30.0" prefWidth="225.0" VBox.vgrow="NEVER" />
+             <Button id="nuevaActividad" mnemonicParsing="false" onAction="#nuevaActividad" prefHeight="58.0" prefWidth="196.0" stylesheets="@../styles/main.css" text="+ Nueva Actividad">
+                <VBox.margin>
+                   <Insets left="15.0" />
+                </VBox.margin>
+             </Button>
+             <Region prefHeight="24.0" prefWidth="225.0" VBox.vgrow="NEVER" />
+             <Button id="nuevaActividad" mnemonicParsing="false" onAction="#visualizarActividad" prefHeight="58.0" prefWidth="196.0" stylesheets="@../styles/main.css" text="Visualizar Actividad">
+                <VBox.margin>
+                   <Insets left="15.0" />
+                </VBox.margin>
+             </Button>
+             <Region prefHeight="24.0" prefWidth="225.0" VBox.vgrow="NEVER" />
+             <Button id="nuevaActividad" mnemonicParsing="false" onAction="#anotacionesActividad" prefHeight="58.0" prefWidth="196.0" stylesheets="@../styles/main.css" text="Anotaciones">
+                <VBox.margin>
+                   <Insets left="15.0" />
+                </VBox.margin>
+             </Button>
+             <Region prefHeight="72.0" prefWidth="225.0" VBox.vgrow="ALWAYS" />
             <Button id="cerrarSesion" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="46.0" prefWidth="153.0" stylesheets="@../styles/main.css" text="Cerrar Sesión" VBox.vgrow="NEVER">
                <VBox.margin>
                   <Insets left="40.0" />
