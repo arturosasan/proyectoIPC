@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="650.0" prefWidth="1000.0"
+            xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="mapademo.AnotacionesActividadController"
+            style="-fx-background-color: #eef2f5;">
+
+    <!-- CABECERA -->
+    <top>
+        <HBox alignment="CENTER_LEFT"
+              spacing="10"
+              style="-fx-background-color: #243447; -fx-padding: 18;">
+            <Label text="Detalle de actividad"
+                   style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" />
+        </HBox>
+    </top>
+
+    <!-- MAPA -->
+    <center>
+        <VBox spacing="10" style="-fx-padding: 18;">
+            <Label text="Mapa de la ruta"
+                   style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #243447;" />
+
+            <Pane fx:id="mapPane"
+                  prefHeight="520.0"
+                  prefWidth="680.0"
+                  style="
+                    -fx-background-color: #dfe6e9;
+                    -fx-border-color: #b2bec3;
+                    -fx-border-width: 2;
+                    -fx-background-radius: 12;
+                    -fx-border-radius: 12;
+                  " />
+        </VBox>
+    </center>
+
+    <!-- PANEL DERECHO -->
+    <right>
+        <VBox prefWidth="260.0"
+              spacing="14"
+              style="
+                -fx-background-color: white;
+                -fx-padding: 20;
+                -fx-border-color: #dcdde1;
+                -fx-border-width: 0 0 0 1;
+              ">
+
+            <Label text="Estadísticas"
+                   style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #243447;" />
+
+            <Separator />
+
+            <Label fx:id="labelDistancia"
+                   text="Distancia: -"
+                   style="-fx-font-size: 14px;" />
+
+            <Label fx:id="labelDuracion"
+                   text="Duración: -"
+                   style="-fx-font-size: 14px;" />
+
+            <Label fx:id="labelVelocidad"
+                   text="Velocidad: -"
+                   style="-fx-font-size: 14px;" />
+
+            <Separator />
+
+            <Button fx:id="btnAnotacion"
+                    text="Añadir anotación"
+                    prefWidth="220"
+                    style="
+                      -fx-background-color: #2d98da;
+                      -fx-text-fill: white;
+                      -fx-font-weight: bold;
+                      -fx-background-radius: 8;
+                      -fx-padding: 10;
+                    " />
+
+            <Label text="Anotaciones"
+                   style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #243447;" />
+
+            <Label text="Todavía no hay anotaciones."
+                   style="-fx-text-fill: #636e72; -fx-font-size: 12px;" />
+
+        </VBox>
+    </right>
+
+</BorderPane>
