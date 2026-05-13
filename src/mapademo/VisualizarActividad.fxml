@@ -11,17 +11,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="620.0" prefWidth="520.0"
-            style="-fx-background-color: #1d2a3d;"
-            xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="mapademo.VisualizarActividadController">
+<VBox alignment="CENTER" fillWidth="false" prefHeight="620.0" prefWidth="520.0"
+      spacing="22.0"
+      style="-fx-background-color: #1d2a3d;"
+      xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="mapademo.VisualizarActividadController">
 
+   <padding>
+      <Insets top="45.0" left="45.0" bottom="45.0" right="45.0" />
+   </padding>
    <children>
-      <VBox alignment="TOP_CENTER" layoutX="45.0" layoutY="45.0" prefWidth="430.0" spacing="22.0">
-
-         <children>
-            <Button mnemonicParsing="false" onAction="#handleVolver" style="-fx-background-color: transparent; -fx-text-fill: #55d6b3; -fx-font-size: 14px; -fx-font-weight: bold; -fx-underline: true;" text="&lt; Volver" />
+             <Button mnemonicParsing="false" onAction="#handleVolver" style="-fx-background-color: transparent; -fx-text-fill: #55d6b3; -fx-font-size: 14px; -fx-font-weight: bold; -fx-underline: true;" text="&lt; Volver" />
 
             <Label text="Running la Safor" textFill="#55d6b3">
                <font>
@@ -108,8 +109,6 @@
                      </children>
                   </GridPane>
                </children>
-            </VBox>
-         </children>
-      </VBox>
-   </children>
-</AnchorPane>
+             </VBox>
+    </children>
+</VBox>
