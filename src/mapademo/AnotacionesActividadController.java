@@ -277,9 +277,18 @@ public class AnotacionesActividadController implements Initializable {
         lblSinAnotaciones.setVisible(listaAnotaciones.getItems().isEmpty());
     }
 
+    private void limpiarNodosDinamicosMapa() {
+        mapPane.getChildren().removeIf(node
+                -> node instanceof ImageView
+                || node instanceof Polyline
+                || node instanceof Line
+                || node instanceof Circle
+                || node instanceof Text);
+    }
+
     private void dibujarMapaRutaYAnotaciones() {
 
-        mapPane.getChildren().clear();
+        limpiarNodosDinamicosMapa();
 
         if (actividadActual == null) {
             return;
