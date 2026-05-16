@@ -31,137 +31,145 @@ import upv.ipc.sportlib.TrackPoint;
 
 public class VisualizarActividadController implements Initializable {
 
-    @FXML private ComboBox<Activity> actividadComboBox;
-    @FXML private AnchorPane mapPane;
+  @FXML
+  private ComboBox<Activity> actividadComboBox;
+  @FXML
+  private AnchorPane mapPane;
 
-    @FXML private Label distanciaLabel;
-    @FXML private Label duracionLabel;
-    @FXML private Label velocidadLabel;
-    @FXML private Label ritmoLabel;
-    @FXML private Label desnivelPositivoLabel;
-    @FXML private Label desnivelNegativoLabel;
-    @FXML private Label altitudMinimaLabel;
-    @FXML private Label altitudMaximaLabel;
+  @FXML
+  private Label distanciaLabel;
+  @FXML
+  private Label duracionLabel;
+  @FXML
+  private Label velocidadLabel;
+  @FXML
+  private Label ritmoLabel;
+  @FXML
+  private Label desnivelPositivoLabel;
+  @FXML
+  private Label desnivelNegativoLabel;
+  @FXML
+  private Label altitudMinimaLabel;
+  @FXML
+  private Label altitudMaximaLabel;
 
-    private final SportActivityApp app = SportActivityApp.getInstance();
+  private final SportActivityApp app = SportActivityApp.getInstance();
 
-    private MapProjection projection;
+  private MapProjection projection;
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        actividadComboBox.setItems(
-                FXCollections.observableArrayList(app.getUserActivities())
-        );
+  @Override
+  public void initialize(URL url, ResourceBundle rb) {
+    actividadComboBox.setItems(
+        FXCollections.observableArrayList(app.getUserActivities()));
+  }
+
+  @FXML
+  private void handleSeleccionarActividad() {
+    Activity actividad = actividadComboBox.getValue();
+
+    if (actividad == null) {
+      return;
     }
 
-    @FXML
-    private void handleSeleccionarActividad() {
-        Activity actividad = actividadComboBox.getValue();
+    mostrarEstadisticas(actividad);
+    dibujarMapaYRuta(actividad);
+  }
 
-        if (actividad == null) {
-            return;
-        }
+  private void mostrarEstadisticas(Activity actividad) {
+    distanciaLabel.setText(String.format("%.2f km", actividad.getTotalDistance() / 1000.0));
+    duracionLabel.setText(actividad.getDuration().toString());
+    velocidadLabel.setText(String.format("%.2f km/h", actividad.getAverageSpeed()));
+    ritmoLabel.setText(String.format("%.2f min/km", actividad.getAveragePace()));
+    desnivelPositivoLabel.setText(String.format("%.0f m", actividad.getElevationGain()));
+    desnivelNegativoLabel.setText(String.format("%.0f m", actividad.getElevationLoss()));
+    altitudMinimaLabel.setText(String.format("%.0f m", actividad.getMinElevation()));
+    altitudMaximaLabel.setText(String.format("%.0f m", actividad.getMaxElevation()));
+  }
 
-        mostrarEstadisticas(actividad);
-        dibujarMapaYRuta(actividad);
+  private void dibujarMapaYRuta(Activity actividad) {
+    mapPane.getChildren().clear();
+
+    MapRegion region = actividad.getSuggestedMap();
+
+    if (region == null) {
+      Label error = new Label("No hay mapa disponible para esta actividad");
+      error.setStyle("-fx-text-fill: white;");
+      error.setLayoutX(50);
+      error.setLayoutY(50);
+      mapPane.getChildren().add(error);
+      return;
     }
 
-    private void mostrarEstadisticas(Activity actividad) {
-        distanciaLabel.setText(String.format("%.2f km", actividad.getTotalDistance() / 1000.0));
-        duracionLabel.setText(actividad.getDuration().toString());
-        velocidadLabel.setText(String.format("%.2f km/h", actividad.getAverageSpeed()));
-        ritmoLabel.setText(String.format("%.2f min/km", actividad.getAveragePace()));
-        desnivelPositivoLabel.setText(String.format("%.0f m", actividad.getElevationGain()));
-        desnivelNegativoLabel.setText(String.format("%.0f m", actividad.getElevationLoss()));
-        altitudMinimaLabel.setText(String.format("%.0f m", actividad.getMinElevation()));
-        altitudMaximaLabel.setText(String.format("%.0f m", actividad.getMaxElevation()));
+    File mapaFile = new File(region.getImagePath());
+
+    if (!mapaFile.exists()) {
+      Label error = new Label("No se encuentra la imagen del mapa: " + region.getImagePath());
+      error.setStyle("-fx-text-fill: white;");
+      error.setLayoutX(50);
+      error.setLayoutY(50);
+      mapPane.getChildren().add(error);
+      return;
     }
 
-    private void dibujarMapaYRuta(Activity actividad) {
-        mapPane.getChildren().clear();
+    Image mapa = new Image(mapaFile.toURI().toString());
+    ImageView mapaView = new ImageView(mapa);
 
-        MapRegion region = actividad.getSuggestedMap();
+    mapaView.setFitWidth(mapPane.getPrefWidth());
+    mapaView.setFitHeight(mapPane.getPrefHeight());
+    mapaView.setPreserveRatio(false);
 
-        if (region == null) {
-            Label error = new Label("No hay mapa disponible para esta actividad");
-            error.setStyle("-fx-text-fill: white;");
-            error.setLayoutX(50);
-            error.setLayoutY(50);
-            mapPane.getChildren().add(error);
-            return;
-        }
+    projection = new MapProjection(
+        region,
+        mapPane.getPrefWidth(),
+        mapPane.getPrefHeight());
 
-        File mapaFile = new File(region.getImagePath());
+    Polyline ruta = new Polyline();
+    ruta.setStroke(Color.BLUE);
+    ruta.setStrokeWidth(3);
 
-        if (!mapaFile.exists()) {
-            Label error = new Label("No se encuentra la imagen del mapa: " + region.getImagePath());
-            error.setStyle("-fx-text-fill: white;");
-            error.setLayoutX(50);
-            error.setLayoutY(50);
-            mapPane.getChildren().add(error);
-            return;
-        }
-
-        Image mapa = new Image(mapaFile.toURI().toString());
-        ImageView mapaView = new ImageView(mapa);
-
-        mapaView.setFitWidth(mapPane.getPrefWidth());
-        mapaView.setFitHeight(mapPane.getPrefHeight());
-        mapaView.setPreserveRatio(false);
-
-        projection = new MapProjection(
-                region,
-                mapPane.getPrefWidth(),
-                mapPane.getPrefHeight()
-        );
-
-        Polyline ruta = new Polyline();
-        ruta.setStroke(Color.BLUE);
-        ruta.setStrokeWidth(3);
-
-        for (TrackPoint tp : actividad.getTrackPoints()) {
-            Point2D punto = projection.project(tp);
-            ruta.getPoints().addAll(punto.getX(), punto.getY());
-        }
-
-        mapPane.getChildren().add(mapaView);
-        mapPane.getChildren().add(ruta);
-
-        dibujarInicioFin(actividad);
+    for (TrackPoint tp : actividad.getTrackPoints()) {
+      Point2D punto = projection.project(tp);
+      ruta.getPoints().addAll(punto.getX(), punto.getY());
     }
 
-    private void dibujarInicioFin(Activity actividad) {
-        if (projection == null) {
-            return;
-        }
+    mapPane.getChildren().add(mapaView);
+    mapPane.getChildren().add(ruta);
 
-        TrackPoint inicio = actividad.getStartPoint();
-        TrackPoint fin = actividad.getEndPoint();
+    dibujarInicioFin(actividad);
+  }
 
-        Point2D pInicio = projection.project(inicio);
-        Point2D pFin = projection.project(fin);
-
-        Circle circuloInicio = new Circle(pInicio.getX(), pInicio.getY(), 6);
-        circuloInicio.setFill(Color.GREEN);
-
-        Circle circuloFin = new Circle(pFin.getX(), pFin.getY(), 6);
-        circuloFin.setFill(Color.RED);
-
-        mapPane.getChildren().add(circuloInicio);
-        mapPane.getChildren().add(circuloFin);
+  private void dibujarInicioFin(Activity actividad) {
+    if (projection == null) {
+      return;
     }
 
-    @FXML
-    private void handleVolver() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLDocument.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) mapPane.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Pantalla principal");
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    TrackPoint inicio = actividad.getStartPoint();
+    TrackPoint fin = actividad.getEndPoint();
+
+    Point2D pInicio = projection.project(inicio);
+    Point2D pFin = projection.project(fin);
+
+    Circle circuloInicio = new Circle(pInicio.getX(), pInicio.getY(), 6);
+    circuloInicio.setFill(Color.GREEN);
+
+    Circle circuloFin = new Circle(pFin.getX(), pFin.getY(), 6);
+    circuloFin.setFill(Color.RED);
+
+    mapPane.getChildren().add(circuloInicio);
+    mapPane.getChildren().add(circuloFin);
+  }
+
+  @FXML
+  private void handleVolver() {
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLDocument.fxml"));
+      Parent root = loader.load();
+      Stage stage = (Stage) mapPane.getScene().getWindow();
+      stage.setScene(new Scene(root));
+      stage.setTitle("Pantalla principal");
+      stage.show();
+    } catch (Exception e) {
+      e.printStackTrace();
     }
+  }
 }

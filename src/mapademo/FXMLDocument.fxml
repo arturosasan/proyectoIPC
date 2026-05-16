@@ -102,7 +102,7 @@
             <Region prefHeight="9.0" prefWidth="225.0" />
             <StackPane prefWidth="225.0">
                 <children>
-                   <Text fx:id="nicknameText" fill="WHITE" style="-fx-font-size: 22; -fx-font-weight: bold;" text="[nickname]" textAlignment="CENTER">
+                   <Text fx:id="nicknameText" fill="WHITE" style="-fx-font-size: 22; -fx-font-weight: bold;" textAlignment="CENTER">
                      <StackPane.margin>
                         <Insets left="5.0" />
                      </StackPane.margin></Text>
