@@ -83,7 +83,7 @@ public class AnotacionesActividadController implements Initializable {
 
         btnZoomMenos.setOnAction(e -> {
             if (escala > 0.3) {
-                escala -= 0.1;
+                escala = Math.max(0.3, escala - 0.1);
                 mapPane.setScaleX(escala);
                 mapPane.setScaleY(escala);
             }
