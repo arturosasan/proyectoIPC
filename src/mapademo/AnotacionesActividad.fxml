@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -13,85 +18,125 @@
             xmlns="http://javafx.com/javafx/26"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="mapademo.AnotacionesActividadController"
-            style="-fx-background-color: #eef2f5;">
+            prefWidth="1000.0"
+            prefHeight="620.0"
+            style="-fx-background-color: #17263a;">
 
-    <!-- CABECERA -->
     <top>
         <HBox alignment="CENTER_LEFT"
               spacing="10"
               style="-fx-background-color: #243447; -fx-padding: 18;">
             <Button mnemonicParsing="false" onAction="#handleVolver" style="-fx-background-color: transparent; -fx-text-fill: #55d6b3; -fx-font-size: 14px; -fx-font-weight: bold; -fx-underline: true;" text="&lt; Volver" />
             <Label text="Detalle de actividad"
-                   style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" />
-        </HBox>
+                   style="-fx-text-fill: white;
+                          -fx-font-size: 30px;
+                          -fx-font-weight: bold;"/>
+        </VBox>
     </top>
 
-    <!-- MAPA -->
     <center>
-        <VBox spacing="10" style="-fx-padding: 18;">
+        <VBox spacing="18.0"
+              style="-fx-background-color: #17263a;
+                     -fx-padding: 0 25 25 45;">
+
             <Label text="Mapa de la ruta"
-                   style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #243447;" />
+                   style="-fx-text-fill: white;
+                          -fx-font-size: 18px;
+                          -fx-font-weight: bold;"/>
 
             <Pane fx:id="mapPane"
-                  prefHeight="520.0"
-                  prefWidth="680.0"
-                  style="
-                    -fx-background-color: #dfe6e9;
-                    -fx-border-color: #b2bec3;
-                    -fx-border-width: 2;
-                    -fx-background-radius: 12;
-                    -fx-border-radius: 12;
-                  " />
+                  prefWidth="650.0"
+                  prefHeight="380.0"
+                  style="-fx-background-color: #102033;
+                         -fx-border-color: #22d3ee;
+                         -fx-border-width: 2.5;
+                         -fx-background-radius: 18;
+                         -fx-border-radius: 18;">
+
+                <VBox layoutX="605.0"
+                      layoutY="15.0"
+                      spacing="5.0">
+
+                    <Button fx:id="btnZoomMas"
+                            text="+"
+                            prefWidth="30.0"
+                            style="-fx-background-color: #102033;
+                                   -fx-border-color: #22d3ee;
+                                   -fx-text-fill: white;"/>
+
+                    <Button fx:id="btnZoomMenos"
+                            text="-"
+                            prefWidth="30.0"
+                            style="-fx-background-color: #102033;
+                                   -fx-border-color: #22d3ee;
+                                   -fx-text-fill: white;"/>
+                </VBox>
+            </Pane>
         </VBox>
     </center>
 
-    <!-- PANEL DERECHO -->
     <right>
-        <VBox prefWidth="260.0"
-              spacing="14"
-              style="
-                -fx-background-color: white;
-                -fx-padding: 20;
-                -fx-border-color: #dcdde1;
-                -fx-border-width: 0 0 0 1;
-              ">
+        <VBox prefWidth="280.0"
+              spacing="16.0"
+              style="-fx-background-color: #17263a;
+                     -fx-padding: 20 35 25 15;">
 
-            <Label text="Estadísticas"
-                   style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #243447;" />
+            <VBox spacing="13.0"
+                  style="-fx-background-color: #102033;
+                         -fx-border-color: #52e0c4;
+                         -fx-border-width: 2;
+                         -fx-background-radius: 18;
+                         -fx-border-radius: 18;
+                         -fx-padding: 25 25 25 25;">
 
-            <Separator />
+                <Label text="Estadísticas"
+                       style="-fx-text-fill: white;
+                              -fx-font-size: 22px;
+                              -fx-font-weight: bold;"/>
 
-            <Label fx:id="labelDistancia"
-                   text="Distancia: -"
-                   style="-fx-font-size: 14px;" />
+                <Label fx:id="lblDistancia"
+                       text="Distancia:        -"
+                       style="-fx-text-fill: white;
+                              -fx-font-size: 14px;"/>
 
-            <Label fx:id="labelDuracion"
-                   text="Duración: -"
-                   style="-fx-font-size: 14px;" />
+                <Label fx:id="lblDuracion"
+                       text="Duración:         -"
+                       style="-fx-text-fill: white;
+                              -fx-font-size: 14px;"/>
 
-            <Label fx:id="labelVelocidad"
-                   text="Velocidad: -"
-                   style="-fx-font-size: 14px;" />
+                <Label fx:id="lblVelocidad"
+                       text="Velocidad:        -"
+                       style="-fx-text-fill: white;
+                              -fx-font-size: 14px;"/>
 
-            <Separator />
+                <Button fx:id="btnAnadirAnotacion"
+                        text="Añadir anotación"
+                        prefWidth="190.0"
+                        style="-fx-background-color: #52e0c4;
+                               -fx-text-fill: #102033;
+                               -fx-font-weight: bold;
+                               -fx-background-radius: 8;"/>
 
-            <Button fx:id="btnAnotacion"
-                    text="Añadir anotación"
-                    prefWidth="220"
-                    style="
-                      -fx-background-color: #2d98da;
-                      -fx-text-fill: white;
-                      -fx-font-weight: bold;
-                      -fx-background-radius: 8;
-                      -fx-padding: 10;
-                    " />
+                <Label text="Anotaciones"
+                       style="-fx-text-fill: white;
+                              -fx-font-size: 18px;
+                              -fx-font-weight: bold;"/>
 
-            <Label text="Anotaciones"
-                   style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #243447;" />
+                <Label fx:id="lblSinAnotaciones"
+                       text="Todavía no hay anotaciones."
+                       style="-fx-text-fill: #cfd8e3;
+                              -fx-font-size: 13px;"/>
 
-            <Label text="Todavía no hay anotaciones."
-                   style="-fx-text-fill: #636e72; -fx-font-size: 12px;" />
-
+                <ListView fx:id="listaAnotaciones"
+                          prefWidth="190.0"
+                          prefHeight="130.0"
+                          style="-fx-control-inner-background: #102033;
+                                 -fx-background-color: #102033;
+                                 -fx-border-color: #52e0c4;
+                                 -fx-border-radius: 8;
+                                 -fx-background-radius: 8;
+                                 -fx-text-fill: white;"/>
+            </VBox>
         </VBox>
     </right>
 
