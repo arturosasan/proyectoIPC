@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane prefHeight="650.0" prefWidth="1000.0"
-            xmlns="http://javafx.com/javafx/8"
+            xmlns="http://javafx.com/javafx/26"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="mapademo.AnotacionesActividadController"
             style="-fx-background-color: #eef2f5;">
@@ -20,6 +20,7 @@
         <HBox alignment="CENTER_LEFT"
               spacing="10"
               style="-fx-background-color: #243447; -fx-padding: 18;">
+            <Button mnemonicParsing="false" onAction="#handleVolver" style="-fx-background-color: transparent; -fx-text-fill: #55d6b3; -fx-font-size: 14px; -fx-font-weight: bold; -fx-underline: true;" text="&lt; Volver" />
             <Label text="Detalle de actividad"
                    style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" />
         </HBox>
