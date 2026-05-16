@@ -42,11 +42,6 @@
                          -fx-background-radius: 18;
                          -fx-border-radius: 18;">
 
-                <ImageView fx:id="mapImageView"
-                           fitWidth="650.0"
-                           fitHeight="380.0"
-                           preserveRatio="false"/>
-
                 <VBox layoutX="605.0"
                       layoutY="15.0"
                       spacing="5.0">
