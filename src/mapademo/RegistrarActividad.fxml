@@ -14,9 +14,11 @@
 <AnchorPane prefHeight="589.0" prefWidth="520.0" style="-fx-background-color: #1d2a3d;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mapademo.RegistrarActividadController">
 
    <children>
-      <VBox alignment="TOP_CENTER" layoutX="40.0" layoutY="45.0" prefWidth="440.0" spacing="22.0">
+            <VBox alignment="TOP_CENTER" layoutX="40.0" layoutY="45.0" prefWidth="440.0" spacing="22.0">
 
          <children>
+
+            <Button mnemonicParsing="false" onAction="#handleVolver" style="-fx-background-color: transparent; -fx-text-fill: #55d6b3; -fx-font-size: 14px; -fx-font-weight: bold; -fx-underline: true;" text="&lt; Volver" />
 
             <Label text="Registrar actividad" textFill="#55d6b3">
                <font>
