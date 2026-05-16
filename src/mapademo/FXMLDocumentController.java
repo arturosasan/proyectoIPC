@@ -175,6 +175,7 @@ public class FXMLDocumentController implements Initializable {
     
 
     public void setNickname(String nickname) {
+        nicknameText.setText(""); // para solucinar bug de que a veces aparece el texto default ([nickname]) en lugar del usuario
         nicknameText.setText(nickname);
     }
     
