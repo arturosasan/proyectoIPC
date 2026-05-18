@@ -1,4 +1,4 @@
-package mapademo;
+package controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -136,9 +136,9 @@ public class HistorialSesionesController implements Initializable {
     @FXML
     private void handleSalir(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLDocument.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/MapaPrincipal.fxml"));
             Parent root = loader.load();
-            FXMLDocumentController controller = loader.getController();
+            MapaPrincipalController controller = loader.getController();
             
             controller.setNickname(currentUserNick);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

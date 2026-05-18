@@ -16,7 +16,7 @@
       style="-fx-background-color: #1d2a3d;"
       xmlns="http://javafx.com/javafx/21"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="mapademo.VisualizarActividadController">
+      fx:controller="controllers.VisualizarActividadController">
 
    <padding>
       <Insets top="45.0" left="45.0" bottom="45.0" right="45.0" />
