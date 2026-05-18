@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" fillWidth="false" prefHeight="420.0" prefWidth="520.0" spacing="20.0" style="-fx-background-color: #0d1b2a;" stylesheets="@../styles/session.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mapademo.HistorialSesionesController">
+<VBox alignment="CENTER" fillWidth="false" prefHeight="420.0" prefWidth="520.0" spacing="20.0" style="-fx-background-color: #0d1b2a;" stylesheets="@../styles/session.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HistorialSesionesController">
    <padding>
       <Insets top="25.0" left="25.0" bottom="25.0" right="25.0" />
    </padding>

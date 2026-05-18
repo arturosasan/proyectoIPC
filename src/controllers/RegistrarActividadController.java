@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
-package mapademo;
+package controllers;
 
 import java.io.File;
 import java.net.URL;
@@ -87,7 +87,7 @@ public class RegistrarActividadController implements Initializable {
     @FXML
     private void handleVolver() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLDocument.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/MapaPrincipal.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) archivoSeleccionadoLabel.getScene().getWindow();
             stage.setScene(new Scene(root));

@@ -1,4 +1,4 @@
-package mapademo;
+package controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -88,7 +88,7 @@ public class LoginController implements Initializable {
 
         if (app.login(nick, pass)) {
             User user = app.getCurrentUser();
-            cargarPantalla("/mapademo/FXMLDocument.fxml", nick);
+            cargarPantalla("/views/MapaPrincipal.fxml", nick);
         } else {
             mostrarError("Usuario o contraseña incorrectos.");
         }
@@ -148,14 +148,14 @@ public class LoginController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlDestino));
             Parent root = loader.load();
             
-            if (fxmlDestino.equals("/mapademo/FXMLDocument.fxml")) {
-                FXMLDocumentController controller = loader.getController();
+            if (fxmlDestino.equals("/views/MapaPrincipal.fxml")) {
+                MapaPrincipalController controller = loader.getController();
                 controller.setNickname(nickname);
             }
             
             Stage stage = (Stage) nicknameField.getScene().getWindow();
             stage.setScene(new Scene(root));
-            if (fxmlDestino.equals("/mapademo/Register.fxml")) {
+            if (fxmlDestino.equals("/views/Register.fxml")) {
                 stage.setTitle("Registro");
             } else {
                 stage.setTitle("Pantalla principal");
@@ -198,6 +198,6 @@ public class LoginController implements Initializable {
 
     @FXML
     private void handleRegister(ActionEvent event) {
-        cargarPantalla("/mapademo/Register.fxml", null);
+        cargarPantalla("/views/Register.fxml", null);
     }
 }

@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<VBox id="registerContainer" alignment="CENTER" fillWidth="false" prefHeight="580.0" prefWidth="420.0" spacing="20.0" stylesheets="@../styles/register.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mapademo.RegisterController">
+<VBox id="registerContainer" alignment="CENTER" fillWidth="false" prefHeight="580.0" prefWidth="420.0" spacing="20.0" stylesheets="@../styles/register.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RegisterController">
    <padding>
       <Insets bottom="35.0" left="35.0" right="35.0" top="35.0" />
    </padding>

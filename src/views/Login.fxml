@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<VBox id="loginContainer" alignment="CENTER" fillWidth="false" prefHeight="480.0" prefWidth="420.0" spacing="20.0" stylesheets="@../styles/login.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mapademo.LoginController">
+<VBox id="loginContainer" alignment="CENTER" fillWidth="false" prefHeight="480.0" prefWidth="420.0" spacing="20.0" stylesheets="@../styles/login.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
    <padding>
       <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
    </padding>

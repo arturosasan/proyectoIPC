@@ -17,7 +17,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Text?>
 
-<VBox id="profileContainer" alignment="CENTER" fillWidth="false" prefHeight="520.0" prefWidth="420.0" spacing="20.0" stylesheets="@../styles/profile.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mapademo.ModificarPerfilController">
+<VBox id="profileContainer" alignment="CENTER" fillWidth="false" prefHeight="520.0" prefWidth="420.0" spacing="20.0" stylesheets="@../styles/profile.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ModificarPerfilController">
    <padding>
       <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
    </padding>

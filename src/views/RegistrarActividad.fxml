@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" fillWidth="false" prefHeight="589.0" prefWidth="520.0" spacing="22.0" style="-fx-background-color: #1d2a3d;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mapademo.RegistrarActividadController">
+<VBox alignment="CENTER" fillWidth="false" prefHeight="589.0" prefWidth="520.0" spacing="22.0" style="-fx-background-color: #1d2a3d;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RegistrarActividadController">
    <padding>
       <Insets top="45.0" left="45.0" bottom="45.0" right="45.0" />
    </padding>

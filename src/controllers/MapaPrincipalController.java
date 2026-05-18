@@ -20,12 +20,12 @@
  *
  *  PATRÓN UTILIZADO: MVC (Model-View-Controller)
  *   - Modelo : clase Poi  (datos del punto de interés)
- *   - Vista  : FXMLDocument.fxml  (layout declarativo)
+ *   - Vista  : MapaPrincipal.fxml  (layout declarativo)
  *   - Control: esta clase (lógica de interacción)
  *
  * ============================================================
  */
-package mapademo;
+package controllers;
 
 import java.io.File;
 import java.io.IOException;
@@ -84,7 +84,7 @@ import upv.ipc.sportlib.User;
  * Implementa {@link Initializable} para poder ejecutar código de
  * inicialización una vez que el FXML ha sido cargado completamente.
  */
-public class FXMLDocumentController implements Initializable {
+public class MapaPrincipalController implements Initializable {
 
     private SportActivityApp app = SportActivityApp.getInstance();
     
@@ -624,7 +624,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void cambiarMapa(ActionEvent event) throws IOException {
         FileChooser fc = new FileChooser();
-        fc.setInitialDirectory(new File(".")); // Empezamos en el directorio del proyecto
+        fc.setInitialDirectory(new File("./maps ")); // Carpeta donde están los mapas en la raíz del proyecto
         fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Mapas", "*.png", "*.jpg"));
         File imgFile = fc.showOpenDialog(zoom_slider.getScene().getWindow());
 
@@ -669,7 +669,7 @@ public class FXMLDocumentController implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) { // Si se muestra la ventana && el usuario le de a "Aceptar" / "Ok"
             app.logout();
-            cargarPantalla("Login.fxml");
+            cargarPantalla("/views/Login.fxml");
         }
     }
     
@@ -681,7 +681,7 @@ public class FXMLDocumentController implements Initializable {
             
             Stage stage = (Stage) nicknameText.getScene().getWindow();
             stage.setScene(new Scene(root));
-            if (fxmlDestino.equals("/mapademo/Login.fxml")) {
+            if (fxmlDestino.equals("/views/Login.fxml")) {
                 stage.setTitle("Login");
             } else {
                 stage.setTitle("Pantalla principal");
@@ -695,7 +695,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML 
     private void modificarPerfil() {
         try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ModificarPerfil.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ModificarPerfil.fxml"));
         Parent root = loader.load();
         ModificarPerfilController controller = loader.getController();
         controller.setNickname(nicknameText.getText()); // o como tengas guardado el nick actual
@@ -711,7 +711,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML 
     private void historialSesiones() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("HistorialSesiones.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/HistorialSesiones.fxml"));
             Parent root = loader.load();
             HistorialSesionesController controller = loader.getController();
             controller.setNickname(nicknameText.getText());
@@ -740,16 +740,16 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void nuevaActividad() {
-        cargarPantalla("RegistrarActividad.fxml", "Registrar actividad");
+        cargarPantalla("/views/RegistrarActividad.fxml", "Registrar actividad");
     }
 
     @FXML
     private void visualizarActividad() {
-        cargarPantalla("VisualizarActividad.fxml", "Visualizar actividad");
+        cargarPantalla("/views/VisualizarActividad.fxml", "Visualizar actividad");
     }
 
     @FXML
     private void anotacionesActividad() {
-        cargarPantalla("AnotacionesActividad.fxml", "Anotaciones");
+        cargarPantalla("/views/AnotacionesActividad.fxml", "Anotaciones");
     }
 }

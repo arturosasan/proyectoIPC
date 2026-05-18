@@ -1,4 +1,4 @@
-package mapademo;
+package controllers;
 
 import java.io.File;
 import java.net.URL;
@@ -498,7 +498,7 @@ public class AnotacionesActividadController implements Initializable {
     @FXML
     private void handleVolver() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLDocument.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/MapaPrincipal.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) btnAnadirAnotacion).getScene().getWindow();
             stage.setScene(new Scene(root));

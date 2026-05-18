@@ -1,4 +1,4 @@
-package mapademo;
+package controllers;
 
 import java.io.File;
 import java.net.URL;
@@ -167,7 +167,7 @@ public class RegisterController implements Initializable {
         
             if (app.registerUser(nick, email, pass, birthDate, avatar_path)) {
                 app.login(nick, pass);
-                cargarPantalla("FXMLDocument.fxml", nick);
+                cargarPantalla("/views/MapaPrincipal.fxml", nick);
             } else {
                 mostrarError("Error al registrar. El nickname o email puede estar en uso.");
             }
@@ -230,7 +230,7 @@ public class RegisterController implements Initializable {
 
     @FXML
     private void backLogin(ActionEvent event) {
-        cargarPantalla("/mapademo/Login.fxml", (String) null);
+        cargarPantalla("/views/Login.fxml", (String) null);
     }
 
     @FXML
@@ -253,14 +253,14 @@ public class RegisterController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlDestino));
             Parent root = loader.load();
             
-            if (fxmlDestino.equals("FXMLDocument.fxml")) {
-                FXMLDocumentController controller = loader.getController();
+            if (fxmlDestino.equals("/views/MapaPrincipal.fxml")) {
+                MapaPrincipalController controller = loader.getController();
                 controller.setNickname(nickname);
             }
             
             Stage stage = (Stage) nicknameField.getScene().getWindow();
             stage.setScene(new Scene(root));
-            if (fxmlDestino.equals("/mapademo/Login.fxml")) {
+            if (fxmlDestino.equals("/views/Login.fxml")) {
                 stage.setTitle("Login");
             } else {
                 stage.setTitle("Pantalla principal");
