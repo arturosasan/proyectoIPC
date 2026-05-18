@@ -175,6 +175,7 @@ public class FXMLDocumentController implements Initializable {
     
 
     public void setNickname(String nickname) {
+        nicknameText.setText(""); // para solucinar bug de que a veces aparece el texto default ([nickname]) en lugar del usuario
         nicknameText.setText(nickname);
     }
     
@@ -624,7 +625,7 @@ public class FXMLDocumentController implements Initializable {
     private void cambiarMapa(ActionEvent event) throws IOException {
         FileChooser fc = new FileChooser();
         fc.setInitialDirectory(new File(".")); // Empezamos en el directorio del proyecto
-
+        fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Mapas", "*.png", "*.jpg"));
         File imgFile = fc.showOpenDialog(zoom_slider.getScene().getWindow());
 
         // FIX 3: showOpenDialog() devuelve null si el usuario cancela la selección
