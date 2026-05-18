@@ -27,6 +27,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
@@ -72,6 +74,8 @@ public class RegisterController implements Initializable {
     private StackPane stackPane;
     @FXML
     private ImageView avatarView;
+    @FXML
+    private TextFlow bottomText;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -201,7 +205,7 @@ public class RegisterController implements Initializable {
         GridPane.setColumnSpan(errorLabel, 3);
         GridPane.setHalignment(errorLabel, HPos.CENTER);
         GridPane.setValignment(errorLabel, javafx.geometry.VPos.CENTER);
-        GridPane.setMargin(errorLabel, new Insets(8, 10, 0, 10));
+        GridPane.setMargin(errorLabel, new Insets(18, 10, 0, 10));
 
         RowConstraints rc = new RowConstraints();
         rc.setMinHeight(25);
@@ -211,6 +215,8 @@ public class RegisterController implements Initializable {
         gridPane.getRowConstraints().add(rc);
 
         gridPane.getChildren().add(errorLabel);
+
+        VBox.setMargin(bottomText, new Insets(0, 40, 0, 40));
     }
     
     private void mostrarError(List<String> errores) {
@@ -225,6 +231,7 @@ public class RegisterController implements Initializable {
             }
             errorLabel = null;
             errorRowIndex = -1;
+            VBox.setMargin(bottomText, new Insets(20, 40, 0, 40));
         }
     }
 
