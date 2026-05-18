@@ -209,7 +209,7 @@ public class RegisterController implements Initializable {
         GridPane.setColumnSpan(errorLabel, 3);
         GridPane.setHalignment(errorLabel, HPos.CENTER);
         GridPane.setValignment(errorLabel, javafx.geometry.VPos.CENTER);
-        GridPane.setMargin(errorLabel, new Insets(18, 10, 0, 10));
+        GridPane.setMargin(errorLabel, new Insets(8, 10, 0, 10));
 
         RowConstraints rc = new RowConstraints();
         rc.setMinHeight(25);

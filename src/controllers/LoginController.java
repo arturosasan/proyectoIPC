@@ -16,7 +16,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -44,6 +45,9 @@ public class LoginController implements Initializable {
     
     @FXML
     private ImageView eye;
+
+    @FXML
+    private TextFlow bottomText;
 
     private SportActivityApp app = SportActivityApp.getInstance();
     // LA LINEA MÁS IMPORTANTE DEL CONTROLADOR, SIRVE PARA GESTIONAR LA BD
@@ -100,43 +104,30 @@ public class LoginController implements Initializable {
             return;
         }
 
-        errorLabel = new Label(mensaje); // CREACIÓN LABEL DE ERROR
-        errorLabel.setStyle(                // COMO ES CREADO POR CÓDIGO, HAY QUE PONER LOS ESTILOS ASÍ 
-            "-fx-text-fill: #cc0000;" +     // COLOR => ROJO
-            "-fx-font-size: 11px;" +        // TAMAÑO FUENTE
-            "-fx-font-weight: bold;" +      // NEGTRITA
-            "-fx-wrap-text: true;"          // ALINEACION 
+        errorLabel = new Label(mensaje);
+        errorLabel.setStyle(
+            "-fx-text-fill: #cc0000;" +
+            "-fx-font-size: 11px;" +
+            "-fx-font-weight: bold;" +
+            "-fx-wrap-text: true;"
         );
         errorLabel.setMaxWidth(Double.MAX_VALUE);
         errorLabel.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         errorLabel.setAlignment(javafx.geometry.Pos.CENTER);
 
-        // LÓGICA DE CREACIÓN DE ERROR
-        int nuevaFila = gridPane.getRowCount(); // fila 6, justo después del botón
-        GridPane.setRowIndex(errorLabel, nuevaFila);
-        GridPane.setColumnIndex(errorLabel, 0);
-        GridPane.setColumnSpan(errorLabel, 3);   // las 3 columnas del FXML
-        GridPane.setHalignment(errorLabel, HPos.CENTER);
-        GridPane.setValignment(errorLabel, javafx.geometry.VPos.CENTER);
-        GridPane.setMargin(errorLabel, new Insets(8, 10, 0, 10));
-
-        // Añadimos la RowConstraint para que la fila tenga altura
-        RowConstraints rc = new RowConstraints();
-        rc.setMinHeight(25);
-        rc.setPrefHeight(25);
-        rc.setVgrow(Priority.NEVER);
-        gridPane.getRowConstraints().add(rc);
-
-        // Añadimos el nodo al GridPane
-        gridPane.getChildren().add(errorLabel);
+        // Insertar error en el VBox raíz, entre el VBox interior y el footer
+        if (bottomText.getParent() instanceof VBox rootVBox) {
+            int footerIndex = rootVBox.getChildren().indexOf(bottomText);
+            rootVBox.getChildren().add(footerIndex, errorLabel);
+            VBox.setMargin(errorLabel, new Insets(5, 40, 5, 40));
+            VBox.setVgrow(errorLabel, Priority.NEVER);
+        }
     }
 
     private void limpiarError() { // PARA ELIMINAR LA FILA DEL ERROR SI YA EXISTE
         if (errorLabel != null) {
-            gridPane.getChildren().remove(errorLabel);
-            int lastIndex = gridPane.getRowConstraints().size() - 1; // ME CARGO LA FILA QUE HE AÑADIDO AL MOSTRAR EL ERROR
-            if (lastIndex >= 0) {
-                gridPane.getRowConstraints().remove(lastIndex);
+            if (bottomText.getParent() instanceof VBox rootVBox) {
+                rootVBox.getChildren().remove(errorLabel);
             }
             errorLabel = null;
         }
