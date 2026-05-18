@@ -151,6 +151,10 @@ public class RegisterController implements Initializable {
             if (!User.checkNickName(nick)) {
                 errores.add("• Nickname: 6-15 caracteres.");
             }
+            
+            if (User.checkNickName(nick)) {
+                errores.add("• Nickname: Nick ya en uso");
+            }
         
             if (!User.checkEmail(email)) {
                 errores.add("• Email: formato inválido.");
