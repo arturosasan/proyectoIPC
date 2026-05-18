@@ -27,6 +27,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
@@ -72,6 +74,8 @@ public class RegisterController implements Initializable {
     private StackPane stackPane;
     @FXML
     private ImageView avatarView;
+    @FXML
+    private TextFlow bottomText;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -147,6 +151,10 @@ public class RegisterController implements Initializable {
             if (!User.checkNickName(nick)) {
                 errores.add("• Nickname: 6-15 caracteres.");
             }
+            
+            if (User.checkNickName(nick)) {
+                errores.add("• Nickname: Nick ya en uso");
+            }
         
             if (!User.checkEmail(email)) {
                 errores.add("• Email: formato inválido.");
@@ -211,6 +219,8 @@ public class RegisterController implements Initializable {
         gridPane.getRowConstraints().add(rc);
 
         gridPane.getChildren().add(errorLabel);
+
+        VBox.setMargin(bottomText, new Insets(0, 40, 0, 40));
     }
     
     private void mostrarError(List<String> errores) {
@@ -225,6 +235,7 @@ public class RegisterController implements Initializable {
             }
             errorLabel = null;
             errorRowIndex = -1;
+            VBox.setMargin(bottomText, new Insets(20, 40, 0, 40));
         }
     }
 
