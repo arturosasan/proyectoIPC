@@ -370,13 +370,13 @@ public class MapaPrincipalController implements Initializable {
         });
 
         // ── Zoom con rueda del ratón (TOUCHPAD AÚN NO FUNCIONA)───────────────────────
-        
+        // STACKOVERFLOW NO HA MUERTO --> https://stackoverflow.com/questions/39827911/javafx-8-scaling-zooming-scrollpane-relative-to-mouse-position
         mapPane.setOnScroll((ScrollEvent event) -> {
             event.consume();
 
+            // getDeltaY() para ratón, getTextDeltaY() para touchpad
             double delta = event.getDeltaY();
-            // scroll up → delta negativo → factor > 1 → zoom in
-            double zoomFactor = Math.exp(delta * 0.02);
+            double zoomFactor = Math.exp(delta * 0.01);
             double oldScale = zoomGroup.getScaleX();
             double newScale = oldScale * zoomFactor;
 
@@ -505,7 +505,7 @@ public class MapaPrincipalController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         // ── Configuración del slider de zoom ──────────────────────────
-        zoom_slider.setMin(0.5);   // zoom mínimo: 50 %
+        zoom_slider.setMin(0.75);   // zoom mínimo: 50 %
         zoom_slider.setMax(1.5);   // zoom máximo: 150 %
         zoom_slider.setValue(1.0); // valor inicial: 100 %
 
