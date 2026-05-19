@@ -2,15 +2,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
-package mapademo;
+package controllers;
 
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 // Si esto sale en rojo → Alt + Enter
 import upv.ipc.sportlib.SportActivityApp;
@@ -77,6 +81,20 @@ public class RegistrarActividadController implements Initializable {
 
         } catch (Exception e) {
             archivoSeleccionadoLabel.setText("Error al importar GPX");
+        }
+    }
+
+    @FXML
+    private void handleVolver() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/MapaPrincipal.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) archivoSeleccionadoLabel.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Pantalla principal");
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

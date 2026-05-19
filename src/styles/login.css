@@ -77,3 +77,8 @@
 .hyperlink:hover {
     -fx-text-fill: #00b4d8;
 }
+
+.label{
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}

@@ -1,4 +1,4 @@
-package mapademo;
+package controllers;
 
 import java.io.File;
 import java.net.URL;
@@ -27,6 +27,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
@@ -72,6 +74,8 @@ public class RegisterController implements Initializable {
     private StackPane stackPane;
     @FXML
     private ImageView avatarView;
+    @FXML
+    private TextFlow bottomText;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -85,10 +89,11 @@ public class RegisterController implements Initializable {
         passwordVisibleField.setVisible(false);
         passwordVisibleField.setManaged(false);
 
-        // Misma celda que el PasswordField (col 1, fila 2)
+        // Misma celda que el PasswordField (col 1, fila 5) 
         GridPane.setColumnIndex(passwordVisibleField, 1);
-        GridPane.setRowIndex(passwordVisibleField, 2);
+        GridPane.setRowIndex(passwordVisibleField, 5); // se me olvidó cambiar este pequeñito detalle ayer :)
         GridPane.setHalignment(passwordVisibleField, HPos.CENTER);
+        GridPane.setMargin(passwordVisibleField, new Insets(0, 0, 35, 0)); // esto para que se quede igual visualmente que en SB
 
         gridPane.getChildren().add(passwordVisibleField);
 
@@ -147,6 +152,10 @@ public class RegisterController implements Initializable {
             if (!User.checkNickName(nick)) {
                 errores.add("• Nickname: 6-15 caracteres.");
             }
+            
+            if (User.checkNickName(nick)) {
+                errores.add("• Nickname: Nick ya en uso");
+            }
         
             if (!User.checkEmail(email)) {
                 errores.add("• Email: formato inválido.");
@@ -167,7 +176,7 @@ public class RegisterController implements Initializable {
         
             if (app.registerUser(nick, email, pass, birthDate, avatar_path)) {
                 app.login(nick, pass);
-                cargarPantalla("FXMLDocument.fxml", nick);
+                cargarPantalla("/views/MapaPrincipal.fxml", nick);
             } else {
                 mostrarError("Error al registrar. El nickname o email puede estar en uso.");
             }
@@ -211,6 +220,8 @@ public class RegisterController implements Initializable {
         gridPane.getRowConstraints().add(rc);
 
         gridPane.getChildren().add(errorLabel);
+
+        VBox.setMargin(bottomText, new Insets(0, 40, 0, 40));
     }
     
     private void mostrarError(List<String> errores) {
@@ -225,12 +236,13 @@ public class RegisterController implements Initializable {
             }
             errorLabel = null;
             errorRowIndex = -1;
+            VBox.setMargin(bottomText, new Insets(20, 40, 0, 40));
         }
     }
 
     @FXML
     private void backLogin(ActionEvent event) {
-        cargarPantalla("/mapademo/Login.fxml", (String) null);
+        cargarPantalla("/views/Login.fxml", (String) null);
     }
 
     @FXML
@@ -253,14 +265,14 @@ public class RegisterController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlDestino));
             Parent root = loader.load();
             
-            if (fxmlDestino.equals("FXMLDocument.fxml")) {
-                FXMLDocumentController controller = loader.getController();
+            if (fxmlDestino.equals("/views/MapaPrincipal.fxml")) {
+                MapaPrincipalController controller = loader.getController();
                 controller.setNickname(nickname);
             }
             
             Stage stage = (Stage) nicknameField.getScene().getWindow();
             stage.setScene(new Scene(root));
-            if (fxmlDestino.equals("/mapademo/Login.fxml")) {
+            if (fxmlDestino.equals("/views/Login.fxml")) {
                 stage.setTitle("Login");
             } else {
                 stage.setTitle("Pantalla principal");
