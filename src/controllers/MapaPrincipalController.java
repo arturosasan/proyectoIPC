@@ -59,6 +59,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -366,6 +367,70 @@ public class MapaPrincipalController implements Initializable {
                 mapPane.setStyle(""); // Restauramos el cursor normal
                 addPoi(e.getX(), e.getY());
             }
+        });
+
+        // ── Zoom con rueda del ratón (TOUCHPAD AÚN NO FUNCIONA)───────────────────────
+        
+        mapPane.setOnScroll((ScrollEvent event) -> {
+            event.consume();
+
+            double delta = event.getDeltaY();
+            // scroll up → delta negativo → factor > 1 → zoom in
+            double zoomFactor = Math.exp(delta * 0.02);
+            double oldScale = zoomGroup.getScaleX();
+            double newScale = oldScale * zoomFactor;
+
+            // Limitamos al rango del slider
+            newScale = Math.max(zoom_slider.getMin(),
+                       Math.min(zoom_slider.getMax(), newScale));
+            if (Math.abs(newScale - oldScale) < 0.001) return;
+
+            // Posición del ratón en coordenadas del mapPane
+            double mouseX = event.getX();
+            double mouseY = event.getY();
+
+            // Tamaño del viewport del ScrollPane
+            double viewW = map_scrollpane.getViewportBounds().getWidth();
+            double viewH = map_scrollpane.getViewportBounds().getHeight();
+
+            // Scroll actual en píxeles
+            double contentW = mapPane.getWidth()  * oldScale;
+            double contentH = mapPane.getHeight() * oldScale;
+            double denom = contentW - viewW;
+            double scrollX = denom > 0 ? map_scrollpane.getHvalue() * denom : 0;
+            denom = contentH - viewH;
+            double scrollY = denom > 0 ? map_scrollpane.getVvalue() * denom : 0;
+
+            // Punto del mapa bajo el ratón (en coordenadas escaladas)
+            double mapMouseX = scrollX + mouseX;
+            double mapMouseY = scrollY + mouseY;
+
+            // Aplicamos el nuevo zoom
+            zoomGroup.setScaleX(newScale);
+            zoomGroup.setScaleY(newScale);
+            map_scrollpane.layout();
+
+            // Ajustamos el scroll para que el punto bajo el ratón no se mueva
+            double ratio = newScale / oldScale;
+            double newContentW = mapPane.getWidth()  * newScale;
+            double newContentH = mapPane.getHeight() * newScale;
+            double newScrollX = mapMouseX * ratio - mouseX;
+            double newScrollY = mapMouseY * ratio - mouseY;
+
+            double denomH = newContentW - viewW;
+            double denomV = newContentH - viewH;
+            if (denomH > 0) {
+                map_scrollpane.setHvalue(
+                    Math.max(0, Math.min(1, newScrollX / denomH)));
+            }
+            if (denomV > 0) {
+                map_scrollpane.setVvalue(
+                    Math.max(0, Math.min(1, newScrollY / denomV)));
+            }
+
+            // Sincronizamos el slider (dispara zoom() que re-aplica la
+            // misma escala y restaura nuestros valores de scroll)
+            zoom_slider.setValue(newScale);
         });
 
         // ── Jerarquía de Groups para el zoom ──────────────────────────
