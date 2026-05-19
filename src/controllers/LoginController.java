@@ -62,10 +62,11 @@ public class LoginController implements Initializable {
         passwordVisibleField.setVisible(false); // oculto por defecto
         passwordVisibleField.setManaged(false); // no ocupa espacio en el layout
 
-        // Lo colocamos en la misma celda que el PasswordField (col 1, fila 1)
+        // Lo colocamos en la misma celda que el PasswordField (col 1, fila 3)
         GridPane.setColumnIndex(passwordVisibleField, 1);
-        GridPane.setRowIndex(passwordVisibleField, 1);
+        GridPane.setRowIndex(passwordVisibleField, 3); // se me olvidó cambiar este pequeñito detalle ayer :)
         GridPane.setHalignment(passwordVisibleField, javafx.geometry.HPos.CENTER);
+        GridPane.setMargin(passwordVisibleField, new Insets(0, 0, 20, 0)); // esto para que se quede igual visualmente que en SB
 
         gridPane.getChildren().add(passwordVisibleField);
 
