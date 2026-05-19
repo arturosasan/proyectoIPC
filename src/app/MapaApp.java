@@ -8,14 +8,14 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 
-public class MapaDemoApp extends Application {
+public class MapaApp extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/views/Login.fxml"));
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/resources/logo.png")));
         Scene scene = new Scene(root);
-        stage.setTitle("Login Page - IPC");
+        stage.setTitle("Inicio de sesión - IPC");
         stage.setScene(scene);
         stage.show();
     }
