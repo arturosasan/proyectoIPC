@@ -89,10 +89,11 @@ public class RegisterController implements Initializable {
         passwordVisibleField.setVisible(false);
         passwordVisibleField.setManaged(false);
 
-        // Misma celda que el PasswordField (col 1, fila 2)
+        // Misma celda que el PasswordField (col 1, fila 5) 
         GridPane.setColumnIndex(passwordVisibleField, 1);
-        GridPane.setRowIndex(passwordVisibleField, 2);
+        GridPane.setRowIndex(passwordVisibleField, 5); // se me olvidó cambiar este pequeñito detalle ayer :)
         GridPane.setHalignment(passwordVisibleField, HPos.CENTER);
+        GridPane.setMargin(passwordVisibleField, new Insets(0, 0, 35, 0)); // esto para que se quede igual visualmente que en SB
 
         gridPane.getChildren().add(passwordVisibleField);
 

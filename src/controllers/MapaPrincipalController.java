@@ -59,6 +59,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -227,22 +228,61 @@ public class MapaPrincipalController implements Initializable {
      * @param scaleValue nuevo factor de escala (p. ej. 1.2 → 120 %)
      */
     private void zoom(double scaleValue) {
-        // Guardamos la posición del scroll antes de escalar
         double scrollH = map_scrollpane.getHvalue();
         double scrollV = map_scrollpane.getVvalue();
-
-        // Aplicamos el zoom escalando el Group en ambos ejes
         zoomGroup.setScaleX(scaleValue);
         zoomGroup.setScaleY(scaleValue);
-
-        // Restauramos la posición del scroll para que el centro visual
-        // permanezca estable durante el zoom
         map_scrollpane.setHvalue(scrollH);
         map_scrollpane.setVvalue(scrollV);
     }
     
     
+    // STACKOVERFLOW NO HA MUERTO --> https://stackoverflow.com/questions/39827911/javafx-8-scaling-zooming-scrollpane-relative-to-mouse-position
+    private void onMapScroll(ScrollEvent event) {
+        event.consume();
+        double oldScale = zoomGroup.getScaleX();
+        double newScale = oldScale * Math.exp(event.getDeltaY() * 0.01); // DELTA ES PARA LA POS DEL RATÓN
+        newScale = Math.max(zoom_slider.getMin(),
+                   Math.min(zoom_slider.getMax(), newScale));
+        if (Math.abs(newScale - oldScale) < 0.001) return; // PARA EVITAR TIRONES
+        
+        
+        // ANTES DEL ZOOM
+        
+        double mx = event.getX(), my = event.getY(); // Ratón
+        double vw = map_scrollpane.getViewportBounds().getWidth(), 
+                vh = map_scrollpane.getViewportBounds().getHeight(); // ViewPorts mapa
+        double cw = mapPane.getWidth() * oldScale, ch = mapPane.getHeight() * oldScale; // Altura / Anchura
+        double sx = (cw - vw) > 0 ? map_scrollpane.getHvalue() * (cw - vw) : 0, // Scroll
+                sy = (ch - vh) > 0 ? map_scrollpane.getVvalue() * (ch - vh) : 0;
 
+        double mmx = sx + mx, mmy = sy + my; // MapMouse X / Y
+        
+        // APLICO CAMBIOS
+        
+        zoomGroup.setScaleX(newScale);
+        zoomGroup.setScaleY(newScale);
+        map_scrollpane.layout();
+        
+        // ACTUALIZO CAMBIOS VISUALES
+        
+        double ratio = newScale / oldScale;
+        double ncw = mapPane.getWidth() * newScale;
+        double nch = mapPane.getHeight() * newScale;
+        double nsx = mmx * ratio - mx;
+        double nsy = mmy * ratio - my;
+        
+        // PARA QUE SE HAGA ZOOM AL ÁREA DEL RATÓN (CÓDIGO GENERADO POR IA)
+        if (ncw - vw > 0)
+            map_scrollpane.setHvalue(Math.max(0, Math.min(1, nsx / (ncw - vw))));
+        if (nch - vh > 0)
+            map_scrollpane.setVvalue(Math.max(0, Math.min(1, nsy / (nch - vh))));
+        
+        //SLIDER ACTUALIZADO
+        zoom_slider.setValue(newScale);
+    }
+
+    
     // =========================================================
     //  SELECCIÓN EN EL LISTVIEW → CENTRADO EN EL MAPA
     // =========================================================
@@ -326,65 +366,47 @@ public class MapaPrincipalController implements Initializable {
      * @param imgFile fichero de imagen a cargar como fondo del mapa
      */
     private void buildMap(File imgFile) {
-        // Comprobación defensiva: si el fichero no existe mostramos un aviso
         if (!imgFile.exists()) {
             map_scrollpane.setContent(
                 new Label("Imagen no encontrada: " + imgFile.getPath()));
             return;
         }
 
-        // Cargamos la imagen y obtenemos sus dimensiones reales en píxeles
         Image img = new Image(imgFile.toURI().toString());
         double W = img.getWidth();
         double H = img.getHeight();
 
-        // ── mapPane: lienzo del mapa ───────────────────────────────────
-        // Usamos un Pane (y no un Group) para poder posicionar los nodos
-        // hijos con coordenadas absolutas (setLayoutX / setLayoutY).
         mapPane = new Pane();
-        mapPane.setPrefSize(W, H); // tamaño preferido = tamaño de la imagen
-        mapPane.setMinSize(W, H);  // impedimos que el layout lo encoja
-        mapPane.setMaxSize(W, H);  // impedimos que el layout lo agrande
+        mapPane.setPrefSize(W, H);
+        mapPane.setMinSize(W, H);
+        mapPane.setMaxSize(W, H);
 
-        // Añadimos la imagen como fondo del Pane
         ImageView iv = new ImageView(img);
         iv.setFitWidth(W);
         iv.setFitHeight(H);
         mapPane.getChildren().add(iv);
 
-        // ── Manejador de clics sobre el mapa ──────────────────────────
-        // Gestionamos el clic derecho (menú contextual) y el clic izquierdo
-        // en modo inserción (FIX 2).
         mapPane.setOnMouseClicked(e -> {
             if (e.getButton() == MouseButton.SECONDARY) {
-                // Clic derecho → mostrar menú contextual
                 onMapRightClick(e.getX(), e.getY());
-
             } else if (e.getButton() == MouseButton.PRIMARY && insertionMode) {
-                // FIX 2: clic izquierdo en modo inserción → añadir POI y desactivar modo
                 insertionMode = false;
-                mapPane.setStyle(""); // Restauramos el cursor normal
+                mapPane.setStyle("");
                 addPoi(e.getX(), e.getY());
             }
         });
 
-        // ── Jerarquía de Groups para el zoom ──────────────────────────
-        // contentGroup es el nodo raíz que recibe el ScrollPane.
-        // zoomGroup es el que se escala; anidar un Group dentro de otro
-        // evita que el ScrollPane reajuste su contenido durante el escalado.
+        mapPane.setOnScroll(this::onMapScroll);
+
         zoomGroup = new Group();
         Group contentGroup = new Group();
         zoomGroup.getChildren().add(mapPane);
         contentGroup.getChildren().add(zoomGroup);
 
-        // Aplicamos el zoom actual (valor actual del slider)
         double zoom = zoom_slider.getValue();
         zoomGroup.setScaleX(zoom);
         zoomGroup.setScaleY(zoom);
-
-        // Asignamos el contentGroup como contenido del ScrollPane
         map_scrollpane.setContent(contentGroup);
-
     }
 
     // =========================================================
@@ -440,9 +462,9 @@ public class MapaPrincipalController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         // ── Configuración del slider de zoom ──────────────────────────
-        zoom_slider.setMin(0.5);   // zoom mínimo: 50 %
-        zoom_slider.setMax(1.5);   // zoom máximo: 150 %
-        zoom_slider.setValue(1.0); // valor inicial: 100 %
+        zoom_slider.setMin(0.75);
+        zoom_slider.setMax(1.5);
+        zoom_slider.setValue(1.0);
 
         // Listener que invoca zoom() cada vez que el slider cambia de valor.
         // Usamos una expresión lambda en lugar de una clase anónima por brevedad.
