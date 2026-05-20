@@ -8,6 +8,11 @@
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-underline: true;
+    -fx-cursor: hand;
+}
+
+.volver-btn:hover {
+    -fx-text-fill: #22d3ee;
 }
 
 .app-title {

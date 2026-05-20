@@ -79,6 +79,11 @@
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-underline: true;
+    -fx-cursor: hand;
+}
+
+.back-btn:hover {
+    -fx-text-fill: #22d3ee;
 }
 
 .page-title {
