@@ -826,6 +826,6 @@ public class MapaPrincipalController implements Initializable {
      */
     @FXML
     private void acumuladoActividades() {
-        cargarPantalla("/controllers/AcumuladoActividades.fxml", "Acumulado actividades");
+        cargarPantalla("/views/AcumuladoActividades.fxml", "Acumulado actividades");
     }
 }
