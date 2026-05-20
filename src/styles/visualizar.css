@@ -1,0 +1,70 @@
+#rootVBox {
+    -fx-background-color: #1d2a3d;
+}
+
+.volver-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #55d6b3;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-underline: true;
+}
+
+.app-title {
+    -fx-text-fill: #55d6b3;
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+}
+
+.sub-title {
+    -fx-text-fill: #e8edf5;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+.field-label {
+    -fx-text-fill: #e8edf5;
+    -fx-font-size: 15px;
+}
+
+.actividad-combo {
+    -fx-background-color: #132033;
+    -fx-border-color: #16c7e8;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-text-fill: white;
+}
+
+.map-pane {
+    -fx-background-color: #132033;
+    -fx-background-radius: 18;
+    -fx-border-color: #16c7e8;
+    -fx-border-radius: 18;
+    -fx-border-width: 2;
+}
+
+.map-placeholder {
+    -fx-text-fill: #e8edf5;
+}
+
+.stats-panel {
+    -fx-background-color: #132033;
+    -fx-background-radius: 18;
+    -fx-border-color: #55d6b3;
+    -fx-border-radius: 18;
+    -fx-border-width: 1.5;
+}
+
+.stats-title {
+    -fx-text-fill: #e8edf5;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.stat-field {
+    -fx-text-fill: #e8edf5;
+}
+
+.stat-value {
+    -fx-text-fill: #55d6b3;
+}

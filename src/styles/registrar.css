@@ -1,0 +1,66 @@
+#rootVBox {
+    -fx-background-color: #1d2a3d;
+}
+
+.volver-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #55d6b3;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-underline: true;
+}
+
+.app-title {
+    -fx-text-fill: #55d6b3;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+}
+
+.gpx-btn {
+    -fx-background-color: #55d6b3;
+    -fx-background-radius: 12;
+    -fx-padding: 10 18 10 18;
+    -fx-font-weight: bold;
+    -fx-text-fill: #071323;
+}
+
+.file-label {
+    -fx-text-fill: #e8edf5;
+    -fx-font-size: 14px;
+}
+
+.file-value {
+    -fx-text-fill: #55d6b3;
+    -fx-font-size: 14px;
+}
+
+.import-btn {
+    -fx-background-color: #55d6b3;
+    -fx-background-radius: 14;
+    -fx-padding: 12 26 12 26;
+    -fx-font-weight: bold;
+    -fx-text-fill: #071323;
+    -fx-font-size: 15px;
+}
+
+.stats-panel {
+    -fx-background-color: #132033;
+    -fx-background-radius: 18;
+    -fx-border-color: #16c7e8;
+    -fx-border-radius: 18;
+    -fx-border-width: 2;
+}
+
+.stats-title {
+    -fx-text-fill: #e8edf5;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.stat-field {
+    -fx-text-fill: #e8edf5;
+}
+
+.stat-value {
+    -fx-text-fill: #55d6b3;
+}
