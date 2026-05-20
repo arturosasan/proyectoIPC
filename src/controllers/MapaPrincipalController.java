@@ -53,7 +53,6 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
-import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -168,9 +167,6 @@ public class MapaPrincipalController implements Initializable {
     @FXML
     private Text nicknameText;
 
-    @FXML
-    private SplitPane splitPane;
-    
     @FXML
     private ImageView avatarView;
     
@@ -773,5 +769,10 @@ public class MapaPrincipalController implements Initializable {
     @FXML
     private void anotacionesActividad() {
         cargarPantalla("/views/AnotacionesActividad.fxml", "Anotaciones");
+    }
+
+    @FXML
+    private void acumuladoActividades() {
+        cargarPantalla("/controllers/AcumuladoActividades.fxml", "Acumulado actividades");
     }
 }

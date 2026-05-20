@@ -115,4 +115,5 @@ public class AcumuladoActividadesController implements Initializable {
 
         return String.format("%02d h %02d min %02d s", horas, minutos, segundos);
     }
+
 }

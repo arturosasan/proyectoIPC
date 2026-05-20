@@ -5,8 +5,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Slider?>
-<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -84,15 +86,15 @@
       </ScrollPane>
    </center>
    <left>
-      <VBox id="principal" prefHeight="729.0" prefWidth="225.0" stylesheets="@../styles/main.css" BorderPane.alignment="CENTER">
+      <VBox id="principal" prefHeight="804.0" prefWidth="284.0" spacing="0" stylesheets="@../styles/main.css" BorderPane.alignment="CENTER">
          <children>
-             <StackPane prefHeight="150.0" prefWidth="150.0">
-                <children>
-                   <Circle fill="#1b263b" radius="66.0" stroke="#e94560" strokeType="INSIDE" strokeWidth="3.0" />
-                   <ImageView fx:id="avatarView" fitHeight="126.0" fitWidth="126.0" pickOnBounds="true" preserveRatio="false">
-                      <clip>
-                         <Circle centerX="63.0" centerY="63.0" radius="63.0" />
-                      </clip>
+            <StackPane prefHeight="150.0" prefWidth="150.0">
+               <children>
+                  <Circle fill="#1b263b" radius="66.0" stroke="#e94560" strokeType="INSIDE" strokeWidth="3.0" />
+                  <ImageView fx:id="avatarView" fitHeight="126.0" fitWidth="126.0" pickOnBounds="true" preserveRatio="false">
+                     <clip>
+                        <Circle centerX="63.0" centerY="63.0" radius="63.0" />
+                     </clip>
                      <image>
                         <Image url="@../resources/icons/user.png" />
                      </image>
@@ -101,14 +103,16 @@
             </StackPane>
             <Region prefHeight="9.0" prefWidth="225.0" />
             <StackPane prefWidth="225.0">
-                <children>
-                   <Text fx:id="nicknameText" fill="WHITE" style="-fx-font-size: 22; -fx-font-weight: bold;" textAlignment="CENTER">
+               <children>
+                  <Text fx:id="nicknameText" fill="WHITE" style="-fx-font-size: 22; -fx-font-weight: bold;" text="[nickname]" textAlignment="CENTER">
                      <StackPane.margin>
                         <Insets left="5.0" />
-                     </StackPane.margin></Text>
-                </children>
-             </StackPane>
-            <HBox prefHeight="86.0" prefWidth="225.0">
+                     </StackPane.margin>
+                  </Text>
+               </children>
+            </StackPane>
+            <Region prefHeight="21.0" prefWidth="284.0" />
+            <HBox alignment="TOP_CENTER" prefHeight="61.0" prefWidth="284.0">
                <children>
                   <Button id="botonesPerfil" mnemonicParsing="false" onAction="#modificarPerfil" prefHeight="44.0" prefWidth="58.0" stylesheets="@../styles/main.css" textFill="WHITE">
                      <graphic>
@@ -119,12 +123,13 @@
                         </ImageView>
                      </graphic>
                      <HBox.margin>
-                        <Insets left="45.0" top="20.0" />
+                        <Insets />
                      </HBox.margin>
                   </Button>
+                  <Region prefHeight="61.0" prefWidth="23.0" />
                   <Button id="botonesPerfil" mnemonicParsing="false" onAction="#historialSesiones" prefHeight="44.0" prefWidth="62.0" stylesheets="@../styles/main.css">
                      <HBox.margin>
-                        <Insets left="20.0" top="20.0" />
+                        <Insets />
                      </HBox.margin>
                      <graphic>
                         <ImageView fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
@@ -136,41 +141,48 @@
                   </Button>
                </children>
             </HBox>
-            <Region prefHeight="16.0" prefWidth="225.0" VBox.vgrow="NEVER" />
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <SplitPane fx:id="splitPane">
-                     <items>
-                        <ListView fx:id="map_listview" onMouseClicked="#listClicked" prefHeight="245.0" prefWidth="223.0" />
-                     </items>
-                  </SplitPane>
-               </children>
+            <Separator prefWidth="200.0">
                <VBox.margin>
-                  <Insets left="18.0" right="18.0" />
+                  <Insets bottom="20.0" left="12.0" right="12.0" />
                </VBox.margin>
-            </VBox>
-             <Region prefHeight="30.0" prefWidth="225.0" VBox.vgrow="NEVER" />
-             <Button id="nuevaActividad" mnemonicParsing="false" onAction="#nuevaActividad" prefHeight="58.0" prefWidth="196.0" stylesheets="@../styles/main.css" text="+ Nueva Actividad">
-                <VBox.margin>
-                   <Insets left="15.0" />
-                </VBox.margin>
-             </Button>
-             <Region prefHeight="24.0" prefWidth="225.0" VBox.vgrow="NEVER" />
-             <Button id="nuevaActividad" mnemonicParsing="false" onAction="#visualizarActividad" prefHeight="58.0" prefWidth="196.0" stylesheets="@../styles/main.css" text="Visualizar Actividad">
-                <VBox.margin>
-                   <Insets left="15.0" />
-                </VBox.margin>
-             </Button>
-             <Region prefHeight="24.0" prefWidth="225.0" VBox.vgrow="NEVER" />
-             <Button id="nuevaActividad" mnemonicParsing="false" onAction="#anotacionesActividad" prefHeight="58.0" prefWidth="196.0" stylesheets="@../styles/main.css" text="Anotaciones">
-                <VBox.margin>
-                   <Insets left="15.0" />
-                </VBox.margin>
-             </Button>
-             <Region prefHeight="72.0" prefWidth="225.0" VBox.vgrow="ALWAYS" />
-            <Button id="cerrarSesion" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="46.0" prefWidth="153.0" stylesheets="@../styles/main.css" text="Cerrar Sesión" VBox.vgrow="NEVER">
+            </Separator>
+            <TabPane prefHeight="106.0" prefWidth="225.0" side="TOP" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+               <tabs>
+                  <Tab text="Actividades">
+                     <content>
+                        <VBox alignment="CENTER" spacing="12.0">
+                           <Button mnemonicParsing="false" onAction="#nuevaActividad" prefHeight="58.0" prefWidth="196.0" styleClass="btn-primary" text="+ Nueva Actividad">
+                              <VBox.margin>
+                                 <Insets top="30.0" />
+                              </VBox.margin>
+                           </Button>
+                           <Region prefHeight="42.0" prefWidth="284.0" />
+                           <Button mnemonicParsing="false" onAction="#visualizarActividad" prefHeight="48.0" prefWidth="196.0" styleClass="btn-secondary" text="Visualizar Actividad" />
+                           <Button mnemonicParsing="false" onAction="#anotacionesActividad" prefHeight="48.0" prefWidth="196.0" styleClass="btn-secondary" text="Anotaciones" />
+                           <Button mnemonicParsing="false" onAction="#acumuladoActividades" prefHeight="48.0" prefWidth="196.0" styleClass="btn-secondary" text="Acumulado actividades" />
+                        </VBox>
+                     </content>
+                  </Tab>
+                  <Tab text="Mapa">
+                     <content>
+                        <VBox alignment="TOP_CENTER">
+                           <ListView fx:id="map_listview" onMouseClicked="#listClicked" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                              <VBox.margin>
+                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                              </VBox.margin>
+                           </ListView>
+                           <Button mnemonicParsing="false" text="Añadir mapa" />
+                        </VBox>
+                     </content>
+                  </Tab>
+               </tabs>
                <VBox.margin>
-                  <Insets left="40.0" />
+                  <Insets left="5.0" />
+               </VBox.margin>
+            </TabPane>
+            <Button id="cerrarSesion" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="46.0" prefWidth="153.0" stylesheets="@../styles/main.css" text="Cerrar Sesión">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="65.0" right="50.0" top="10.0" />
                </VBox.margin>
             </Button>
          </children>
