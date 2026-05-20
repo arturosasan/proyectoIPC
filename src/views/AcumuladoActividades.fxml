@@ -24,14 +24,11 @@
          <HBox prefHeight="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
 
             <children>
-               <Button mnemonicParsing="false" onAction="#handleVolver" prefHeight="30.0" prefWidth="104.0" styleClass="volver-btn" text="&lt; Volver">
-                  <HBox.margin>
-                     <Insets left="10.0" top="10.0" />
-                  </HBox.margin>
-                  <cursor>
-                     <Cursor fx:constant="OPEN_HAND" />
-                  </cursor>
-               </Button>
+                <Button mnemonicParsing="false" onAction="#handleVolver" prefHeight="30.0" prefWidth="104.0" styleClass="volver-btn" text="&lt; Volver">
+                   <HBox.margin>
+                      <Insets left="10.0" top="10.0" />
+                   </HBox.margin>
+                </Button>
 
                <Region HBox.hgrow="ALWAYS" />
 
