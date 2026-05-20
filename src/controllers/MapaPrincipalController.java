@@ -293,7 +293,6 @@ public class MapaPrincipalController implements Initializable {
         zoom_slider.setValue(newScale);
     }
 
-    
     // =========================================================
     //  SELECCIÓN EN EL LISTVIEW → CENTRADO EN EL MAPA
     // =========================================================
@@ -473,7 +472,7 @@ public class MapaPrincipalController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         // ── Configuración del slider de zoom ──────────────────────────
-        zoom_slider.setMin(0.75);
+        zoom_slider.setMin(0.85);
         zoom_slider.setMax(1.5);
         zoom_slider.setValue(1.0);
 
@@ -510,7 +509,6 @@ public class MapaPrincipalController implements Initializable {
         });
 
         // ── Carga del mapa inicial ─────────────────────────────────────
-        // El fichero se busca relativo al directorio de trabajo del proyecto.
         buildMap(new File("maps/upv.jpg"));
         
         User user = app.getCurrentUser();
@@ -664,8 +662,8 @@ public class MapaPrincipalController implements Initializable {
         // FIX 3: showOpenDialog() devuelve null si el usuario cancela la selección
         if (imgFile != null) {
             System.out.println("Mapa seleccionado: " + imgFile.getCanonicalPath());
-            buildMap(imgFile); // Reconstruimos la vista con la nueva imagen
-            map_listview.getItems().clear(); // Borramos los datos del mapa anterior
+            buildMap(imgFile);
+            map_listview.getItems().clear();
         }
     }
 
