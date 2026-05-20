@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="mapademo.AcumuladoActividadesController"
+            prefHeight="720.0"
+            prefWidth="1200.0"
+            style="-fx-background-color: #14263a;">
+
+    <children>
+
+        <Label text="Acumulado de actividades"
+               layoutX="360.0"
+               layoutY="40.0"
+               style="-fx-text-fill: white; -fx-font-size: 34px; -fx-font-weight: bold;" />
+
+        <Label text="Consulta el total de actividades del mes"
+               layoutX="430.0"
+               layoutY="92.0"
+               style="-fx-text-fill: #d8e6f3; -fx-font-size: 16px;" />
+
+        <HBox layoutX="95.0"
+              layoutY="175.0"
+              spacing="20.0"
+              alignment="CENTER_LEFT">
+
+            <children>
+                <Label text="Mes:"
+                       style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" />
+
+                <ComboBox fx:id="comboMes"
+                          prefWidth="180.0"
+                          style="-fx-background-radius: 12; -fx-font-size: 15px;" />
+
+                <Label text="Año:"
+                       style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" />
+
+                <ComboBox fx:id="comboAnio"
+                          prefWidth="120.0"
+                          style="-fx-background-radius: 12; -fx-font-size: 15px;" />
+            </children>
+
+        </HBox>
+
+        <VBox layoutX="95.0"
+              layoutY="260.0"
+              prefWidth="420.0"
+              prefHeight="355.0"
+              spacing="22.0"
+              style="-fx-border-color: #24d9f2; -fx-border-width: 3; -fx-border-radius: 18; -fx-background-radius: 18; -fx-padding: 30;">
+
+            <children>
+
+                <Label text="Resumen mensual"
+                       style="-fx-text-fill: white; -fx-font-size: 27px; -fx-font-weight: bold;" />
+
+                <GridPane hgap="35.0" vgap="22.0">
+
+                    <children>
+
+                        <Label text="Actividades:"
+                               GridPane.rowIndex="0"
+                               GridPane.columnIndex="0"
+                               style="-fx-text-fill: white; -fx-font-size: 17px;" />
+
+                        <Label fx:id="lblTotalActividades"
+                               text="-"
+                               GridPane.rowIndex="0"
+                               GridPane.columnIndex="1"
+                               style="-fx-text-fill: #5ae0cf; -fx-font-size: 20px; -fx-font-weight: bold;" />
+
+                        <Label text="Tiempo total:"
+                               GridPane.rowIndex="1"
+                               GridPane.columnIndex="0"
+                               style="-fx-text-fill: white; -fx-font-size: 17px;" />
+
+                        <Label fx:id="lblTiempoTotal"
+                               text="-"
+                               GridPane.rowIndex="1"
+                               GridPane.columnIndex="1"
+                               style="-fx-text-fill: #5ae0cf; -fx-font-size: 20px; -fx-font-weight: bold;" />
+
+                        <Label text="Distancia:"
+                               GridPane.rowIndex="2"
+                               GridPane.columnIndex="0"
+                               style="-fx-text-fill: white; -fx-font-size: 17px;" />
+
+                        <Label fx:id="lblDistanciaTotal"
+                               text="-"
+                               GridPane.rowIndex="2"
+                               GridPane.columnIndex="1"
+                               style="-fx-text-fill: #5ae0cf; -fx-font-size: 20px; -fx-font-weight: bold;" />
+
+                        <Label text="Ascenso:"
+                               GridPane.rowIndex="3"
+                               GridPane.columnIndex="0"
+                               style="-fx-text-fill: white; -fx-font-size: 17px;" />
+
+                        <Label fx:id="lblAscensoTotal"
+                               text="-"
+                               GridPane.rowIndex="3"
+                               GridPane.columnIndex="1"
+                               style="-fx-text-fill: #5ae0cf; -fx-font-size: 20px; -fx-font-weight: bold;" />
+
+                        <Label text="Descenso:"
+                               GridPane.rowIndex="4"
+                               GridPane.columnIndex="0"
+                               style="-fx-text-fill: white; -fx-font-size: 17px;" />
+
+                        <Label fx:id="lblDescensoTotal"
+                               text="-"
+                               GridPane.rowIndex="4"
+                               GridPane.columnIndex="1"
+                               style="-fx-text-fill: #5ae0cf; -fx-font-size: 20px; -fx-font-weight: bold;" />
+
+                    </children>
+
+                </GridPane>
+
+            </children>
+
+        </VBox>
+
+        <VBox layoutX="575.0"
+              layoutY="260.0"
+              prefWidth="530.0"
+              prefHeight="355.0"
+              spacing="18.0"
+              style="-fx-border-color: #5ae0cf; -fx-border-width: 3; -fx-border-radius: 18; -fx-background-radius: 18; -fx-padding: 30;">
+
+            <children>
+
+                <Label text="Actividades del mes"
+                       style="-fx-text-fill: white; -fx-font-size: 27px; -fx-font-weight: bold;" />
+
+                <ListView fx:id="listaActividades"
+                          prefWidth="470.0"
+                          prefHeight="255.0"
+                          style="-fx-control-inner-background: #102235; -fx-background-color: #102235; -fx-text-fill: white; -fx-border-color: #5ae0cf; -fx-border-radius: 10; -fx-background-radius: 10;" />
+
+            </children>
+
+        </VBox>
+
+    </children>
+
+</AnchorPane>

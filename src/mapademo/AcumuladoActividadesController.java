@@ -1,0 +1,118 @@
+package mapademo;
+
+import java.net.URL;
+import java.time.Month;
+import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import upv.ipc.sportlib.Activity;
+import upv.ipc.sportlib.SportActivityApp;
+
+public class AcumuladoActividadesController implements Initializable {
+
+    @FXML private ComboBox<String> comboMes;
+    @FXML private ComboBox<Integer> comboAnio;
+
+    @FXML private Label lblTotalActividades;
+    @FXML private Label lblTiempoTotal;
+    @FXML private Label lblDistanciaTotal;
+    @FXML private Label lblAscensoTotal;
+    @FXML private Label lblDescensoTotal;
+
+    @FXML private ListView<String> listaActividades;
+
+    private final SportActivityApp app = SportActivityApp.getInstance();
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+
+        comboMes.setItems(FXCollections.observableArrayList(
+                "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+                "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+        ));
+
+        comboAnio.setItems(FXCollections.observableArrayList(
+                2024, 2025, 2026, 2027
+        ));
+
+        comboMes.getSelectionModel().select(java.time.LocalDate.now().getMonthValue() - 1);
+        comboAnio.setValue(java.time.LocalDate.now().getYear());
+
+        comboMes.setOnAction(e -> calcularAcumulado());
+        comboAnio.setOnAction(e -> calcularAcumulado());
+
+        calcularAcumulado();
+    }
+
+    private void calcularAcumulado() {
+
+        if (comboMes.getValue() == null || comboAnio.getValue() == null) {
+            return;
+        }
+
+        int mes = comboMes.getSelectionModel().getSelectedIndex() + 1;
+        int anio = comboAnio.getValue();
+
+        int totalActividades = 0;
+        double distanciaTotal = 0;
+        double ascensoTotal = 0;
+        double descensoTotal = 0;
+        long segundosTotales = 0;
+
+        listaActividades.getItems().clear();
+
+        for (Activity actividad : app.getUserActivities()) {
+
+            if (actividad.getStartTime() == null) {
+                continue;
+            }
+
+            int mesActividad = actividad.getStartTime().getMonthValue();
+            int anioActividad = actividad.getStartTime().getYear();
+
+            if (mesActividad == mes && anioActividad == anio) {
+
+                totalActividades++;
+
+                distanciaTotal += actividad.getTotalDistance();
+                ascensoTotal += actividad.getElevationGain();
+                descensoTotal += actividad.getElevationLoss();
+
+                if (actividad.getDuration() != null) {
+                    segundosTotales += actividad.getDuration().getSeconds();
+                }
+
+                listaActividades.getItems().add(
+                        actividad.getName()
+                        + "  |  "
+                        + String.format("%.2f km", actividad.getTotalDistance() / 1000.0)
+                        + "  |  "
+                        + actividad.getDuration()
+                );
+            }
+        }
+
+        lblTotalActividades.setText(String.valueOf(totalActividades));
+        lblDistanciaTotal.setText(String.format("%.2f km", distanciaTotal / 1000.0));
+        lblAscensoTotal.setText(String.format("%.0f m", ascensoTotal));
+        lblDescensoTotal.setText(String.format("%.0f m", descensoTotal));
+        lblTiempoTotal.setText(formatearTiempo(segundosTotales));
+
+        if (totalActividades == 0) {
+            listaActividades.getItems().add("No hay actividades registradas en este mes.");
+        }
+    }
+
+    private String formatearTiempo(long segundosTotales) {
+
+        long horas = segundosTotales / 3600;
+        long minutos = (segundosTotales % 3600) / 60;
+        long segundos = segundosTotales % 60;
+
+        return String.format("%02d h %02d min %02d s", horas, minutos, segundos);
+    }
+}
