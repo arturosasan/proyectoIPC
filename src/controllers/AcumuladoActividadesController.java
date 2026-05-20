@@ -27,6 +27,14 @@ public class AcumuladoActividadesController implements Initializable {
 
     private final SportActivityApp app = SportActivityApp.getInstance();
 
+    /**
+     * Inicializa el controlador.
+     * Configura los ComboBox de mes y año con valores por defecto y
+     * calcula el acumulado inicial automáticamente.
+     *
+     * @param url  URL del documento FXML (no usado)
+     * @param rb   paquete de recursos (no usado)
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -48,6 +56,11 @@ public class AcumuladoActividadesController implements Initializable {
         calcularAcumulado();
     }
 
+    /**
+     * Calcula y muestra las estadísticas acumuladas del mes y año seleccionados.
+     * Filtra las actividades del usuario por mes/año y actualiza las etiquetas
+     * con totales de distancia, tiempo, ascenso y descenso.
+     */
     private void calcularAcumulado() {
 
         if (comboMes.getValue() == null || comboAnio.getValue() == null) {
@@ -107,6 +120,12 @@ public class AcumuladoActividadesController implements Initializable {
         }
     }
 
+    /**
+     * Convierte una cantidad de segundos a formato legible "HH h MM min SS s".
+     *
+     * @param segundosTotales total de segundos a formatear
+     * @return cadena formateada con horas, minutos y segundos
+     */
     private String formatearTiempo(long segundosTotales) {
 
         long horas = segundosTotales / 3600;

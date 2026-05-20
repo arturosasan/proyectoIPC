@@ -37,11 +37,22 @@ public class RegistrarActividadController implements Initializable {
 
     private SportActivityApp app = SportActivityApp.getInstance();
 
+    /**
+     * Inicializa el controlador de registro de actividad.
+     * No requiere configuración adicional.
+     *
+     * @param url  URL del documento FXML (no usado)
+     * @param rb   paquete de recursos (no usado)
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // no hace falta nada aquí
     }
 
+    /**
+     * Abre un selector de archivos para elegir un archivo GPX.
+     * Almacena el archivo seleccionado y muestra su nombre.
+     */
     @FXML
     private void handleSeleccionarGPX() {
         FileChooser fileChooser = new FileChooser();
@@ -59,6 +70,10 @@ public class RegistrarActividadController implements Initializable {
         }
     }
 
+    /**
+     * Importa la actividad desde el archivo GPX seleccionado.
+     * Muestra las estadísticas calculadas por la librería SportActivityApp.
+     */
     @FXML
     private void handleImportarActividad() {
 
@@ -84,6 +99,9 @@ public class RegistrarActividadController implements Initializable {
         }
     }
 
+    /**
+     * Navega de vuelta a la pantalla principal del mapa.
+     */
     @FXML
     private void handleVolver() {
         try {
