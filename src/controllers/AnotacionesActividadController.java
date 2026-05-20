@@ -1,4 +1,4 @@
-package mapademo;
+package controllers;
 
 import java.io.File;
 import java.net.URL;
@@ -6,9 +6,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import javafx.geometry.Point2D;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -21,6 +27,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -28,6 +35,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polyline;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import upv.ipc.sportlib.Activity;
 import upv.ipc.sportlib.Annotation;
@@ -41,7 +49,6 @@ import upv.ipc.sportlib.TrackPoint;
 public class AnotacionesActividadController implements Initializable {
 
     @FXML private Pane mapPane;
-    @FXML private ImageView mapImageView;
 
     @FXML private Label lblDistancia;
     @FXML private Label lblDuracion;
@@ -63,10 +70,22 @@ public class AnotacionesActividadController implements Initializable {
     private String colorPendiente;
     private GeoPoint primerPuntoPendiente;
 
+    private Group contenidoMapa;
     private double escala = 1.0;
+
+    private static final double ZOOM_MIN = 0.3;
+    private static final double ZOOM_MAX = 5.0;
+    private static final double ZOOM_STEP = 0.1;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        contenidoMapa = new Group();
+        mapPane.getChildren().add(0, contenidoMapa);
+
+        Rectangle clip = new Rectangle();
+        clip.widthProperty().bind(mapPane.widthProperty());
+        clip.heightProperty().bind(mapPane.heightProperty());
+        mapPane.setClip(clip);
 
         lblDistancia.setText("Distancia: -");
         lblDuracion.setText("Duración: -");
@@ -76,28 +95,50 @@ public class AnotacionesActividadController implements Initializable {
         btnAnadirAnotacion.setOnAction(e -> prepararNuevaAnotacion());
 
         btnZoomMas.setOnAction(e -> {
-            escala += 0.1;
-            mapPane.setScaleX(escala);
-            mapPane.setScaleY(escala);
+            if (escala < ZOOM_MAX) {
+                escala = Math.min(escala + ZOOM_STEP, ZOOM_MAX);
+                contenidoMapa.setScaleX(escala);
+                contenidoMapa.setScaleY(escala);
+            }
         });
 
         btnZoomMenos.setOnAction(e -> {
-            if (escala > 0.3) {
-                escala -= 0.1;
-                mapPane.setScaleX(escala);
-                mapPane.setScaleY(escala);
+            if (escala > ZOOM_MIN) {
+                escala = Math.max(escala - ZOOM_STEP, ZOOM_MIN);
+                contenidoMapa.setScaleX(escala);
+                contenidoMapa.setScaleY(escala);
+            }
+        });
+
+        mapPane.widthProperty().addListener((obs, o, n) -> {
+            if (n.doubleValue() != o.doubleValue() && n.doubleValue() > 0 && actividadActual != null) {
+                dibujarMapaRutaYAnotaciones();
+            }
+        });
+        mapPane.heightProperty().addListener((obs, o, n) -> {
+            if (n.doubleValue() != o.doubleValue() && n.doubleValue() > 0 && actividadActual != null) {
+                dibujarMapaRutaYAnotaciones();
+            }
+        });
+
+        mapPane.setFocusTraversable(true);
+        mapPane.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.ESCAPE && tipoPendiente != null) {
+                limpiarAnotacionPendiente();
+                mostrarAviso("Anotación cancelada.");
+                mapPane.requestFocus();
             }
         });
 
         mapPane.setOnMouseClicked(e -> {
-            if (e.getButton() == MouseButton.SECONDARY) {
-                procesarClickMapa(e.getX(), e.getY());
+            if (e.getButton() == MouseButton.SECONDARY && tipoPendiente != null) {
+                procesarClickMapa(e.getX() / escala, e.getY() / escala);
+                mapPane.requestFocus();
             }
         });
     }
 
     public void mostrarActividad(Activity actividad) {
-
         this.actividadActual = actividad;
 
         lblDistancia.setText(
@@ -114,13 +155,22 @@ public class AnotacionesActividadController implements Initializable {
                         actividad.getAverageSpeed())
         );
 
-        dibujarMapaRutaYAnotaciones();
+        if (mapPane.getWidth() > 0 && mapPane.getHeight() > 0) {
+            dibujarMapaRutaYAnotaciones();
+        } else {
+            Platform.runLater(() -> dibujarMapaRutaYAnotaciones());
+        }
+
         cargarListaAnotaciones();
+        mapPane.requestFocus();
 
         System.out.println("Actividad cargada correctamente");
     }
 
     private void prepararNuevaAnotacion() {
+        if (tipoPendiente != null) {
+            limpiarAnotacionPendiente();
+        }
 
         if (actividadActual == null) {
             mostrarAviso("Primero debes cargar una actividad.");
@@ -145,10 +195,11 @@ public class AnotacionesActividadController implements Initializable {
         } else {
             mostrarAviso("Ahora haz clic derecho sobre el mapa para marcar el primer punto.");
         }
+
+        mapPane.requestFocus();
     }
 
     private Optional<DatosAnotacion> mostrarDialogoAnotacion() {
-
         Dialog<DatosAnotacion> dialog = new Dialog<>();
         dialog.setTitle("Nueva anotación");
         dialog.setHeaderText("Introduce los datos de la anotación");
@@ -173,10 +224,8 @@ public class AnotacionesActividadController implements Initializable {
 
         grid.add(new Label("Tipo:"), 0, 0);
         grid.add(comboTipo, 1, 0);
-
         grid.add(new Label("Texto:"), 0, 1);
         grid.add(campoTexto, 1, 1);
-
         grid.add(new Label("Color:"), 0, 2);
         grid.add(colorPicker, 1, 2);
 
@@ -189,18 +238,11 @@ public class AnotacionesActividadController implements Initializable {
         dialog.setResultConverter(boton -> {
             if (boton == ButtonType.OK) {
                 String texto = campoTexto.getText();
-
                 if (texto == null || texto.trim().isEmpty()) {
                     texto = "Anotación";
                 }
-
                 String colorHex = convertirColorAHex(colorPicker.getValue());
-
-                return new DatosAnotacion(
-                        comboTipo.getValue(),
-                        texto,
-                        colorHex
-                );
+                return new DatosAnotacion(comboTipo.getValue(), texto, colorHex);
             }
             return null;
         });
@@ -209,7 +251,6 @@ public class AnotacionesActividadController implements Initializable {
     }
 
     private void procesarClickMapa(double x, double y) {
-
         if (tipoPendiente == null || projection == null || actividadActual == null) {
             return;
         }
@@ -223,10 +264,10 @@ public class AnotacionesActividadController implements Initializable {
         }
 
         if (tipoPendiente == AnnotationType.LINE || tipoPendiente == AnnotationType.CIRCLE) {
-
             if (primerPuntoPendiente == null) {
                 primerPuntoPendiente = punto;
                 mostrarAviso("Primer punto marcado. Ahora haz clic derecho para marcar el segundo punto.");
+                mapPane.requestFocus();
             } else {
                 guardarAnotacion(Arrays.asList(primerPuntoPendiente, punto));
                 limpiarAnotacionPendiente();
@@ -235,7 +276,6 @@ public class AnotacionesActividadController implements Initializable {
     }
 
     private void guardarAnotacion(List<GeoPoint> puntos) {
-
         Annotation ann = new Annotation(
                 tipoPendiente,
                 textoPendiente,
@@ -251,12 +291,13 @@ public class AnotacionesActividadController implements Initializable {
             dibujarMapaRutaYAnotaciones();
             mostrarAviso("Anotación guardada correctamente.");
         } else {
-            mostrarAviso("No se pudo guardar la anotación.");
+            mostrarError("No se pudo guardar la anotación.");
         }
+
+        mapPane.requestFocus();
     }
 
     private void cargarListaAnotaciones() {
-
         listaAnotaciones.getItems().clear();
 
         if (actividadActual == null) {
@@ -266,11 +307,9 @@ public class AnotacionesActividadController implements Initializable {
 
         for (Annotation ann : actividadActual.getAnnotations()) {
             String texto = ann.getText();
-
             if (texto == null || texto.isEmpty()) {
                 texto = "(Sin texto)";
             }
-
             listaAnotaciones.getItems().add(ann.getType() + " - " + texto);
         }
 
@@ -278,8 +317,7 @@ public class AnotacionesActividadController implements Initializable {
     }
 
     private void dibujarMapaRutaYAnotaciones() {
-
-        mapPane.getChildren().clear();
+        contenidoMapa.getChildren().clear();
 
         if (actividadActual == null) {
             return;
@@ -299,8 +337,8 @@ public class AnotacionesActividadController implements Initializable {
             return;
         }
 
-        double ancho = obtenerAnchoMapa();
-        double alto = obtenerAltoMapa();
+        double ancho = mapPane.getWidth() > 0 ? mapPane.getWidth() : mapPane.getPrefWidth();
+        double alto = mapPane.getHeight() > 0 ? mapPane.getHeight() : mapPane.getPrefHeight();
 
         Image mapa = new Image(mapaFile.toURI().toString());
 
@@ -309,7 +347,7 @@ public class AnotacionesActividadController implements Initializable {
         fondo.setFitHeight(alto);
         fondo.setPreserveRatio(false);
 
-        mapPane.getChildren().add(fondo);
+        contenidoMapa.getChildren().add(fondo);
 
         projection = new MapProjection(region, ancho, alto);
 
@@ -319,7 +357,6 @@ public class AnotacionesActividadController implements Initializable {
     }
 
     private void dibujarRuta() {
-
         Polyline ruta = new Polyline();
         ruta.setStroke(Color.BLUE);
         ruta.setStrokeWidth(3);
@@ -329,11 +366,10 @@ public class AnotacionesActividadController implements Initializable {
             ruta.getPoints().addAll(p.getX(), p.getY());
         }
 
-        mapPane.getChildren().add(ruta);
+        contenidoMapa.getChildren().add(ruta);
     }
 
     private void dibujarInicioFin() {
-
         TrackPoint inicio = actividadActual.getStartPoint();
         TrackPoint fin = actividadActual.getEndPoint();
 
@@ -346,14 +382,11 @@ public class AnotacionesActividadController implements Initializable {
         Circle cFin = new Circle(pFin.getX(), pFin.getY(), 6);
         cFin.setFill(Color.RED);
 
-        mapPane.getChildren().add(cInicio);
-        mapPane.getChildren().add(cFin);
+        contenidoMapa.getChildren().addAll(cInicio, cFin);
     }
 
     private void dibujarAnotaciones() {
-
         for (Annotation ann : actividadActual.getAnnotations()) {
-
             List<GeoPoint> puntos = ann.getGeoPoints();
 
             if (puntos == null || puntos.isEmpty()) {
@@ -375,7 +408,6 @@ public class AnotacionesActividadController implements Initializable {
     }
 
     private void dibujarAnotacionPunto(Annotation ann, List<GeoPoint> puntos, Color color) {
-
         Point2D p = projection.project(puntos.get(0));
 
         Circle c = new Circle(p.getX(), p.getY(), 7);
@@ -385,22 +417,20 @@ public class AnotacionesActividadController implements Initializable {
         texto.setFill(color);
         texto.setStyle("-fx-font-weight: bold;");
 
-        mapPane.getChildren().addAll(c, texto);
+        contenidoMapa.getChildren().addAll(c, texto);
     }
 
     private void dibujarAnotacionTexto(Annotation ann, List<GeoPoint> puntos, Color color) {
-
         Point2D p = projection.project(puntos.get(0));
 
         Text texto = new Text(p.getX(), p.getY(), ann.getText());
         texto.setFill(color);
         texto.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
 
-        mapPane.getChildren().add(texto);
+        contenidoMapa.getChildren().add(texto);
     }
 
     private void dibujarAnotacionLinea(Annotation ann, List<GeoPoint> puntos, Color color) {
-
         Point2D p1 = projection.project(puntos.get(0));
         Point2D p2 = projection.project(puntos.get(1));
 
@@ -408,11 +438,10 @@ public class AnotacionesActividadController implements Initializable {
         linea.setStroke(color);
         linea.setStrokeWidth(ann.getStrokeWidth());
 
-        mapPane.getChildren().add(linea);
+        contenidoMapa.getChildren().add(linea);
     }
 
     private void dibujarAnotacionCirculo(Annotation ann, List<GeoPoint> puntos, Color color) {
-
         Point2D centro = projection.project(puntos.get(0));
         Point2D borde = projection.project(puntos.get(1));
 
@@ -423,7 +452,7 @@ public class AnotacionesActividadController implements Initializable {
         circulo.setStrokeWidth(ann.getStrokeWidth());
         circulo.setFill(Color.TRANSPARENT);
 
-        mapPane.getChildren().add(circulo);
+        contenidoMapa.getChildren().add(circulo);
     }
 
     private void limpiarAnotacionPendiente() {
@@ -437,32 +466,7 @@ public class AnotacionesActividadController implements Initializable {
         int r = (int) Math.round(color.getRed() * 255);
         int g = (int) Math.round(color.getGreen() * 255);
         int b = (int) Math.round(color.getBlue() * 255);
-
         return String.format("#%02X%02X%02X", r, g, b);
-    }
-
-    private double obtenerAnchoMapa() {
-        if (mapPane.getWidth() > 0) {
-            return mapPane.getWidth();
-        }
-
-        if (mapPane.getPrefWidth() > 0) {
-            return mapPane.getPrefWidth();
-        }
-
-        return 600;
-    }
-
-    private double obtenerAltoMapa() {
-        if (mapPane.getHeight() > 0) {
-            return mapPane.getHeight();
-        }
-
-        if (mapPane.getPrefHeight() > 0) {
-            return mapPane.getPrefHeight();
-        }
-
-        return 400;
     }
 
     private void mostrarTextoEnMapa(String mensaje) {
@@ -470,7 +474,7 @@ public class AnotacionesActividadController implements Initializable {
         label.setStyle("-fx-text-fill: white;");
         label.setLayoutX(40);
         label.setLayoutY(40);
-        mapPane.getChildren().add(label);
+        contenidoMapa.getChildren().add(label);
     }
 
     private void mostrarAviso(String mensaje) {
@@ -479,10 +483,34 @@ public class AnotacionesActividadController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
         alert.showAndWait();
+        mapPane.requestFocus();
+    }
+
+    private void mostrarError(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Anotaciones");
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+        mapPane.requestFocus();
+    }
+
+    @FXML
+    private void handleVolver() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/MapaPrincipal.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) ((Node) btnAnadirAnotacion).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Pantalla principal");
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarError("Error al volver a la pantalla principal: " + e.getMessage());
+        }
     }
 
     private static class DatosAnotacion {
-
         AnnotationType tipo;
         String texto;
         String color;

@@ -1,4 +1,4 @@
-package mapademo;
+package controllers;
 
 import java.net.URL;
 import java.time.Month;

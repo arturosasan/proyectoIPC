@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="mapademo.AcumuladoActividadesController"
+            fx:controller="controllers.AcumuladoActividadesController"
             prefHeight="720.0"
             prefWidth="1200.0"
             style="-fx-background-color: #14263a;">
