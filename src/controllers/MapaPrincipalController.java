@@ -498,10 +498,10 @@ public class MapaPrincipalController implements Initializable {
         // El fichero se busca relativo al directorio de trabajo del proyecto.
         buildMap(new File("maps/upv.jpg"));
         
-        // ── Carga del avatar del usuario ───────────────────────────────
         User user = app.getCurrentUser();
         if (user != null) {
             viewAvatar(user.getAvatarPath());
+            setNickname(user.getNickName()); // POR ESTA LÍNEA ERA EL BUG DEL NICKNAME QUE NO SALÍA, PASABA AL CAMBIAR PANTALLAS
     }
 
     }
