@@ -3,7 +3,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -11,96 +13,170 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="589.0" prefWidth="520.0" style="-fx-background-color: #1d2a3d;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mapademo.RegistrarActividadController">
+<BorderPane prefHeight="720.0" prefWidth="1100.0"
+            style="-fx-background-color: #1d2a3d;"
+            xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="mapademo.RegistrarActividadController">
 
-   <children>
-      <VBox alignment="TOP_CENTER" layoutX="40.0" layoutY="45.0" prefWidth="440.0" spacing="22.0">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="25.0" style="-fx-background-color: #132033;">
+            <padding>
+                <Insets bottom="18.0" left="24.0" right="24.0" top="18.0" />
+            </padding>
+            <children>
+                <Button mnemonicParsing="false"
+                        onAction="#handleVolver"
+                        style="-fx-background-color: transparent; -fx-text-fill: #55d6b3; -fx-font-size: 14px; -fx-font-weight: bold; -fx-underline: true;"
+                        text="&lt; Volver" />
 
-         <children>
+                <Label text="Registrar actividad" textFill="#55d6b3">
+                    <font>
+                        <Font name="System Bold" size="28.0" />
+                    </font>
+                </Label>
 
-            <Label text="Registrar actividad" textFill="#55d6b3">
-               <font>
-                  <Font name="System Bold" size="30.0" />
-               </font>
-            </Label>
-
-            <HBox alignment="CENTER" spacing="14.0">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#handleSeleccionarGPX" style="-fx-background-color: #55d6b3; -fx-background-radius: 12; -fx-padding: 10 18 10 18; -fx-font-weight: bold;" text="Seleccionar GPX" textFill="#071323" />
-
-                  <Label text="Archivo:" textFill="#e8edf5">
-                     <font>
+                <Label fx:id="estadoLabel" text="Selecciona un fichero GPX" textFill="#e8edf5">
+                    <font>
                         <Font size="14.0" />
-                     </font>
-                  </Label>
+                    </font>
+                </Label>
+            </children>
+        </HBox>
+    </top>
 
-                  <Label fx:id="archivoSeleccionadoLabel" text="-" textFill="#55d6b3">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
+    <left>
+        <VBox prefWidth="360.0" spacing="18.0" style="-fx-background-color: #1d2a3d;">
+            <padding>
+                <Insets bottom="24.0" left="24.0" right="18.0" top="24.0" />
+            </padding>
+            <children>
+                <VBox spacing="12.0" style="-fx-background-color: #132033; -fx-background-radius: 18; -fx-border-color: #16c7e8; -fx-border-radius: 18; -fx-border-width: 2;">
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
+                    <children>
+                        <Label text="Archivo GPX" textFill="#e8edf5">
+                            <font>
+                                <Font name="System Bold" size="20.0" />
+                            </font>
+                        </Label>
 
-            <Button mnemonicParsing="false" onAction="#handleImportarActividad" style="-fx-background-color: #55d6b3; -fx-background-radius: 14; -fx-padding: 12 26 12 26; -fx-font-weight: bold;" text="Importar actividad" textFill="#071323">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Button>
+                        <Button mnemonicParsing="false"
+                                onAction="#handleSeleccionarGPX"
+                                prefWidth="220.0"
+                                style="-fx-background-color: #55d6b3; -fx-background-radius: 12; -fx-padding: 10 18 10 18; -fx-font-weight: bold;"
+                                text="Seleccionar GPX"
+                                textFill="#071323" />
 
-            <VBox alignment="TOP_CENTER" prefWidth="380.0" spacing="14.0" style="-fx-background-color: #132033; -fx-background-radius: 18; -fx-border-color: #16c7e8; -fx-border-radius: 18; -fx-border-width: 2;">
-               <padding>
-                  <Insets bottom="22.0" left="24.0" right="24.0" top="22.0" />
-               </padding>
+                        <HBox spacing="8.0">
+                            <children>
+                                <Label text="Archivo:" textFill="#e8edf5" />
+                                <Label fx:id="archivoSeleccionadoLabel" text="-" textFill="#55d6b3" />
+                            </children>
+                        </HBox>
 
-               <children>
-                  <Label text="Estadísticas" textFill="#e8edf5">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                  </Label>
+                        <Button mnemonicParsing="false"
+                                onAction="#handleImportarActividad"
+                                prefWidth="220.0"
+                                style="-fx-background-color: #55d6b3; -fx-background-radius: 14; -fx-padding: 12 26 12 26; -fx-font-weight: bold;"
+                                text="Importar actividad"
+                                textFill="#071323">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </VBox>
 
-                  <GridPane hgap="25.0" vgap="11.0">
-                     <columnConstraints>
-                        <ColumnConstraints prefWidth="160.0" />
-                        <ColumnConstraints prefWidth="130.0" />
-                     </columnConstraints>
+                <VBox spacing="14.0" style="-fx-background-color: #132033; -fx-background-radius: 18; -fx-border-color: #16c7e8; -fx-border-radius: 18; -fx-border-width: 2;">
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
+                    <children>
+                        <Label text="Estadísticas" textFill="#e8edf5">
+                            <font>
+                                <Font name="System Bold" size="20.0" />
+                            </font>
+                        </Label>
 
-                     <rowConstraints>
-                        <RowConstraints />
-                        <RowConstraints />
-                        <RowConstraints />
-                        <RowConstraints />
-                        <RowConstraints />
-                        <RowConstraints />
-                        <RowConstraints />
-                        <RowConstraints />
-                     </rowConstraints>
+                        <GridPane hgap="20.0" vgap="11.0">
+                            <columnConstraints>
+                                <ColumnConstraints prefWidth="160.0" />
+                                <ColumnConstraints prefWidth="110.0" />
+                            </columnConstraints>
 
-                     <children>
-                        <Label text="Distancia:" textFill="#e8edf5" />
-                        <Label text="Duración:" textFill="#e8edf5" GridPane.rowIndex="1" />
-                        <Label text="Velocidad media:" textFill="#e8edf5" GridPane.rowIndex="2" />
-                        <Label text="Ritmo medio:" textFill="#e8edf5" GridPane.rowIndex="3" />
-                        <Label text="Desnivel positivo:" textFill="#e8edf5" GridPane.rowIndex="4" />
-                        <Label text="Desnivel negativo:" textFill="#e8edf5" GridPane.rowIndex="5" />
-                        <Label text="Altitud mínima:" textFill="#e8edf5" GridPane.rowIndex="6" />
-                        <Label text="Altitud máxima:" textFill="#e8edf5" GridPane.rowIndex="7" />
+                            <rowConstraints>
+                                <RowConstraints />
+                                <RowConstraints />
+                                <RowConstraints />
+                                <RowConstraints />
+                                <RowConstraints />
+                                <RowConstraints />
+                                <RowConstraints />
+                                <RowConstraints />
+                            </rowConstraints>
 
-                        <Label fx:id="distanciaLabel" text="-" textFill="#55d6b3" GridPane.columnIndex="1" />
-                        <Label fx:id="duracionLabel" text="-" textFill="#55d6b3" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label fx:id="velocidadLabel" text="-" textFill="#55d6b3" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label fx:id="ritmoLabel" text="-" textFill="#55d6b3" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label fx:id="desnivelPositivoLabel" text="-" textFill="#55d6b3" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <Label fx:id="desnivelNegativoLabel" text="-" textFill="#55d6b3" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <Label fx:id="altitudMinimaLabel" text="-" textFill="#55d6b3" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <Label fx:id="altitudMaximaLabel" text="-" textFill="#55d6b3" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                     </children>
-                  </GridPane>
-               </children>
-            </VBox>
+                            <children>
+                                <Label text="Distancia:" textFill="#e8edf5" />
+                                <Label text="Duración:" textFill="#e8edf5" GridPane.rowIndex="1" />
+                                <Label text="Velocidad media:" textFill="#e8edf5" GridPane.rowIndex="2" />
+                                <Label text="Ritmo medio:" textFill="#e8edf5" GridPane.rowIndex="3" />
+                                <Label text="Desnivel positivo:" textFill="#e8edf5" GridPane.rowIndex="4" />
+                                <Label text="Desnivel negativo:" textFill="#e8edf5" GridPane.rowIndex="5" />
+                                <Label text="Altitud mínima:" textFill="#e8edf5" GridPane.rowIndex="6" />
+                                <Label text="Altitud máxima:" textFill="#e8edf5" GridPane.rowIndex="7" />
 
-         </children>
-      </VBox>
-   </children>
-</AnchorPane>
+                                <Label fx:id="distanciaLabel" text="-" textFill="#55d6b3" GridPane.columnIndex="1" />
+                                <Label fx:id="duracionLabel" text="-" textFill="#55d6b3" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <Label fx:id="velocidadLabel" text="-" textFill="#55d6b3" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <Label fx:id="ritmoLabel" text="-" textFill="#55d6b3" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                <Label fx:id="desnivelPositivoLabel" text="-" textFill="#55d6b3" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                <Label fx:id="desnivelNegativoLabel" text="-" textFill="#55d6b3" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                <Label fx:id="altitudMinimaLabel" text="-" textFill="#55d6b3" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                <Label fx:id="altitudMaximaLabel" text="-" textFill="#55d6b3" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                            </children>
+                        </GridPane>
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox spacing="12.0">
+            <padding>
+                <Insets bottom="24.0" left="10.0" right="24.0" top="24.0" />
+            </padding>
+            <children>
+                <HBox alignment="CENTER_LEFT" spacing="12.0">
+                    <children>
+                        <Label text="Mapa:" textFill="#e8edf5" />
+                        <Label fx:id="mapaLabel" text="-" textFill="#55d6b3" />
+
+                        <Button mnemonicParsing="false"
+                                onAction="#handleZoomOut"
+                                style="-fx-background-color: #55d6b3; -fx-background-radius: 10; -fx-font-weight: bold;"
+                                text="-" />
+
+                        <Slider fx:id="zoomSlider" max="2.0" min="0.5" prefWidth="180.0" value="1.0" />
+
+                        <Button mnemonicParsing="false"
+                                onAction="#handleZoomIn"
+                                style="-fx-background-color: #55d6b3; -fx-background-radius: 10; -fx-font-weight: bold;"
+                                text="+" />
+                    </children>
+                </HBox>
+
+                <ScrollPane fx:id="mapScrollPane"
+                            fitToHeight="false"
+                            fitToWidth="false"
+                            pannable="true"
+                            prefHeight="590.0"
+                            prefWidth="700.0"
+                            style="-fx-background: #132033; -fx-background-color: #132033; -fx-border-color: #16c7e8; -fx-border-width: 2;" />
+            </children>
+        </VBox>
+    </center>
+
+</BorderPane>
