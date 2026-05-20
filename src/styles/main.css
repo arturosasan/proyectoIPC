@@ -158,3 +158,16 @@
     -fx-pref-height: 1;
 }
 
+#addMap {
+    -fx-background-color: #00b4d8;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5px;
+}
+
+#addMap:hover {
+    -fx-background-color: darkblue;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5px;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
