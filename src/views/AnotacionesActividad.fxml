@@ -10,41 +10,41 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="564.0" prefWidth="1000.0" style="-fx-background-color: #17263a;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AnotacionesActividadController">
+<BorderPane id="rootBorder" prefHeight="564.0" prefWidth="1000.0" stylesheets="@../styles/anotaciones.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AnotacionesActividadController">
 
     <center>
-        <VBox maxWidth="Infinity" prefHeight="406.0" prefWidth="720.0" spacing="18.0" style="-fx-background-color: #17263a; -fx-padding: 0 25 25 45;">
+        <VBox maxWidth="Infinity" prefHeight="406.0" prefWidth="720.0" spacing="18.0" styleClass="center-panel">
 
-            <Label style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" text="Mapa de la ruta" />
+            <Label styleClass="section-title" text="Mapa de la ruta" />
 
-            <AnchorPane fx:id="mapPane" VBox.vgrow="ALWAYS" style="-fx-background-color: #102033; -fx-border-color: #22d3ee; -fx-border-width: 2.5; -fx-background-radius: 18; -fx-border-radius: 18;">
+            <AnchorPane fx:id="mapPane" VBox.vgrow="ALWAYS" styleClass="map-pane">
 
                 <VBox AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" spacing="5.0">
-                    <Button fx:id="btnZoomMas" prefWidth="30.0" style="-fx-background-color: #102033; -fx-border-color: #22d3ee; -fx-text-fill: white;" text="+" />
-                    <Button fx:id="btnZoomMenos" prefWidth="30.0" style="-fx-background-color: #102033; -fx-border-color: #22d3ee; -fx-text-fill: white;" text="-" />
+                    <Button fx:id="btnZoomMas" prefWidth="30.0" styleClass="zoom-btn" text="+" />
+                    <Button fx:id="btnZoomMenos" prefWidth="30.0" styleClass="zoom-btn" text="-" />
                 </VBox>
             </AnchorPane>
         </VBox>
     </center>
 
     <right>
-        <VBox prefWidth="280.0" spacing="16.0" style="-fx-background-color: #17263a; -fx-padding: 20 35 25 15;">
+        <VBox prefWidth="280.0" spacing="16.0" styleClass="right-panel">
 
-            <VBox VBox.vgrow="ALWAYS" spacing="13.0" style="-fx-background-color: #102033; -fx-border-color: #52e0c4; -fx-border-width: 2; -fx-background-radius: 18; -fx-border-radius: 18; -fx-padding: 25 25 25 25;">
+            <VBox VBox.vgrow="ALWAYS" spacing="13.0" styleClass="stats-panel">
 
-                <Label style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;" text="Estadísticas" />
+                <Label styleClass="stats-title" text="Estadísticas" />
 
-                <Label fx:id="lblDistancia" style="-fx-text-fill: white; -fx-font-size: 14px;" text="Distancia: -" />
-                <Label fx:id="lblDuracion" style="-fx-text-fill: white; -fx-font-size: 14px;" text="Duración: -" />
-                <Label fx:id="lblVelocidad" style="-fx-text-fill: white; -fx-font-size: 14px;" text="Velocidad: -" />
+                <Label fx:id="lblDistancia" styleClass="stat-label" text="Distancia: -" />
+                <Label fx:id="lblDuracion" styleClass="stat-label" text="Duración: -" />
+                <Label fx:id="lblVelocidad" styleClass="stat-label" text="Velocidad: -" />
 
-                <Button fx:id="btnAnadirAnotacion" maxWidth="Infinity" style="-fx-background-color: #52e0c4; -fx-text-fill: #102033; -fx-font-weight: bold; -fx-background-radius: 8;" text="Añadir anotación" />
+                <Button fx:id="btnAnadirAnotacion" maxWidth="Infinity" styleClass="add-annot-btn" text="Añadir anotación" />
 
-                <Label style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" text="Anotaciones" />
+                <Label styleClass="section-title" text="Anotaciones" />
 
-                <Label fx:id="lblSinAnotaciones" style="-fx-text-fill: #cfd8e3; -fx-font-size: 13px;" text="Todavía no hay anotaciones." />
+                <Label fx:id="lblSinAnotaciones" styleClass="no-annot-label" text="Todavía no hay anotaciones." />
 
-                <ListView fx:id="listaAnotaciones" VBox.vgrow="ALWAYS" prefWidth="190.0" style="-fx-control-inner-background: #102033; -fx-background-color: #102033; -fx-border-color: #52e0c4; -fx-border-radius: 8; -fx-background-radius: 8; -fx-text-fill: white;" />
+                <ListView fx:id="listaAnotaciones" VBox.vgrow="ALWAYS" prefWidth="190.0" styleClass="annot-list" />
             </VBox>
         </VBox>
     </right>
@@ -52,13 +52,13 @@
     <top>
         <HBox prefHeight="69.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
             <children>
-                <Button maxWidth="104.0" mnemonicParsing="false" onAction="#handleVolver" prefHeight="30.0" prefWidth="104.0" style="-fx-background-color: transparent; -fx-text-fill: #55d6b3; -fx-font-size: 14px; -fx-font-weight: bold; -fx-underline: true;" text="&lt; Volver">
+                <Button maxWidth="104.0" mnemonicParsing="false" onAction="#handleVolver" prefHeight="30.0" prefWidth="104.0" styleClass="back-btn" text="&lt; Volver">
                     <HBox.margin>
                         <Insets left="10.0" top="20.0" />
                     </HBox.margin>
                 </Button>
                 <Region prefHeight="69.0" prefWidth="226.0" />
-                <Label prefHeight="64.0" prefWidth="358.0" style="-fx-text-fill: white; -fx-font-size: 30px; -fx-font-weight: bold;" text="Detalles de la actividad">
+                <Label prefHeight="64.0" prefWidth="358.0" styleClass="page-title" text="Detalles de la actividad">
                     <HBox.margin>
                         <Insets top="10.0" />
                     </HBox.margin>

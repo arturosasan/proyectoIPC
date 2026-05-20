@@ -53,7 +53,6 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
-import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -169,17 +168,24 @@ public class MapaPrincipalController implements Initializable {
     private Text nicknameText;
 
     @FXML
-    private SplitPane splitPane;
-    
-    @FXML
     private ImageView avatarView;
     
 
+    /**
+     * Establece el nombre de usuario en la etiqueta del encabezado.
+     *
+     * @param nickname nickname del usuario actual
+     */
     public void setNickname(String nickname) {
         nicknameText.setText(""); // para solucinar bug de que a veces aparece el texto default ([nickname]) en lugar del usuario
         nicknameText.setText(nickname);
     }
-    
+
+    /**
+     * Carga y muestra la imagen de avatar del usuario en la vista.
+     *
+     * @param avatarPath ruta del archivo de imagen del avatar
+     */
     public void viewAvatar(String avatarPath) {
         if (avatarPath != null && !avatarPath.isEmpty()) {
             File avatarFile = new File(avatarPath);
@@ -237,7 +243,12 @@ public class MapaPrincipalController implements Initializable {
     }
     
     
-    // STACKOVERFLOW NO HA MUERTO --> https://stackoverflow.com/questions/39827911/javafx-8-scaling-zooming-scrollpane-relative-to-mouse-position
+    /**
+     * Maneja el scroll del ratón sobre el mapa para hacer zoom.
+     * El zoom se centra en la posición del ratón usando escalado relativo.
+     *
+     * @param event evento de scroll del ratón
+     */
     private void onMapScroll(ScrollEvent event) {
         event.consume();
         double oldScale = zoomGroup.getScaleX();
@@ -282,7 +293,6 @@ public class MapaPrincipalController implements Initializable {
         zoom_slider.setValue(newScale);
     }
 
-    
     // =========================================================
     //  SELECCIÓN EN EL LISTVIEW → CENTRADO EN EL MAPA
     // =========================================================
@@ -462,7 +472,7 @@ public class MapaPrincipalController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         // ── Configuración del slider de zoom ──────────────────────────
-        zoom_slider.setMin(0.75);
+        zoom_slider.setMin(0.85);
         zoom_slider.setMax(1.5);
         zoom_slider.setValue(1.0);
 
@@ -499,13 +509,12 @@ public class MapaPrincipalController implements Initializable {
         });
 
         // ── Carga del mapa inicial ─────────────────────────────────────
-        // El fichero se busca relativo al directorio de trabajo del proyecto.
         buildMap(new File("maps/upv.jpg"));
         
-        // ── Carga del avatar del usuario ───────────────────────────────
         User user = app.getCurrentUser();
         if (user != null) {
             viewAvatar(user.getAvatarPath());
+            setNickname(user.getNickName()); // POR ESTA LÍNEA ERA EL BUG DEL NICKNAME QUE NO SALÍA, PASABA AL CAMBIAR PANTALLAS
     }
 
     }
@@ -653,8 +662,8 @@ public class MapaPrincipalController implements Initializable {
         // FIX 3: showOpenDialog() devuelve null si el usuario cancela la selección
         if (imgFile != null) {
             System.out.println("Mapa seleccionado: " + imgFile.getCanonicalPath());
-            buildMap(imgFile); // Reconstruimos la vista con la nueva imagen
-            map_listview.getItems().clear(); // Borramos los datos del mapa anterior
+            buildMap(imgFile);
+            map_listview.getItems().clear();
         }
     }
 
@@ -681,6 +690,12 @@ public class MapaPrincipalController implements Initializable {
         mapPane.getChildren().add(circle); // Se añade sobre el mapa como cualquier nodo
     }
     
+    /**
+     * Cierra la sesión del usuario actual y vuelve a la pantalla de login.
+     * Muestra un diálogo de confirmación antes de cerrar la sesión.
+     *
+     * @param event evento de acción del botón/menú
+     */
     @FXML
     private void cerrarSesion(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -695,6 +710,12 @@ public class MapaPrincipalController implements Initializable {
         }
     }
     
+    /**
+     * Cambia la escena actual a la pantalla indicada por el fxml.
+     * Establece el título según la pantalla de destino.
+     *
+     * @param fxmlDestino ruta del archivo FXML a cargar
+     */
     private void cargarPantalla(String fxmlDestino) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlDestino));
@@ -713,7 +734,11 @@ public class MapaPrincipalController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
+    /**
+     * Navega a la pantalla de modificación de perfil.
+     * Pasa el nickname actual al controlador de perfil.
+     */
     @FXML 
     private void modificarPerfil() {
         try {
@@ -730,6 +755,10 @@ public class MapaPrincipalController implements Initializable {
     }
     }
     
+    /**
+     * Navega a la pantalla de historial de sesiones.
+     * Pasa el nickname actual al controlador de historial.
+     */
     @FXML 
     private void historialSesiones() {
         try {
@@ -747,6 +776,12 @@ public class MapaPrincipalController implements Initializable {
         }
     }
 
+    /**
+     * Cambia la escena actual a la pantalla indicada con título personalizado.
+     *
+     * @param fxml   ruta del archivo FXML a cargar
+     * @param titulo título de la ventana
+     */
     private void cargarPantalla(String fxml, String titulo) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
@@ -760,18 +795,35 @@ public class MapaPrincipalController implements Initializable {
         }
     }
 
+    /**
+     * Navega a la pantalla de registro de una nueva actividad.
+     */
     @FXML
     private void nuevaActividad() {
         cargarPantalla("/views/RegistrarActividad.fxml", "Registrar actividad");
     }
 
+    /**
+     * Navega a la pantalla de visualización de actividad.
+     */
     @FXML
     private void visualizarActividad() {
         cargarPantalla("/views/VisualizarActividad.fxml", "Visualizar actividad");
     }
 
+    /**
+     * Navega a la pantalla de anotaciones de actividad.
+     */
     @FXML
     private void anotacionesActividad() {
         cargarPantalla("/views/AnotacionesActividad.fxml", "Anotaciones");
+    }
+
+    /**
+     * Navega a la pantalla de acumulado de actividades.
+     */
+    @FXML
+    private void acumuladoActividades() {
+        cargarPantalla("/views/AcumuladoActividades.fxml", "Acumulado actividades");
     }
 }

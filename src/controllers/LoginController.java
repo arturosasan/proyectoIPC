@@ -52,6 +52,14 @@ public class LoginController implements Initializable {
     private SportActivityApp app = SportActivityApp.getInstance();
     // LA LINEA MÁS IMPORTANTE DEL CONTROLADOR, SIRVE PARA GESTIONAR LA BD
 
+    /**
+     * Inicializa el controlador de login.
+     * Crea el campo de texto visible para la contraseña y lo sincroniza
+     * con el PasswordField para alternar visibilidad.
+     *
+     * @param url  URL del documento FXML (no usado)
+     * @param rb   paquete de recursos (no usado)
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
@@ -78,7 +86,14 @@ public class LoginController implements Initializable {
             if (passwordVisibleField.isVisible()) passwordField.setText(newVal);
         });
     }
-    
+
+    /**
+     * Maneja el inicio de sesión del usuario.
+     * Valida que los campos no estén vacíos e intenta autenticar
+     * al usuario a través de SportActivityApp.
+     *
+     * @param event evento de acción del botón de login
+     */
     @FXML
     public void handleLogin(ActionEvent event) {
         limpiarError(); // SE QUITA EL ERROR POR SI ACASO YA HAY UNO ANTERIOR
@@ -99,6 +114,12 @@ public class LoginController implements Initializable {
         }
     }
     
+    /**
+     * Muestra un mensaje de error en el formulario de login.
+     * Inserta dinámicamente una etiqueta de error en el VBox raíz.
+     *
+     * @param mensaje texto del error a mostrar
+     */
     private void mostrarError(String mensaje) {
         if (errorLabel != null) {
             errorLabel.setText(mensaje);
@@ -125,6 +146,9 @@ public class LoginController implements Initializable {
         }
     }
 
+    /**
+     * Elimina el mensaje de error del formulario si existe.
+     */
     private void limpiarError() { // PARA ELIMINAR LA FILA DEL ERROR SI YA EXISTE
         if (errorLabel != null) {
             if (bottomText.getParent() instanceof VBox rootVBox) {
@@ -135,6 +159,13 @@ public class LoginController implements Initializable {
     }
     
     
+    /**
+     * Cambia la escena actual a la pantalla indicada por el fxml.
+     * Si el destino es MapaPrincipal, pasa el nickname al controlador.
+     *
+     * @param fxmlDestino ruta del archivo FXML a cargar
+     * @param nickname    nickname del usuario para pasar al siguiente controlador
+     */
     private void cargarPantalla(String fxmlDestino, String nickname) { // MÉTODO PARA CARGAR LA PAGINA DE REGISTRO O LA PRINCIPAL
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlDestino));
@@ -158,6 +189,12 @@ public class LoginController implements Initializable {
         }
     }
 
+    /**
+     * Alterna la visibilidad de la contraseña entre modo oculto y visible.
+     * Cambia el icono del ojo y sincroniza el texto entre ambos campos.
+     *
+     * @param event evento de acción del botón del ojo
+     */
     @FXML
     private void toggleEye(ActionEvent event) {
         if (passwordField.isVisible()) {
@@ -188,6 +225,11 @@ public class LoginController implements Initializable {
         }
     }
 
+    /**
+     * Navega a la pantalla de registro de nuevo usuario.
+     *
+     * @param event evento de acción del botón de registro
+     */
     @FXML
     private void handleRegister(ActionEvent event) {
         cargarPantalla("/views/Register.fxml", null);

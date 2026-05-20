@@ -71,3 +71,103 @@
     -fx-cursor: hand;
 }
 
+/* ── TabPane ─────────────────────────────── */
+.tab-pane {
+    -fx-tab-min-width: 100;
+    -fx-tab-max-height: 30;
+    -fx-background-color: transparent;
+}
+
+.tab-pane .tab-header-area {
+    -fx-padding: 4 8 0 8;
+    -fx-background-color: transparent;
+}
+
+.tab-pane .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+.tab-pane .tab {
+    -fx-background-color: #0d1b2a;
+    -fx-background-radius: 6 6 0 0;
+    -fx-border-color: #2a3d5c;
+    -fx-border-width: 1 1 0 1;
+    -fx-border-radius: 6 6 0 0;
+    -fx-padding: 6 12 6 12;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: #1b263b;
+    -fx-border-color: #4ecca3;
+}
+
+.tab-pane .tab .tab-label {
+    -fx-text-fill: #7a8aa8;
+    -fx-font-weight: bold;
+    -fx-font-size: 12;
+}
+
+.tab-pane .tab:selected .tab-label {
+    -fx-text-fill: #4ecca3;
+}
+
+.tab-pane .tab-content-area {
+    -fx-background-color: transparent;
+    -fx-padding: 4 0 0 0;
+}
+
+/* ── Botón primario (Nueva Actividad) ────── */
+.btn-primary {
+    -fx-background-color: #4ecca3;
+    -fx-text-fill: #0d1b2a;
+    -fx-background-radius: 10;
+    -fx-font-weight: bold;
+    -fx-font-size: 15;
+    -fx-pref-height: 58;
+    -fx-pref-width: 196;
+}
+
+.btn-primary:hover {
+    -fx-background-color: #3db88f;
+    -fx-cursor: hand;
+}
+
+/* ── Botón secundario ──────────────────────── */
+.btn-secondary {
+    -fx-background-color: transparent;
+    -fx-border-color: #4ecca3;
+    -fx-border-width: 2;
+    -fx-text-fill: #4ecca3;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-font-weight: bold;
+    -fx-font-size: 13;
+    -fx-pref-height: 48;
+    -fx-pref-width: 196;
+}
+
+.btn-secondary:hover {
+    -fx-background-color: #4ecca3;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+/* ── Separator ──────────────────────────────── */
+.separator .line {
+    -fx-background-color: #2a3d5c;
+    -fx-pref-height: 1;
+}
+
+#addMap {
+    -fx-background-color: #00b4d8;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5px;
+}
+
+#addMap:hover {
+    -fx-background-color: darkblue;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5px;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}

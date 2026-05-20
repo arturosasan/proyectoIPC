@@ -57,12 +57,23 @@ public class VisualizarActividadController implements Initializable {
 
   private MapProjection projection;
 
+  /**
+   * Inicializa el controlador de visualización de actividad.
+   * Carga la lista de actividades del usuario en el ComboBox.
+   *
+   * @param url  URL del documento FXML (no usado)
+   * @param rb   paquete de recursos (no usado)
+   */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
     actividadComboBox.setItems(
         FXCollections.observableArrayList(app.getUserActivities()));
   }
 
+  /**
+   * Maneja la selección de una actividad en el ComboBox.
+   * Muestra las estadísticas y dibuja el mapa con la ruta.
+   */
   @FXML
   private void handleSeleccionarActividad() {
     Activity actividad = actividadComboBox.getValue();
@@ -75,6 +86,12 @@ public class VisualizarActividadController implements Initializable {
     dibujarMapaYRuta(actividad);
   }
 
+  /**
+   * Muestra las estadísticas de la actividad en las etiquetas correspondientes.
+   * Incluye distancia, duración, velocidad, ritmo, desniveles y altitudes.
+   *
+   * @param actividad actividad de la que mostrar estadísticas
+   */
   private void mostrarEstadisticas(Activity actividad) {
     distanciaLabel.setText(String.format("%.2f km", actividad.getTotalDistance() / 1000.0));
     duracionLabel.setText(actividad.getDuration().toString());
@@ -86,6 +103,12 @@ public class VisualizarActividadController implements Initializable {
     altitudMaximaLabel.setText(String.format("%.0f m", actividad.getMaxElevation()));
   }
 
+  /**
+   * Dibuja el mapa de fondo y la polilínea de la ruta de la actividad.
+   * Proyecta los puntos geográficos sobre la imagen del mapa.
+   *
+   * @param actividad actividad cuya ruta se va a dibujar
+   */
   private void dibujarMapaYRuta(Activity actividad) {
     mapPane.getChildren().clear();
 
@@ -138,6 +161,11 @@ public class VisualizarActividadController implements Initializable {
     dibujarInicioFin(actividad);
   }
 
+  /**
+   * Dibuja marcadores circulares para el punto de inicio (verde) y fin (rojo).
+   *
+   * @param actividad actividad con los puntos de inicio y fin
+   */
   private void dibujarInicioFin(Activity actividad) {
     if (projection == null) {
       return;
@@ -159,6 +187,9 @@ public class VisualizarActividadController implements Initializable {
     mapPane.getChildren().add(circuloFin);
   }
 
+  /**
+   * Navega de vuelta a la pantalla principal del mapa.
+   */
   @FXML
   private void handleVolver() {
     try {

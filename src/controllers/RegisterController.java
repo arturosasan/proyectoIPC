@@ -77,6 +77,14 @@ public class RegisterController implements Initializable {
     @FXML
     private TextFlow bottomText;
 
+    /**
+     * Inicializa el controlador de registro.
+     * Crea el campo de texto visible para la contraseña y lo sincroniza
+     * con el PasswordField original para alternar visibilidad.
+     *
+     * @param url  URL del documento FXML (no usado)
+     * @param rb   paquete de recursos (no usado)
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
@@ -101,6 +109,12 @@ public class RegisterController implements Initializable {
         passwordField.textProperty().bindBidirectional(passwordVisibleField.textProperty());
     }    
 
+    /**
+     * Alterna la visibilidad de la contraseña entre modo oculto y visible.
+     * Cambia el icono del ojo según el estado actual.
+     *
+     * @param event evento de acción del botón del ojo
+     */
     @FXML
     private void toggleEye(ActionEvent event) {
         if (passwordField.isVisible()) {
@@ -125,6 +139,14 @@ public class RegisterController implements Initializable {
         }
     }
 
+    /**
+     * Maneja el registro de un nuevo usuario.
+     * Valida todos los campos obligatorios, comprueba las restricciones
+     * de formato (nickname, email, contraseña, edad) y registra al usuario
+     * en la base de datos a través de SportActivityApp.
+     *
+     * @param event evento de acción del botón de registro
+     */
     @FXML
     private void handleNewUser(ActionEvent event) {
         try {
@@ -186,6 +208,12 @@ public class RegisterController implements Initializable {
         
     }
     
+    /**
+     * Muestra un mensaje de error en el formulario de registro.
+     * Crea dinámicamente una fila de error en el GridPane si no existe.
+     *
+     * @param mensaje texto del error a mostrar
+     */
     private void mostrarError(String mensaje) {
         if (errorLabel != null) {
             errorLabel.setText(mensaje);
@@ -223,11 +251,20 @@ public class RegisterController implements Initializable {
 
         VBox.setMargin(bottomText, new Insets(0, 40, 0, 40));
     }
-    
+
+    /**
+     * Muestra múltiples errores combinados en una sola línea.
+     *
+     * @param errores lista de mensajes de error a mostrar
+     */
     private void mostrarError(List<String> errores) {
         mostrarError(String.join("\n", errores));
     }
-    
+
+    /**
+     * Elimina el mensaje de error del formulario si existe.
+     * Limpia la fila y las restricciones de layout asociadas.
+     */
     private void limpiarError() {
         if (errorLabel != null) {
             gridPane.getChildren().remove(errorLabel);
@@ -240,11 +277,22 @@ public class RegisterController implements Initializable {
         }
     }
 
+    /**
+     * Navega de vuelta a la pantalla de inicio de sesión.
+     *
+     * @param event evento de acción del botón "Volver"
+     */
     @FXML
     private void backLogin(ActionEvent event) {
         cargarPantalla("/views/Login.fxml", (String) null);
     }
 
+    /**
+     * Abre un selector de archivos para elegir una imagen de avatar.
+     * Muestra la imagen seleccionada en la vista previa.
+     *
+     * @param event evento de acción del botón de avatar
+     */
     @FXML
     private void selectAvatar(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -260,6 +308,13 @@ public class RegisterController implements Initializable {
         }
     }
     
+    /**
+     * Cambia la escena actual a la pantalla indicada por el fxml.
+     * Si el destino es MapaPrincipal, pasa el nickname al controlador.
+     *
+     * @param fxmlDestino ruta del archivo FXML a cargar
+     * @param nickname    nickname del usuario para pasar al siguiente controlador
+     */
     private void cargarPantalla(String fxmlDestino, String nickname) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlDestino));

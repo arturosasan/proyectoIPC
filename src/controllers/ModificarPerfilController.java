@@ -42,6 +42,11 @@ public class ModificarPerfilController implements Initializable {
     @FXML
     private Label nicknameField;
     
+    /**
+     * Almacena el nickname del usuario actual.
+     *
+     * @param nick nickname del usuario
+     */
     public void setNickname(String nick) {
         this.currentUserNick = nick;
     }
@@ -78,6 +83,14 @@ public class ModificarPerfilController implements Initializable {
     
     private SportActivityApp app = SportActivityApp.getInstance();
         
+    /**
+     * Inicializa el controlador de modificación de perfil.
+     * Crea el campo de texto para la contraseña visible, sincroniza
+     * ambos campos y carga los datos actuales del usuario.
+     *
+     * @param url  URL del documento FXML (no usado)
+     * @param rb   paquete de recursos (no usado)
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         passwordVisibleField = new TextField();
@@ -95,6 +108,11 @@ public class ModificarPerfilController implements Initializable {
         cargarDatosActuales();
     }
     
+    /**
+     * Alterna la visibilidad de la contraseña entre modo oculto y visible.
+     *
+     * @param event evento de acción del botón del ojo
+     */
     @FXML
     private void toggleEye(ActionEvent event) {
        
@@ -124,6 +142,11 @@ public class ModificarPerfilController implements Initializable {
         }
     }
     
+    /**
+     * Guarda los cambios del perfil del usuario.
+     * Valida email, contraseña y fecha de nacimiento, y actualiza
+     * los datos a través de SportActivityApp.
+     */
     @FXML
     private void handleGuardar() {
         try {
@@ -179,6 +202,12 @@ public class ModificarPerfilController implements Initializable {
         }
     }
     
+    /**
+     * Muestra un mensaje de error en el formulario de modificación.
+     * Crea dinámicamente una fila de error en el GridPane.
+     *
+     * @param mensaje texto del error a mostrar
+     */
     private void mostrarError(String mensaje) {
         limpiarExito();
         
@@ -219,12 +248,21 @@ public class ModificarPerfilController implements Initializable {
         savingInProgress = false;
     }
     
+    /**
+     * Muestra múltiples errores combinados en una sola línea.
+     *
+     * @param errores lista de mensajes de error a mostrar
+     */
     private void mostrarError(List<String> errores) {
         mostrarError(String.join("\n", errores));
     }
-    
-    
-    
+
+    /**
+     * Muestra un mensaje de éxito tras guardar los cambios.
+     * El mensaje se autodestruye tras 2 segundos.
+     *
+     * @param mensaje texto de éxito a mostrar
+     */
     private void mostrarExito(String mensaje) {
         limpiarError();
         limpiarExito();
@@ -262,6 +300,9 @@ public class ModificarPerfilController implements Initializable {
         }).start();
     }
     
+    /**
+     * Elimina el mensaje de éxito del formulario si existe.
+     */
     private void limpiarExito() {
         if (successLabel != null) {
             gridPane.getChildren().remove(successLabel);
@@ -273,6 +314,9 @@ public class ModificarPerfilController implements Initializable {
         }
     }
     
+    /**
+     * Elimina el mensaje de error del formulario si existe.
+     */
     private void limpiarError() {
         if (errorLabel != null) {
             gridPane.getChildren().remove(errorLabel);
@@ -284,6 +328,9 @@ public class ModificarPerfilController implements Initializable {
         }
     }
     
+    /**
+     * Abre un selector de archivos para elegir una nueva imagen de avatar.
+     */
     @FXML
     private void handleElegirAvatar() {
         FileChooser fileChooser = new FileChooser();
@@ -297,6 +344,10 @@ public class ModificarPerfilController implements Initializable {
         }
     }
     
+    /**
+     * Carga y muestra los datos actuales del usuario en el formulario.
+     * Rellena nickname, email, fecha de nacimiento y avatar.
+     */
     public void cargarDatosActuales() {
         User user = app.getCurrentUser();
         if (user != null) {
@@ -313,6 +364,11 @@ public class ModificarPerfilController implements Initializable {
         }
     }
     
+    /**
+     * Navega de vuelta a la pantalla principal del mapa.
+     *
+     * @param event evento de acción del botón de salir
+     */
     @FXML
     private void handleSalir(ActionEvent event) {
         try {
