@@ -5,10 +5,15 @@ import java.time.Month;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.stage.Stage;
 import upv.ipc.sportlib.Activity;
 import upv.ipc.sportlib.SportActivityApp;
 
@@ -133,6 +138,20 @@ public class AcumuladoActividadesController implements Initializable {
         long segundos = segundosTotales % 60;
 
         return String.format("%02d h %02d min %02d s", horas, minutos, segundos);
+    }
+
+    @FXML
+    private void handleVolver() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/MapaPrincipal.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) ((Node) comboMes).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Pantalla principal");
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
