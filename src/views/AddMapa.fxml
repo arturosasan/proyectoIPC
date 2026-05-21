@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<VBox id="registerContainer" alignment="CENTER" fillWidth="false" prefHeight="720.0" prefWidth="420.0" spacing="20.0" stylesheets="@../styles/register.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddMapaController">
+   <padding>
+      <Insets bottom="35.0" left="35.0" right="35.0" top="35.0" />
+   </padding>
+   <children>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titleText" text="Running la Safor" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitleText" text="Añadir mapa" />
+      <VBox alignment="CENTER" prefWidth="291.0">
+         <children>
+            <GridPane fx:id="gridPane" alignment="CENTER" hgap="12.0" prefWidth="291.0" vgap="10.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="NEVER" minWidth="40.0" prefWidth="40.0" />
+                  <ColumnConstraints hgrow="ALWAYS" minWidth="180.0" prefWidth="200.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="36.0" prefHeight="36.0" />
+                  <RowConstraints minHeight="36.0" prefHeight="36.0" />
+                  <RowConstraints minHeight="36.0" prefHeight="36.0" />
+                  <RowConstraints minHeight="36.0" prefHeight="36.0" />
+                  <RowConstraints minHeight="36.0" prefHeight="36.0" />
+                  <RowConstraints minHeight="36.0" prefHeight="36.0" />
+                  <RowConstraints minHeight="36.0" prefHeight="36.0" />
+                  <RowConstraints minHeight="36.0" prefHeight="36.0" />
+                  <RowConstraints minHeight="36.0" prefHeight="36.0" />
+                  <RowConstraints minHeight="36.0" prefHeight="36.0" />
+                  <RowConstraints minHeight="36.0" prefHeight="36.0" />
+                  <RowConstraints minHeight="45.0" prefHeight="45.0" />
+               </rowConstraints>
+               <children>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="icon-image" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER">
+                     <image>
+                        <Image url="@../resources/icons/image.png" />
+                     </image>
+                  </ImageView>
+                  <Button id="botonAvatar" mnemonicParsing="false" onAction="#handleSelectImage" prefHeight="36.0" text="Seleccionar imagen" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </Button>
+                  <Label fx:id="imagePathLabel" stylesheets="@../styles/login.css" text="Ningún archivo seleccionado" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets left="5.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="icon-image" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                     <image>
+                        <Image url="@../resources/icons/user.png" />
+                     </image>
+                  </ImageView>
+                  <TextField fx:id="nameField" prefHeight="36.0" promptText="Nombre del mapa*" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </TextField>
+                  <Label stylesheets="@../styles/login.css" text="Latitud mínima*" textFill="WHITE" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets left="5.0" top="15.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <TextField fx:id="latMinField" prefHeight="36.0" promptText="Ej: 39.334297" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </TextField>
+                  <Label stylesheets="@../styles/login.css" text="Latitud máxima*" textFill="WHITE" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="5">
+                     <GridPane.margin>
+                        <Insets left="5.0" top="15.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <TextField fx:id="latMaxField" prefHeight="36.0" promptText="Ej: 39.554883" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </TextField>
+                  <Label stylesheets="@../styles/login.css" text="Longitud mínima*" textFill="WHITE" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="7">
+                     <GridPane.margin>
+                        <Insets left="5.0" top="15.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <TextField fx:id="lonMinField" prefHeight="36.0" promptText="Ej: -0.571289" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </TextField>
+                  <Label stylesheets="@../styles/login.css" text="Longitud máxima*" textFill="WHITE" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="9">
+                     <GridPane.margin>
+                        <Insets left="5.0" top="15.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <TextField fx:id="lonMaxField" prefHeight="36.0" promptText="Ej: -0.241699" GridPane.columnIndex="1" GridPane.rowIndex="10">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </TextField>
+                  <Button id="enterButton" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#handleSaveMap" prefHeight="45.0" text="Guardar mapa" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="11">
+                     <GridPane.margin>
+                        <Insets right="50.0" top="20.0" />
+                     </GridPane.margin>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </GridPane>
+         </children>
+         <VBox.margin>
+            <Insets left="20.0" />
+         </VBox.margin>
+      </VBox>
+      <TextFlow fx:id="bottomText" textAlignment="CENTER">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="footerText" text="¿Quieres volver? " />
+            <Hyperlink mnemonicParsing="false" onAction="#handleVolver" text="Pantalla principal" />
+         </children>
+         <VBox.margin>
+            <Insets left="50.0" right="40.0" />
+         </VBox.margin>
+      </TextFlow>
+   </children>
+</VBox>
