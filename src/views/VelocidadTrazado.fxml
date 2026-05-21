@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane id="rootBorder" xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.VelocidadTrazadoController"
+            stylesheets="@../styles/velocidad.css"
+            style="-fx-background-color: #1d2a3d;">
+
+    <top>
+        <VBox alignment="CENTER" spacing="8" style="-fx-padding: 25;">
+            <Label text="Velocidad sobre el trazado" textFill="#55d6b3">
+                <font>
+                    <Font name="System Bold" size="28"/>
+                </font>
+            </Label>
+
+            <Label text="Cada tramo se colorea según la velocidad"
+                   textFill="#e8edf5"/>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox alignment="CENTER" spacing="18" style="-fx-padding: 20;">
+
+            <AnchorPane fx:id="mapPane"
+                        prefWidth="720"
+                        prefHeight="450"
+                        style="-fx-background-color: #132033;
+                               -fx-background-radius: 18;
+                               -fx-border-color: #16c7e8;
+                               -fx-border-radius: 18;
+                               -fx-border-width: 2;" />
+
+            <HBox alignment="CENTER" spacing="20">
+                <Label text="Lento" textFill="#e8edf5"/>
+                <Label text="Azul" textFill="#16c7e8"/>
+                <Label text="Medio" textFill="#e8edf5"/>
+                <Label text="Verde" textFill="#55d6b3"/>
+                <Label text="Rápido" textFill="#e8edf5"/>
+                <Label text="Rojo" textFill="#ef4264"/>
+            </HBox>
+
+            <Label fx:id="infoLabel"
+                   text="Selecciona una actividad para ver su velocidad"
+                   textFill="#e8edf5"/>
+        </VBox>
+    </center>
+
+    <bottom>
+        <Button text="Volver"
+                onAction="#volver"
+                BorderPane.alignment="CENTER"
+                style="-fx-background-color: #ef4264;
+                       -fx-text-fill: white;
+                       -fx-font-size: 15px;
+                       -fx-font-weight: bold;
+                       -fx-background-radius: 12;
+                       -fx-padding: 10 45 10 45;" />
+    </bottom>
+
+</BorderPane>

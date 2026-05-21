@@ -1,0 +1,15 @@
+#rootBorder {
+    -fx-background-color: #1C2A40;
+}
+
+#mapContainer {
+    -fx-background-color: #162235;
+    -fx-border-color: #55D6B2;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+}
+
+#lblInfoPunto {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
