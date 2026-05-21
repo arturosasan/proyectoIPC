@@ -6,19 +6,24 @@ package mapademo;
 
 import java.io.File;
 import java.net.URL;
+import java.io.IOException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polyline;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import upv.ipc.sportlib.Activity;
 import upv.ipc.sportlib.MapProjection;
 import upv.ipc.sportlib.MapRegion;
@@ -145,5 +150,73 @@ public class VisualizarActividadController implements Initializable {
 
         mapPane.getChildren().add(circuloInicio);
         mapPane.getChildren().add(circuloFin);
+    }
+    @FXML
+    private void abrirPerfilDesnivel() {
+
+        Activity actividad = actividadComboBox.getValue();
+
+        if (actividad == null) {
+            return;
+        }
+
+        try {
+
+            FXMLLoader loader = new FXMLLoader(
+                  getClass().getResource("PerfilDesnivel.fxml")
+            );
+
+            Parent root = loader.load();
+
+            PerfilDesnivelController controller =
+                loader.getController();
+
+                controller.setActividad(actividad);
+
+            Stage stage = new Stage();
+
+            stage.setTitle("Perfil de desnivel");
+
+            stage.setScene(new Scene(root));
+        
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void abrirVelocidadTrazado() {
+
+        Activity actividad = actividadComboBox.getValue();
+
+        if (actividad == null) {
+            return;
+        }
+
+        try {
+
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("VelocidadTrazado.fxml")
+            );
+
+            Parent root = loader.load();
+
+            VelocidadTrazadoController controller =
+                    loader.getController();
+
+            controller.setActividad(actividad);
+
+            Stage stage = new Stage();
+
+            stage.setTitle("Velocidad sobre el trazado");
+
+                stage.setScene(new Scene(root));
+
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
