@@ -1,0 +1,15 @@
+#rootBorder {
+    -fx-background-color: #1d2a3d;
+}
+
+#mapPane {
+    -fx-background-color: #132033;
+    -fx-background-radius: 18;
+    -fx-border-color: #16c7e8;
+    -fx-border-radius: 18;
+    -fx-border-width: 2;
+}
+
+#infoLabel {
+    -fx-text-fill: #e8edf5;
+}

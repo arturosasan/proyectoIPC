@@ -4,9 +4,10 @@
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx"
+<BorderPane id="rootBorder" xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="mapademo.PerfilDesnivelController"
+            fx:controller="controllers.PerfilDesnivelController"
+            stylesheets="@../styles/perfil.css"
             style="-fx-background-color: #1C2A40;">
 
     <top>

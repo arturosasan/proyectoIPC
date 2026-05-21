@@ -4,9 +4,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/21"
+<BorderPane id="rootBorder" xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="mapademo.VelocidadTrazadoController"
+            fx:controller="controllers.VelocidadTrazadoController"
+            stylesheets="@../styles/velocidad.css"
             style="-fx-background-color: #1d2a3d;">
 
     <top>

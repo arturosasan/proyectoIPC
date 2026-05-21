@@ -11,54 +11,112 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox id="rootVBox" alignment="CENTER" fillWidth="false" prefHeight="620.0" prefWidth="520.0"
-      spacing="22.0"
-      stylesheets="@../styles/visualizar.css"
-      xmlns="http://javafx.com/javafx/21"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="controllers.VisualizarActividadController">
+<AnchorPane prefHeight="780.0" prefWidth="520.0"
+            style="-fx-background-color: #1d2a3d;"
+            stylesheets="@../styles/visualizar.css"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.VisualizarActividadController">
 
-   <padding>
-      <Insets top="45.0" left="45.0" bottom="45.0" right="45.0" />
-   </padding>
    <children>
-             <Button mnemonicParsing="false" onAction="#handleVolver" styleClass="volver-btn" text="&lt; Volver" />
+      <VBox alignment="TOP_CENTER"
+            layoutX="45.0"
+            layoutY="25.0"
+            prefWidth="430.0"
+            spacing="18.0">
 
-            <Label styleClass="app-title" text="Running la Safor" />
+         <children>
+            <Button mnemonicParsing="false"
+                    onAction="#handleVolver"
+                    styleClass="volver-btn"
+                    text="&lt; Volver" />
 
-            <Label styleClass="sub-title" text="Visualizar actividad" />
+            <Label text="Running la Safor" textFill="#55d6b3">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font>
+            </Label>
+
+            <Label text="Visualizar actividad" textFill="#e8edf5">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Label>
 
             <HBox alignment="CENTER" spacing="12.0">
                <children>
-                  <Label styleClass="field-label" text="Actividad:" />
+                  <Label text="Actividad:" textFill="#e8edf5">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
 
                   <ComboBox fx:id="actividadComboBox"
                             onAction="#handleSeleccionarActividad"
                             prefHeight="48.0"
                             prefWidth="260.0"
-                            styleClass="actividad-combo" />
+                            style="-fx-background-color: #132033;
+                                   -fx-border-color: #55d6b3;
+                                   -fx-border-radius: 10;
+                                   -fx-background-radius: 10;
+                                   -fx-text-fill: white;" />
                </children>
             </HBox>
 
             <AnchorPane fx:id="mapPane"
                         prefHeight="230.0"
                         prefWidth="410.0"
-                        styleClass="map-pane">
+                        style="-fx-background-color: #132033;
+                               -fx-background-radius: 18;
+                               -fx-border-color: #55d6b3;
+                               -fx-border-radius: 18;
+                               -fx-border-width: 2;">
                <children>
-                  <Label layoutX="155.0" layoutY="100.0" styleClass="map-placeholder" text="Mapa / ruta" />
+                  <Label layoutX="155.0"
+                         layoutY="100.0"
+                         text="Mapa / ruta"
+                         textFill="#e8edf5" />
                </children>
             </AnchorPane>
 
+            <Button text="Perfil de desnivel"
+                    onAction="#abrirPerfilDesnivel"
+                    prefHeight="45.0"
+                    prefWidth="275.0"
+                    style="-fx-background-color: #55d6b3;
+                           -fx-text-fill: #132033;
+                           -fx-font-size: 17px;
+                           -fx-font-weight: bold;
+                           -fx-background-radius: 12;" />
+
+            <Button text="Velocidad sobre trazado"
+                    onAction="#abrirVelocidadTrazado"
+                    prefHeight="45.0"
+                    prefWidth="275.0"
+                    style="-fx-background-color: #55d6b3;
+                           -fx-text-fill: #132033;
+                           -fx-font-size: 17px;
+                           -fx-font-weight: bold;
+                           -fx-background-radius: 12;" />
+
             <VBox alignment="TOP_CENTER"
-                  prefWidth="390.0"
+                  prefWidth="410.0"
                   spacing="14.0"
-                  styleClass="stats-panel">
+                  style="-fx-background-color: #132033;
+                         -fx-background-radius: 18;
+                         -fx-border-color: #55d6b3;
+                         -fx-border-radius: 18;
+                         -fx-border-width: 2;">
                <padding>
                   <Insets top="20.0" right="24.0" bottom="20.0" left="24.0" />
                </padding>
 
                <children>
-                  <Label styleClass="stats-title" text="Estadísticas" />
+                  <Label text="Estadísticas" textFill="#e8edf5">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
 
                   <GridPane hgap="28.0" vgap="11.0">
                      <columnConstraints>
@@ -67,32 +125,35 @@
                      </columnConstraints>
 
                      <children>
-                        <Label styleClass="stat-field" text="Distancia:" />
-                        <Label fx:id="distanciaLabel" styleClass="stat-value" text="-" GridPane.columnIndex="1" />
+                        <Label text="Distancia:" textFill="#e8edf5" />
+                        <Label fx:id="distanciaLabel" text="-" textFill="#55d6b3" GridPane.columnIndex="1" />
 
-                        <Label styleClass="stat-field" text="Duración:" GridPane.rowIndex="1" />
-                        <Label fx:id="duracionLabel" styleClass="stat-value" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label text="Duración:" textFill="#e8edf5" GridPane.rowIndex="1" />
+                        <Label fx:id="duracionLabel" text="-" textFill="#55d6b3" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-                        <Label styleClass="stat-field" text="Velocidad media:" GridPane.rowIndex="2" />
-                        <Label fx:id="velocidadLabel" styleClass="stat-value" text="-" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label text="Velocidad media:" textFill="#e8edf5" GridPane.rowIndex="2" />
+                        <Label fx:id="velocidadLabel" text="-" textFill="#55d6b3" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-                        <Label styleClass="stat-field" text="Ritmo medio:" GridPane.rowIndex="3" />
-                        <Label fx:id="ritmoLabel" styleClass="stat-value" text="-" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label text="Ritmo medio:" textFill="#e8edf5" GridPane.rowIndex="3" />
+                        <Label fx:id="ritmoLabel" text="-" textFill="#55d6b3" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-                        <Label styleClass="stat-field" text="Desnivel positivo:" GridPane.rowIndex="4" />
-                        <Label fx:id="desnivelPositivoLabel" styleClass="stat-value" text="-" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label text="Desnivel positivo:" textFill="#e8edf5" GridPane.rowIndex="4" />
+                        <Label fx:id="desnivelPositivoLabel" text="-" textFill="#55d6b3" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
-                        <Label styleClass="stat-field" text="Desnivel negativo:" GridPane.rowIndex="5" />
-                        <Label fx:id="desnivelNegativoLabel" styleClass="stat-value" text="-" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label text="Desnivel negativo:" textFill="#e8edf5" GridPane.rowIndex="5" />
+                        <Label fx:id="desnivelNegativoLabel" text="-" textFill="#55d6b3" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
-                        <Label styleClass="stat-field" text="Altitud mínima:" GridPane.rowIndex="6" />
-                        <Label fx:id="altitudMinimaLabel" styleClass="stat-value" text="-" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <Label text="Altitud mínima:" textFill="#e8edf5" GridPane.rowIndex="6" />
+                        <Label fx:id="altitudMinimaLabel" text="-" textFill="#55d6b3" GridPane.columnIndex="1" GridPane.rowIndex="6" />
 
-                        <Label styleClass="stat-field" text="Altitud máxima:" GridPane.rowIndex="7" />
-                        <Label fx:id="altitudMaximaLabel" styleClass="stat-value" text="-" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <Label text="Altitud máxima:" textFill="#e8edf5" GridPane.rowIndex="7" />
+                        <Label fx:id="altitudMaximaLabel" text="-" textFill="#55d6b3" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                      </children>
                   </GridPane>
                </children>
-             </VBox>
-    </children>
-</VBox>
+            </VBox>
+
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
