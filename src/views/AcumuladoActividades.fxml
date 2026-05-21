@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox id="rootVBox" alignment="CENTER" fillWidth="false" prefHeight="720.0" prefWidth="1200.0" stylesheets="@../styles/acumulado.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/26" fx:controller="controllers.AcumuladoActividadesController">
+
+   <AnchorPane prefHeight="720.0" prefWidth="1200.0">
+
+      <children>
+
+         <!-- Top bar: Volver button + centered title -->
+         <HBox prefHeight="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+
+            <children>
+                <Button mnemonicParsing="false" onAction="#handleVolver" prefHeight="30.0" prefWidth="104.0" styleClass="volver-btn" text="&lt; Volver">
+                   <HBox.margin>
+                      <Insets left="10.0" top="10.0" />
+                   </HBox.margin>
+                </Button>
+
+               <Region HBox.hgrow="ALWAYS" />
+
+               <VBox alignment="CENTER" spacing="5.0">
+                  <children>
+                     <Label styleClass="title-label" text="Acumulado de actividades" />
+
+                     <Label styleClass="subtitle-label" text="Consulta el total de actividades del mes" />
+                  </children>
+               </VBox>
+
+               <Region HBox.hgrow="ALWAYS" />
+
+               <Region prefWidth="104.0" />
+            </children>
+
+         </HBox>
+
+         <!-- Month/Year selector -->
+         <HBox alignment="CENTER_LEFT" layoutX="95.0" layoutY="175.0" spacing="20.0">
+
+            <children>
+               <Label styleClass="section-label" text="Mes:" />
+
+               <ComboBox fx:id="comboMes" prefWidth="180.0" styleClass="combo-box" />
+
+               <Label styleClass="section-label" text="Año:" />
+
+               <ComboBox fx:id="comboAnio" prefWidth="120.0" styleClass="combo-box" />
+            </children>
+
+         </HBox>
+
+         <!-- Left panel: Resumen mensual -->
+         <VBox layoutX="95.0" layoutY="260.0" prefHeight="355.0" prefWidth="420.0" spacing="22.0" styleClass="resumen-panel">
+
+            <children>
+               <Label styleClass="resumen-title" text="Resumen mensual" />
+
+               <GridPane hgap="35.0" vgap="22.0">
+                  <children>
+                     <Label styleClass="field-label" text="Actividades:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+
+                     <Label fx:id="lblTotalActividades" styleClass="value-label" text="-" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                     <Label styleClass="field-label" text="Tiempo total:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+
+                     <Label fx:id="lblTiempoTotal" styleClass="value-label" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                     <Label styleClass="field-label" text="Distancia:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+
+                     <Label fx:id="lblDistanciaTotal" styleClass="value-label" text="-" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                     <Label styleClass="field-label" text="Ascenso:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+
+                     <Label fx:id="lblAscensoTotal" styleClass="value-label" text="-" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                     <Label styleClass="field-label" text="Descenso:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+
+                     <Label fx:id="lblDescensoTotal" styleClass="value-label" text="-" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  </children>
+                  <columnConstraints>
+                     <ColumnConstraints />
+                     <ColumnConstraints />
+                  </columnConstraints>
+                  <rowConstraints>
+                     <RowConstraints />
+                     <RowConstraints />
+                     <RowConstraints />
+                     <RowConstraints />
+                     <RowConstraints />
+                  </rowConstraints>
+               </GridPane>
+            </children>
+
+         </VBox>
+
+         <!-- Right panel: Actividades del mes -->
+         <VBox layoutX="575.0" layoutY="260.0" prefHeight="355.0" prefWidth="530.0" spacing="18.0" styleClass="actividades-panel">
+
+            <children>
+               <Label styleClass="resumen-title" text="Actividades del mes" />
+
+               <ListView fx:id="listaActividades" prefHeight="255.0" prefWidth="470.0" styleClass="actividades-list" />
+            </children>
+
+         </VBox>
+
+      </children>
+
+   </AnchorPane>
+
+</VBox>

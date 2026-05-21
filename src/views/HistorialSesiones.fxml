@@ -31,7 +31,7 @@
       </TableView>
       <HBox id="total" alignment="CENTER" prefHeight="51.0" spacing="50.0">
          <children>
-            <Label fx:id="totalImportadasLabel" styleClass="totalLabel" text="Total impportadas:" />
+            <Label fx:id="totalImportadasLabel" styleClass="totalLabel" text="Total importadas:" />
             <Label fx:id="totalVistasLabel" styleClass="totalLabel" text="Total vistas:" />
             <Label fx:id="totalAnotacionesLabel" styleClass="totalLabel" text="Total anotaciones:" />
          </children>

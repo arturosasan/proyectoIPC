@@ -77,6 +77,14 @@ public class AnotacionesActividadController implements Initializable {
     private static final double ZOOM_MAX = 5.0;
     private static final double ZOOM_STEP = 0.1;
 
+    /**
+     * Inicializa el controlador de anotaciones.
+     * Configura el grupo de contenido del mapa, los botones de zoom,
+     * los listeners de redimensionado del pane y los eventos de teclado/ratón.
+     *
+     * @param url  URL del documento FXML (no usado)
+     * @param rb   paquete de recursos (no usado)
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         contenidoMapa = new Group();
@@ -138,6 +146,13 @@ public class AnotacionesActividadController implements Initializable {
         });
     }
 
+    /**
+     * Carga y muestra los datos de una actividad en la vista.
+     * Actualiza las etiquetas de distancia, duración y velocidad,
+     * dibuja el mapa con la ruta y carga las anotaciones existentes.
+     *
+     * @param actividad actividad a mostrar
+     */
     public void mostrarActividad(Activity actividad) {
         this.actividadActual = actividad;
 
@@ -167,6 +182,11 @@ public class AnotacionesActividadController implements Initializable {
         System.out.println("Actividad cargada correctamente");
     }
 
+    /**
+     * Prepara el controlador para añadir una nueva anotación.
+     * Muestra el diálogo de configuración y activa el modo de espera
+     * de clics en el mapa para definir la ubicación.
+     */
     private void prepararNuevaAnotacion() {
         if (tipoPendiente != null) {
             limpiarAnotacionPendiente();
@@ -199,6 +219,12 @@ public class AnotacionesActividadController implements Initializable {
         mapPane.requestFocus();
     }
 
+    /**
+     * Muestra un diálogo para configurar una nueva anotación.
+     * Permite seleccionar tipo, texto y color de la anotación.
+     *
+     * @return Optional con los datos de la anotación, o vacío si se cancela
+     */
     private Optional<DatosAnotacion> mostrarDialogoAnotacion() {
         Dialog<DatosAnotacion> dialog = new Dialog<>();
         dialog.setTitle("Nueva anotación");
@@ -250,6 +276,14 @@ public class AnotacionesActividadController implements Initializable {
         return dialog.showAndWait();
     }
 
+    /**
+     * Procesa un clic derecho en el mapa durante el modo de anotación.
+     * Para POINT/TEXT guarda la anotación directamente; para LINE/CIRCLE
+     * requiere dos clics para definir inicio y fin.
+     *
+     * @param x coordenada X del clic en el mapa (sin escala)
+     * @param y coordenada Y del clic en el mapa (sin escala)
+     */
     private void procesarClickMapa(double x, double y) {
         if (tipoPendiente == null || projection == null || actividadActual == null) {
             return;
@@ -275,6 +309,12 @@ public class AnotacionesActividadController implements Initializable {
         }
     }
 
+    /**
+     * Guarda la anotación pendiente en la base de datos a través de SportActivityApp.
+     * Si se guarda correctamente, actualiza la lista y el mapa.
+     *
+     * @param puntos lista de puntos geográficos que definen la anotación
+     */
     private void guardarAnotacion(List<GeoPoint> puntos) {
         Annotation ann = new Annotation(
                 tipoPendiente,
@@ -297,6 +337,10 @@ public class AnotacionesActividadController implements Initializable {
         mapPane.requestFocus();
     }
 
+    /**
+     * Carga la lista de anotaciones de la actividad actual en el ListView.
+     * Muestra el tipo y texto de cada anotación.
+     */
     private void cargarListaAnotaciones() {
         listaAnotaciones.getItems().clear();
 
@@ -316,6 +360,10 @@ public class AnotacionesActividadController implements Initializable {
         lblSinAnotaciones.setVisible(listaAnotaciones.getItems().isEmpty());
     }
 
+    /**
+     * Dibuja el mapa de fondo, la ruta de la actividad y todas las anotaciones.
+     * Se recoloca cada vez que cambia el tamaño del panel.
+     */
     private void dibujarMapaRutaYAnotaciones() {
         contenidoMapa.getChildren().clear();
 
@@ -356,6 +404,9 @@ public class AnotacionesActividadController implements Initializable {
         dibujarAnotaciones();
     }
 
+    /**
+     * Dibuja la polilínea de la ruta de la actividad sobre el mapa.
+     */
     private void dibujarRuta() {
         Polyline ruta = new Polyline();
         ruta.setStroke(Color.BLUE);
@@ -369,6 +420,9 @@ public class AnotacionesActividadController implements Initializable {
         contenidoMapa.getChildren().add(ruta);
     }
 
+    /**
+     * Dibuja marcadores circulares para el inicio (verde) y fin (rojo) de la ruta.
+     */
     private void dibujarInicioFin() {
         TrackPoint inicio = actividadActual.getStartPoint();
         TrackPoint fin = actividadActual.getEndPoint();
@@ -385,6 +439,10 @@ public class AnotacionesActividadController implements Initializable {
         contenidoMapa.getChildren().addAll(cInicio, cFin);
     }
 
+    /**
+     * Dibuja todas las anotaciones de la actividad sobre el mapa.
+     * Delega en métodos específicos según el tipo de anotación.
+     */
     private void dibujarAnotaciones() {
         for (Annotation ann : actividadActual.getAnnotations()) {
             List<GeoPoint> puntos = ann.getGeoPoints();
@@ -407,6 +465,13 @@ public class AnotacionesActividadController implements Initializable {
         }
     }
 
+    /**
+     * Dibuja una anotación de tipo punto con un círculo y su texto asociado.
+     *
+     * @param ann    anotación a dibujar
+     * @param puntos puntos geográficos de la anotación
+     * @param color  color de la anotación
+     */
     private void dibujarAnotacionPunto(Annotation ann, List<GeoPoint> puntos, Color color) {
         Point2D p = projection.project(puntos.get(0));
 
@@ -420,6 +485,13 @@ public class AnotacionesActividadController implements Initializable {
         contenidoMapa.getChildren().addAll(c, texto);
     }
 
+    /**
+     * Dibuja una anotación de tipo texto en la posición indicada.
+     *
+     * @param ann    anotación a dibujar
+     * @param puntos puntos geográficos de la anotación
+     * @param color  color del texto
+     */
     private void dibujarAnotacionTexto(Annotation ann, List<GeoPoint> puntos, Color color) {
         Point2D p = projection.project(puntos.get(0));
 
@@ -430,6 +502,13 @@ public class AnotacionesActividadController implements Initializable {
         contenidoMapa.getChildren().add(texto);
     }
 
+    /**
+     * Dibuja una anotación de tipo línea entre dos puntos.
+     *
+     * @param ann    anotación a dibujar
+     * @param puntos puntos geográficos (debe contener al menos 2)
+     * @param color  color de la línea
+     */
     private void dibujarAnotacionLinea(Annotation ann, List<GeoPoint> puntos, Color color) {
         Point2D p1 = projection.project(puntos.get(0));
         Point2D p2 = projection.project(puntos.get(1));
@@ -441,6 +520,13 @@ public class AnotacionesActividadController implements Initializable {
         contenidoMapa.getChildren().add(linea);
     }
 
+    /**
+     * Dibuja una anotación de tipo círculo definido por centro y borde.
+     *
+     * @param ann    anotación a dibujar
+     * @param puntos puntos geográficos (centro y punto del borde)
+     * @param color  color del borde del círculo
+     */
     private void dibujarAnotacionCirculo(Annotation ann, List<GeoPoint> puntos, Color color) {
         Point2D centro = projection.project(puntos.get(0));
         Point2D borde = projection.project(puntos.get(1));
@@ -455,6 +541,9 @@ public class AnotacionesActividadController implements Initializable {
         contenidoMapa.getChildren().add(circulo);
     }
 
+    /**
+     * Limpia el estado de anotación pendiente, reiniciando todos los campos.
+     */
     private void limpiarAnotacionPendiente() {
         tipoPendiente = null;
         textoPendiente = null;
@@ -462,6 +551,12 @@ public class AnotacionesActividadController implements Initializable {
         primerPuntoPendiente = null;
     }
 
+    /**
+     * Convierte un objeto Color de JavaFX a su representación hexadecimal.
+     *
+     * @param color color a convertir
+     * @return cadena en formato "#RRGGBB"
+     */
     private String convertirColorAHex(Color color) {
         int r = (int) Math.round(color.getRed() * 255);
         int g = (int) Math.round(color.getGreen() * 255);
@@ -469,6 +564,11 @@ public class AnotacionesActividadController implements Initializable {
         return String.format("#%02X%02X%02X", r, g, b);
     }
 
+    /**
+     * Muestra un mensaje de texto directamente sobre el mapa.
+     *
+     * @param mensaje texto a mostrar
+     */
     private void mostrarTextoEnMapa(String mensaje) {
         Label label = new Label(mensaje);
         label.setStyle("-fx-text-fill: white;");
@@ -477,6 +577,11 @@ public class AnotacionesActividadController implements Initializable {
         contenidoMapa.getChildren().add(label);
     }
 
+    /**
+     * Muestra un diálogo informativo con un mensaje para el usuario.
+     *
+     * @param mensaje texto informativo a mostrar
+     */
     private void mostrarAviso(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Anotaciones");
@@ -486,6 +591,11 @@ public class AnotacionesActividadController implements Initializable {
         mapPane.requestFocus();
     }
 
+    /**
+     * Muestra un diálogo de error con un mensaje para el usuario.
+     *
+     * @param mensaje texto del error a mostrar
+     */
     private void mostrarError(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Anotaciones");
@@ -495,6 +605,11 @@ public class AnotacionesActividadController implements Initializable {
         mapPane.requestFocus();
     }
 
+    /**
+     * Navega de vuelta a la pantalla principal del mapa.
+     *
+     * @throws Exception si ocurre un error al cargar la pantalla
+     */
     @FXML
     private void handleVolver() {
         try {
@@ -515,6 +630,13 @@ public class AnotacionesActividadController implements Initializable {
         String texto;
         String color;
 
+        /**
+         * Constructor de DatosAnotacion.
+         *
+         * @param tipo  tipo de anotación (POINT, TEXT, LINE, CIRCLE)
+         * @param texto texto descriptivo de la anotación
+         * @param color color en formato hexadecimal
+         */
         DatosAnotacion(AnnotationType tipo, String texto, String color) {
             this.tipo = tipo;
             this.texto = texto;

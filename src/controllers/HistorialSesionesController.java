@@ -52,10 +52,23 @@ public class HistorialSesionesController implements Initializable {
     private String currentUserNick;
     
     
+    /**
+     * Almacena el nickname del usuario actual.
+     *
+     * @param nick nickname del usuario
+     */
     public void setNickname(String nick) {
         this.currentUserNick = nick;
     }
-    
+
+    /**
+     * Inicializa el controlador de historial de sesiones.
+     * Configura las columnas de la tabla con los datos de ejemplo
+     * y calcula los totales mostrados al final.
+     *
+     * @param url  URL del documento FXML (no usado)
+     * @param rb   paquete de recursos (no usado)
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -98,6 +111,16 @@ public class HistorialSesionesController implements Initializable {
         private int vistas;
         private int anotaciones;
 
+        /**
+         * Constructor de una sesión de usuario.
+         *
+         * @param inicio      hora de inicio de la sesión
+         * @param fin         hora de fin de la sesión
+         * @param duracion    duración de la sesión
+         * @param importadas  número de actividades importadas
+         * @param vistas      número de actividades visualizadas
+         * @param anotaciones número de anotaciones realizadas
+         */
         public Sesion(String inicio, String fin, String duracion,
                       int importadas, int vistas, int anotaciones) {
             this.inicio = inicio;
@@ -108,31 +131,54 @@ public class HistorialSesionesController implements Initializable {
             this.anotaciones = anotaciones;
         }
 
+        /**
+         * @return hora de inicio de la sesión
+         */
         public String getInicio() {
             return inicio;
         }
 
+        /**
+         * @return hora de fin de la sesión
+         */
         public String getFin() {
             return fin;
         }
 
+        /**
+         * @return duración de la sesión
+         */
         public String getDuracion() {
             return duracion;
         }
 
+        /**
+         * @return número de actividades importadas
+         */
         public int getImportadas() {
             return importadas;
         }
 
+        /**
+         * @return número de actividades visualizadas
+         */
         public int getVistas() {
             return vistas;
         }
 
+        /**
+         * @return número de anotaciones realizadas
+         */
         public int getAnotaciones() {
             return anotaciones;
         }
     }
     
+    /**
+     * Navega de vuelta a la pantalla principal del mapa.
+     *
+     * @param event evento de acción del botón de salir
+     */
     @FXML
     private void handleSalir(ActionEvent event) {
         try {
