@@ -72,6 +72,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
+
 import upv.ipc.sportlib.SportActivityApp;
 import upv.ipc.sportlib.User;
 
@@ -825,5 +826,19 @@ public class MapaPrincipalController implements Initializable {
     @FXML
     private void acumuladoActividades() {
         cargarPantalla("/views/AcumuladoActividades.fxml", "Acumulado actividades");
+    }
+
+    @FXML
+    private void addMapa(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/AddMapa.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) map_scrollpane.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Añadir mapa");
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
