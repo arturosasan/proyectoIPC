@@ -34,7 +34,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 import upv.ipc.sportlib.SportActivityApp; // LIBRERIA IPC 2026, NO TOCAR
-import upv.ipc.sportlib.User;             // LIBRERIA IPC 2026, NO TOCAR
+import upv.ipc.sportlib.*;             // LIBRERIA IPC 2026, NO TOCAR
 
 public class RegisterController implements Initializable {
 
@@ -170,24 +170,25 @@ public class RegisterController implements Initializable {
             errores.clear();
         
             // Uso un Array de Strings para gestionar bien los errores, si no es imposible hacerlo como en el Login
-        
+    
             if (!User.checkNickName(nick)) {
                 errores.add("• Nickname: 6-15 caracteres.");
             }
             
-            if (User.checkNickName(nick)) {
+            // NO FUNCIONA
+            if (!User.validateNickName(nick)) {
                 errores.add("• Nickname: Nick ya en uso");
             }
-        
+                
             if (!User.checkEmail(email)) {
                 errores.add("• Email: formato inválido.");
             }
         
-            if (!User.checkPassword(pass)) { // TODO -> No se ve bien todo el texto del error (hacerlo más corto? modificar tamaño gridpane?)
+            if (!User.checkPassword(pass)) {
                 errores.add("• Contraseña: 8-20 chars, 1 mayúscula, 1 minúscula, 1 dígito, 1 símbolo (!@#$%&*()-+=).");
             }
         
-            if (!User.isOlderThan(birthDate, 12)) { // TODO -> No detecta bien si es mayor de 12 años, solo cuando todos los otros campos están correctos
+            if (!User.isOlderThan(birthDate, 12)) { 
                 errores.add("• Debes ser mayor de 12 años.");
             }
         
@@ -202,11 +203,13 @@ public class RegisterController implements Initializable {
             } else {
                 mostrarError("Error al registrar. El nickname o email puede estar en uso.");
             }
+         
         } catch (java.time.format.DateTimeParseException e) { // error en fecha
             errores.add("Error de tipo en fecha de nacimiento");
         }
         
     }
+    
     
     /**
      * Muestra un mensaje de error en el formulario de registro.
