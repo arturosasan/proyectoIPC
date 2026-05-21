@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+
+<BorderPane id="rootBorder" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.PerfilDesnivelController"
+            stylesheets="@../styles/perfil.css"
+            style="-fx-background-color: #1C2A40;">
+
+    <top>
+        <Label text="Perfil de desnivel"
+               BorderPane.alignment="CENTER"
+               style="-fx-text-fill: #55D6B2; -fx-font-size: 30px; -fx-font-weight: bold; -fx-padding: 25;" />
+    </top>
+
+    <center>
+        <HBox spacing="25"
+               alignment="CENTER"
+               style="-fx-padding: 20;">
+
+            <StackPane fx:id="mapContainer"
+                       prefWidth="620"
+                       prefHeight="430"
+                       style="-fx-background-color: #162235;
+                              -fx-border-color: #55D6B2;
+                              -fx-border-radius: 12;
+                              -fx-background-radius: 12;" />
+
+            <VBox spacing="15"
+                  alignment="CENTER">
+
+                <LineChart fx:id="graficaDesnivel"
+                           prefWidth="560"
+                           prefHeight="430"
+                           animated="false"
+                           legendVisible="false">
+
+                    <xAxis>
+                        <NumberAxis fx:id="ejeDistancia"
+                                    label="Distancia (km)" />
+                    </xAxis>
+
+                    <yAxis>
+                        <NumberAxis fx:id="ejeAltitud"
+                                    label="Altitud (m)" />
+                    </yAxis>
+
+                </LineChart>
+
+                <Label fx:id="lblInfoPunto"
+                       text="Pasa el ratón por la gráfica"
+                       style="-fx-text-fill: white;
+                              -fx-font-size: 14px;" />
+
+            </VBox>
+
+        </HBox>
+    </center>
+
+    <bottom>
+        <Button text="Volver"
+                onAction="#volver"
+                BorderPane.alignment="CENTER"
+                style="-fx-background-color: #EF4264;
+                       -fx-text-fill: white;
+                       -fx-font-size: 16px;
+                       -fx-font-weight: bold;
+                       -fx-background-radius: 10;
+                       -fx-padding: 10 45 10 45;" />
+    </bottom>
+
+</BorderPane>
