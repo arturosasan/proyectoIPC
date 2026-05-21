@@ -1,70 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<BorderPane id="rootBorder" prefHeight="564.0" prefWidth="1000.0" stylesheets="@../styles/anotaciones.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AnotacionesActividadController">
+<BorderPane prefWidth="1000.0" prefHeight="650.0"
+            stylesheets="@../styles/anotaciones.css"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.AnotacionesActividadController">
+
+    <top>
+    <VBox spacing="10"
+          style="-fx-background-color: #162235; -fx-padding: 12;">
+
+        <HBox alignment="CENTER_LEFT" spacing="20">
+            <Button text="&lt; Volver"
+                    onAction="#handleVolver"
+                    styleClass="back-btn"/>
+
+            <Label text="Detalles de la actividad"
+                   styleClass="page-title"/>
+        </HBox>
+
+        <HBox alignment="CENTER" spacing="10">
+            <Label text="Actividad:"
+                   style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+            <ComboBox fx:id="comboActividades"
+                      prefWidth="450"
+                      onAction="#cambiarActividad"/>
+        </HBox>
+
+    </VBox>
+</top>
 
     <center>
-        <VBox maxWidth="Infinity" prefHeight="406.0" prefWidth="720.0" spacing="18.0" styleClass="center-panel">
+        <VBox spacing="12" styleClass="center-panel">
+            <Label text="Mapa de la ruta" styleClass="section-title"/>
 
-            <Label styleClass="section-title" text="Mapa de la ruta" />
+            <AnchorPane fx:id="mapPane"
+                        prefWidth="700"
+                        prefHeight="460"
+                        maxWidth="700"
+                        maxHeight="460"
+                        styleClass="map-pane">
 
-            <AnchorPane fx:id="mapPane" VBox.vgrow="ALWAYS" styleClass="map-pane">
-
-                <VBox AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" spacing="5.0">
-                    <Button fx:id="btnZoomMas" prefWidth="30.0" styleClass="zoom-btn" text="+" />
-                    <Button fx:id="btnZoomMenos" prefWidth="30.0" styleClass="zoom-btn" text="-" />
+                <VBox spacing="5"
+                      AnchorPane.rightAnchor="15"
+                      AnchorPane.topAnchor="15">
+                    <Button fx:id="btnZoomMas" text="+" prefWidth="30" styleClass="zoom-btn"/>
+                    <Button fx:id="btnZoomMenos" text="-" prefWidth="30" styleClass="zoom-btn"/>
                 </VBox>
+
             </AnchorPane>
         </VBox>
     </center>
 
     <right>
-        <VBox prefWidth="280.0" spacing="16.0" styleClass="right-panel">
+        <VBox prefWidth="270" spacing="12" styleClass="right-panel">
 
-            <VBox VBox.vgrow="ALWAYS" spacing="13.0" styleClass="stats-panel">
+            <Label text="Estadísticas" styleClass="stats-title"/>
 
-                <Label styleClass="stats-title" text="Estadísticas" />
+            <Label fx:id="lblDistancia" text="Distancia: -" styleClass="stat-label"/>
+            <Label fx:id="lblDuracion" text="Duración: -" styleClass="stat-label"/>
+            <Label fx:id="lblVelocidad" text="Velocidad: -" styleClass="stat-label"/>
 
-                <Label fx:id="lblDistancia" styleClass="stat-label" text="Distancia: -" />
-                <Label fx:id="lblDuracion" styleClass="stat-label" text="Duración: -" />
-                <Label fx:id="lblVelocidad" styleClass="stat-label" text="Velocidad: -" />
+            <Button fx:id="btnAnadirAnotacion"
+                    text="Añadir anotación"
+                    maxWidth="Infinity"
+                    styleClass="add-annot-btn"/>
 
-                <Button fx:id="btnAnadirAnotacion" maxWidth="Infinity" styleClass="add-annot-btn" text="Añadir anotación" />
+            <Label text="Anotaciones" styleClass="section-title"/>
 
-                <Label styleClass="section-title" text="Anotaciones" />
+            <Label fx:id="lblSinAnotaciones"
+                   text="Todavía no hay anotaciones."
+                   styleClass="no-annot-label"/>
 
-                <Label fx:id="lblSinAnotaciones" styleClass="no-annot-label" text="Todavía no hay anotaciones." />
-
-                <ListView fx:id="listaAnotaciones" VBox.vgrow="ALWAYS" prefWidth="190.0" styleClass="annot-list" />
-            </VBox>
+            <ListView fx:id="listaAnotaciones"
+                      prefHeight="180"
+                      styleClass="annot-list"/>
         </VBox>
     </right>
-
-    <top>
-        <HBox prefHeight="69.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
-            <children>
-                <Button maxWidth="104.0" mnemonicParsing="false" onAction="#handleVolver" prefHeight="30.0" prefWidth="104.0" styleClass="back-btn" text="&lt; Volver">
-                    <HBox.margin>
-                        <Insets left="10.0" top="20.0" />
-                    </HBox.margin>
-                </Button>
-                <Region prefHeight="69.0" prefWidth="226.0" />
-                <Label prefHeight="64.0" prefWidth="358.0" styleClass="page-title" text="Detalles de la actividad">
-                    <HBox.margin>
-                        <Insets top="10.0" />
-                    </HBox.margin>
-                </Label>
-            </children>
-        </HBox>
-    </top>
 
 </BorderPane>

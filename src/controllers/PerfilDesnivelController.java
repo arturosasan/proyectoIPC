@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package controllers;
 
 import java.io.File;
@@ -18,10 +14,11 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polyline;
+import javafx.stage.Stage;
 
 import upv.ipc.sportlib.Activity;
 import upv.ipc.sportlib.MapProjection;
@@ -30,40 +27,21 @@ import upv.ipc.sportlib.TrackPoint;
 
 public class PerfilDesnivelController implements Initializable {
 
-    @FXML
-    private StackPane mapContainer;
-
-    @FXML
-    private LineChart<Number, Number> graficaDesnivel;
-
-    @FXML
-    private NumberAxis ejeDistancia;
-
-    @FXML
-    private NumberAxis ejeAltitud;
-
-    @FXML
-    private Label lblInfoPunto;
+    @FXML private Pane mapContainer;
+    @FXML private LineChart<Number, Number> graficaDesnivel;
+    @FXML private NumberAxis ejeDistancia;
+    @FXML private NumberAxis ejeAltitud;
+    @FXML private Label lblInfoPunto;
 
     private Activity actividad;
     private MapProjection projection;
     private Circle puntoMapa;
 
+    private static final double MAP_WIDTH = 1400;
+    private static final double MAP_HEIGHT = 500;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        configurarGrafica();
-    }
-
-    public void setActividad(Activity actividad) {
-        this.actividad = actividad;
-
-        if (actividad != null) {
-            cargarMapa();
-            cargarGraficaDesnivel();
-        }
-    }
-
-    private void configurarGrafica() {
         graficaDesnivel.setTitle("Perfil de altitud");
         graficaDesnivel.setLegendVisible(false);
         graficaDesnivel.setAnimated(false);
@@ -72,65 +50,94 @@ public class PerfilDesnivelController implements Initializable {
         ejeAltitud.setLabel("Altitud (m)");
     }
 
+    public void setActividad(Activity actividad) {
+        this.actividad = actividad;
+
+        if (actividad == null) {
+            lblInfoPunto.setText("No hay actividad seleccionada");
+            return;
+        }
+
+        cargarMapa();
+        cargarGrafica();
+    }
+
     private void cargarMapa() {
         try {
             MapRegion region = actividad.getSuggestedMap();
 
-            Image mapa = new Image(new File(region.getImagePath()).toURI().toString());
-            ImageView mapView = new ImageView(mapa);
-
-            projection = new MapProjection(region, mapa.getWidth(), mapa.getHeight());
-
-            Polyline ruta = new Polyline();
-
-            for (TrackPoint tp : actividad.getTrackPoints()) {
-                Point2D p = projection.project(tp);
-                ruta.getPoints().addAll(p.getX(), p.getY());
+            if (region == null) {
+                lblInfoPunto.setText("No hay mapa disponible");
+                return;
             }
 
-            ruta.setStroke(Color.web("#55D6B2"));
-            ruta.setStrokeWidth(3);
+            File archivoMapa = new File(region.getImagePath());
 
-            puntoMapa = new Circle(7);
+            if (!archivoMapa.exists()) {
+                lblInfoPunto.setText("Mapa no encontrado");
+                return;
+            }
+
+            Image mapa = new Image(archivoMapa.toURI().toString());
+
+            ImageView imageView = new ImageView(mapa);
+            imageView.setFitWidth(MAP_WIDTH);
+            imageView.setFitHeight(MAP_HEIGHT);
+            imageView.setPreserveRatio(false);
+
+            projection = new MapProjection(region, MAP_WIDTH, MAP_HEIGHT);
+
+            Polyline ruta = new Polyline();
+            ruta.setStroke(Color.web("#55D6B2"));
+            ruta.setStrokeWidth(4);
+
+            List<TrackPoint> puntos = actividad.getTrackPoints();
+
+            if (puntos != null) {
+                for (TrackPoint tp : puntos) {
+                    Point2D punto = projection.project(tp);
+                    ruta.getPoints().addAll(punto.getX(), punto.getY());
+                }
+            }
+
+            puntoMapa = new Circle(0, 0, 8);
             puntoMapa.setFill(Color.web("#EF4264"));
             puntoMapa.setStroke(Color.WHITE);
             puntoMapa.setStrokeWidth(2);
             puntoMapa.setVisible(false);
 
             mapContainer.getChildren().clear();
-            mapContainer.getChildren().addAll(mapView, ruta, puntoMapa);
+            mapContainer.getChildren().addAll(imageView, ruta, puntoMapa);
 
         } catch (Exception e) {
-            lblInfoPunto.setText("Error al cargar el mapa");
+            lblInfoPunto.setText("Error al cargar mapa");
             e.printStackTrace();
         }
     }
 
-    private void cargarGraficaDesnivel() {
+    private void cargarGrafica() {
         List<TrackPoint> puntos = actividad.getTrackPoints();
 
         if (puntos == null || puntos.size() < 2) {
-            lblInfoPunto.setText("No hay suficientes puntos en la actividad");
+            lblInfoPunto.setText("No hay suficientes datos");
             return;
         }
 
         XYChart.Series<Number, Number> serie = new XYChart.Series<>();
-
-        double distanciaAcumulada = 0;
+        double distancia = 0;
 
         for (int i = 0; i < puntos.size(); i++) {
             TrackPoint actual = puntos.get(i);
 
             if (i > 0) {
                 TrackPoint anterior = puntos.get(i - 1);
-                distanciaAcumulada += anterior.distanceTo(actual);
+                distancia += anterior.distanceTo(actual);
             }
 
-            double distanciaKm = distanciaAcumulada / 1000.0;
+            double distanciaKm = distancia / 1000.0;
             double altitud = actual.getElevation();
 
-            XYChart.Data<Number, Number> dato =
-                    new XYChart.Data<>(distanciaKm, altitud);
+            XYChart.Data<Number, Number> dato = new XYChart.Data<>(distanciaKm, altitud);
 
             final int indice = i;
             final double distanciaFinal = distanciaKm;
@@ -139,14 +146,12 @@ public class PerfilDesnivelController implements Initializable {
             dato.nodeProperty().addListener((obs, oldNode, newNode) -> {
                 if (newNode != null) {
                     newNode.setOnMouseEntered(event -> {
-                        destacarPuntoEnMapa(puntos.get(indice));
+                        TrackPoint tp = puntos.get(indice);
+                        destacarPunto(tp);
 
                         lblInfoPunto.setText(
-                                String.format(
-                                        "Distancia: %.2f km | Altitud: %.0f m",
-                                        distanciaFinal,
-                                        altitudFinal
-                                )
+                                String.format("Distancia: %.2f km | Altitud: %.0f m",
+                                        distanciaFinal, altitudFinal)
                         );
                     });
 
@@ -155,7 +160,7 @@ public class PerfilDesnivelController implements Initializable {
                             puntoMapa.setVisible(false);
                         }
 
-                        lblInfoPunto.setText("Pasa el ratón por la gráfica");
+                        lblInfoPunto.setText("Pasa el ratón sobre la gráfica");
                     });
                 }
             });
@@ -167,20 +172,21 @@ public class PerfilDesnivelController implements Initializable {
         graficaDesnivel.getData().add(serie);
     }
 
-    private void destacarPuntoEnMapa(TrackPoint tp) {
-        if (projection == null || puntoMapa == null) {
+    private void destacarPunto(TrackPoint tp) {
+        if (projection == null || puntoMapa == null || tp == null) {
             return;
         }
 
         Point2D p = projection.project(tp);
 
-        puntoMapa.setTranslateX(p.getX() - mapContainer.getWidth() / 2);
-        puntoMapa.setTranslateY(p.getY() - mapContainer.getHeight() / 2);
+        puntoMapa.setCenterX(p.getX());
+        puntoMapa.setCenterY(p.getY());
         puntoMapa.setVisible(true);
     }
 
     @FXML
     private void volver() {
-        mapContainer.getScene().getWindow().hide();
+        Stage stage = (Stage) mapContainer.getScene().getWindow();
+        stage.close();
     }
 }
