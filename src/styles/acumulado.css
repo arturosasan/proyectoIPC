@@ -1,80 +1,89 @@
-#rootVBox {
-    -fx-background-color: #14263a;
+#rootBorder {
+    -fx-background-color: #1d2a3d;
 }
 
-.volver-btn {
-    -fx-background-color: transparent;
-    -fx-text-fill: #55d6b3;
-    -fx-font-size: 14px;
+.top-panel {
+    -fx-padding: 12 10 8 10;
+}
+
+.back-btn {
+    -fx-background-color: #1C2A40;
+    -fx-border-color: #55D6B2;
+    -fx-border-width: 2;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-text-fill: #55D6B2;
+    -fx-font-size: 17px;
     -fx-font-weight: bold;
-    -fx-underline: true;
-    -fx-cursor: hand;
+    -fx-padding: 7 16 7 16;
 }
 
-.volver-btn:hover {
-    -fx-text-fill: #22d3ee;
+.back-btn:hover {
+    -fx-background-color: #55D6B2;
+    -fx-cursor: hand;
+    -fx-text-fill: white;
 }
 
 .title-label {
-    -fx-text-fill: white;
-    -fx-font-size: 34px;
-    -fx-font-weight: bold;
-}
-
-.subtitle-label {
-    -fx-text-fill: #d8e6f3;
-    -fx-font-size: 16px;
-}
-
-.section-label {
-    -fx-text-fill: white;
-    -fx-font-size: 18px;
+    -fx-text-fill: #55d6b3;
+    -fx-font-size: 30px;
     -fx-font-weight: bold;
 }
 
 .combo-box {
-    -fx-background-radius: 12;
-    -fx-font-size: 15px;
-}
-
-.resumen-panel {
-    -fx-border-color: #24d9f2;
-    -fx-border-width: 3;
-    -fx-border-radius: 18;
-    -fx-background-radius: 18;
-    -fx-padding: 30;
-}
-
-.resumen-title {
+    -fx-background-color: #132033;
+    -fx-border-color: #55d6b3;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
     -fx-text-fill: white;
-    -fx-font-size: 27px;
-    -fx-font-weight: bold;
+    -fx-font-size: 14px;
 }
 
-.field-label {
-    -fx-text-fill: white;
-    -fx-font-size: 17px;
-}
-
-.value-label {
-    -fx-text-fill: #5ae0cf;
-    -fx-font-size: 20px;
-    -fx-font-weight: bold;
+.center-panel {
+    -fx-padding: 5 20 10 20;
 }
 
 .actividades-panel {
-    -fx-border-color: #5ae0cf;
-    -fx-border-width: 3;
+    -fx-background-color: #132033;
+    -fx-border-color: #55d6b3;
+    -fx-border-width: 2;
     -fx-border-radius: 18;
     -fx-background-radius: 18;
     -fx-padding: 30;
 }
 
 .actividades-list {
-    -fx-control-inner-background: #102235;
-    -fx-background-color: #102235;
-    -fx-text-fill: white;
-    -fx-border-color: #5ae0cf;
+    -fx-control-inner-background: #0d1b2a;
+    -fx-background-color: #0d1b2a;
+    -fx-text-fill: #e8edf5;
+    -fx-border-color: #16c7e8;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
+}
+
+.resumen-panel {
+    -fx-background-color: #132033;
+    -fx-border-color: #55d6b3;
+    -fx-border-width: 2;
+    -fx-border-radius: 18;
+    -fx-background-radius: 18;
+    -fx-padding: 30;
+}
+
+.resumen-title {
+    -fx-text-fill: #e8edf5;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+.field-label {
+    -fx-text-fill: #e8edf5;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.value-label {
+    -fx-text-fill: #55d6b3;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
 }
