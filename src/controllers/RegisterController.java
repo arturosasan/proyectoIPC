@@ -92,8 +92,13 @@ public class RegisterController implements Initializable {
 //        stackPane.setVisible(false);
         
         passwordVisibleField = new TextField();
-        passwordVisibleField.setPromptText("Tu contraseña*");
-        passwordVisibleField.setPrefHeight(36);
+        passwordVisibleField.setPromptText("Tu contraseña");
+        passwordVisibleField.setPrefHeight(passwordField.getPrefHeight());
+        passwordVisibleField.setPrefWidth(passwordField.getPrefWidth());
+        passwordVisibleField.setMaxHeight(passwordField.getMaxHeight());
+        passwordVisibleField.setMaxWidth(passwordField.getMaxWidth());
+        passwordVisibleField.setMinHeight(passwordField.getMinHeight());
+        passwordVisibleField.setMinWidth(passwordField.getMinWidth());
         passwordVisibleField.setVisible(false);
         passwordVisibleField.setManaged(false);
 
@@ -101,7 +106,7 @@ public class RegisterController implements Initializable {
         GridPane.setColumnIndex(passwordVisibleField, 1);
         GridPane.setRowIndex(passwordVisibleField, 5); // se me olvidó cambiar este pequeñito detalle ayer :)
         GridPane.setHalignment(passwordVisibleField, HPos.CENTER);
-        GridPane.setMargin(passwordVisibleField, new Insets(0, 0, 35, 0)); // esto para que se quede igual visualmente que en SB
+        GridPane.setMargin(passwordVisibleField, new Insets(0, 0, 40, 0)); // esto para que se quede igual visualmente que en SB
 
         gridPane.getChildren().add(passwordVisibleField);
 
