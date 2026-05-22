@@ -1,23 +1,32 @@
-#rootVBox {
+#rootBorder {
     -fx-background-color: #1d2a3d;
 }
 
-.volver-btn {
-    -fx-background-color: transparent;
-    -fx-text-fill: #55d6b3;
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-underline: true;
-    -fx-cursor: hand;
+.top-panel {
+    -fx-padding: 12 10 8 10;
 }
 
-.volver-btn:hover {
-    -fx-text-fill: #22d3ee;
+.back-btn {
+    -fx-background-color: #1C2A40;
+    -fx-border-color: #55D6B2;
+    -fx-border-width: 2;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-text-fill: #55D6B2;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-padding: 7 16 7 16;
+}
+
+.back-btn:hover {
+    -fx-background-color: #55D6B2;
+    -fx-cursor: hand;
+    -fx-text-fill: white;
 }
 
 .app-title {
     -fx-text-fill: #55d6b3;
-    -fx-font-size: 32px;
+    -fx-font-size: 30px;
     -fx-font-weight: bold;
 }
 
@@ -30,14 +39,20 @@
 .field-label {
     -fx-text-fill: #e8edf5;
     -fx-font-size: 15px;
+    -fx-font-weight: bold;
 }
 
 .actividad-combo {
     -fx-background-color: #132033;
-    -fx-border-color: #16c7e8;
+    -fx-border-color: #55d6b3;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
     -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+.center-panel {
+    -fx-padding: 5 20 10 20;
 }
 
 .map-pane {
@@ -48,16 +63,13 @@
     -fx-border-width: 2;
 }
 
-.map-placeholder {
-    -fx-text-fill: #e8edf5;
-}
-
 .stats-panel {
     -fx-background-color: #132033;
     -fx-background-radius: 18;
     -fx-border-color: #55d6b3;
     -fx-border-radius: 18;
-    -fx-border-width: 1.5;
+    -fx-border-width: 2;
+    -fx-padding: 20;
 }
 
 .stats-title {
@@ -68,8 +80,19 @@
 
 .stat-field {
     -fx-text-fill: #e8edf5;
+    -fx-font-size: 15px;
 }
 
-.stat-value {
-    -fx-text-fill: #55d6b3;
+.bottom-panel {
+    -fx-padding: 5 0 18 0;
+}
+
+.action-btn {
+    -fx-background-color: #55d6b3;
+    -fx-text-fill: #132033;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 14;
+    -fx-pref-height: 48;
+    -fx-pref-width: 260;
 }
