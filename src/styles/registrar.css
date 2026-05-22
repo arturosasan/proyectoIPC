@@ -59,8 +59,62 @@
 
 .stat-field {
     -fx-text-fill: #e8edf5;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
 }
 
 .stat-value {
     -fx-text-fill: #55d6b3;
+}
+
+.root-scroll {
+    -fx-background: #1d2a3d;
+    -fx-background-color: #1d2a3d;
+}
+
+.back-btn {
+    -fx-background-color: #1C2A40;
+    -fx-border-color: #55D6B2;
+    -fx-border-width: 2;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-text-fill: #55D6B2;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-padding: 7 16 7 16;
+}
+
+.back-btn:hover {
+    -fx-background-color: #55D6B2;
+    -fx-cursor: hand;
+    -fx-text-fill: white;
+}
+
+.estado-label {
+    -fx-text-fill: #e8edf5;
+    -fx-font-size: 13px;
+}
+
+#mapScrollPane {
+    -fx-background: #0d1b2a;
+    -fx-border-color: #16c7e8;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-border-width: 2;
+}
+
+.zoom-btn {
+    -fx-background-color: #55d6b3;
+    -fx-text-fill: #071323;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-background-radius: 8;
+    -fx-min-width: 42;
+    -fx-min-height: 42;
+}
+
+.mapa-label {
+    -fx-text-fill: #55d6b3;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
 }

@@ -30,7 +30,7 @@
          </VBox.margin></Text>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitleText" text="Crear cuenta">
          <VBox.margin>
-            <Insets bottom="5.0" left="10.0" />
+            <Insets left="10.0" />
          </VBox.margin></Text>
        <VBox alignment="CENTER" prefWidth="291.0">
          <children>
@@ -53,28 +53,28 @@
                   <RowConstraints maxHeight="60.0" minHeight="42.0" prefHeight="59.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <TextField fx:id="nicknameField" prefHeight="36.0" promptText="Tu nickname" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <TextField fx:id="nicknameField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="121.0" promptText="Tu nickname" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <GridPane.margin>
-                        <Insets top="20.0" />
+                        <Insets bottom="25.0" left="30.0" top="20.0" />
                      </GridPane.margin></TextField>
-                  <TextField fx:id="emailField" prefHeight="36.0" promptText="usuario@dominio" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <TextField fx:id="emailField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="170.0" promptText="usuario@dominio.com" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <GridPane.margin>
-                        <Insets bottom="8.0" />
+                        <Insets bottom="8.0" left="30.0" />
                      </GridPane.margin></TextField>
-                  <PasswordField fx:id="passwordField" prefHeight="36.0" promptText="Tu contraseña" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                  <PasswordField fx:id="passwordField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="138.0" promptText="Tu contraseña" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <GridPane.margin>
-                        <Insets bottom="35.0" />
+                        <Insets bottom="40.0" left="30.0" />
                      </GridPane.margin></PasswordField>
-                  <DatePicker fx:id="fechaNac" prefHeight="36.0" promptText="dd/mm/aaaa" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                  <DatePicker fx:id="fechaNac" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="151.0" promptText="dd/mm/aaaa" GridPane.columnIndex="1" GridPane.rowIndex="7">
                      <GridPane.margin>
-                        <Insets bottom="65.0" />
+                        <Insets bottom="65.0" left="30.0" top="15.0" />
                      </GridPane.margin></DatePicker>
-                  <Button id="botonAvatar" mnemonicParsing="false" onAction="#selectAvatar" prefHeight="36.0" prefWidth="206.0" text="Selecciona tu avatar" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                  <Button id="botonAvatar" mnemonicParsing="false" onAction="#selectAvatar" prefHeight="36.0" prefWidth="155.0" text="Selecciona tu avatar" GridPane.columnIndex="1" GridPane.rowIndex="8">
                      <font>
                         <Font size="1.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets bottom="55.0" />
+                        <Insets bottom="55.0" left="30.0" top="10.0" />
                      </GridPane.margin>
                   </Button>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="icon-image" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
@@ -82,7 +82,7 @@
                         <Image url="@../resources/icons/user.png" />
                      </image>
                      <GridPane.margin>
-                        <Insets top="20.0" />
+                        <Insets bottom="25.0" left="75.0" top="20.0" />
                      </GridPane.margin>
                   </ImageView>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="icon-image" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
@@ -90,7 +90,7 @@
                         <Image url="@../resources/icons/mail.png" />
                      </image>
                      <GridPane.margin>
-                        <Insets bottom="8.0" />
+                        <Insets bottom="10.0" left="70.0" />
                      </GridPane.margin>
                   </ImageView>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="icon-image" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
@@ -98,7 +98,7 @@
                         <Image url="@../resources/icons/padlock.png" />
                      </image>
                      <GridPane.margin>
-                        <Insets bottom="40.0" />
+                        <Insets bottom="45.0" left="75.0" />
                      </GridPane.margin>
                   </ImageView>
                   <Button id="togglePasswordBtn" mnemonicParsing="false" onAction="#toggleEye" stylesheets="@../styles/register.css" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
@@ -110,7 +110,7 @@
                         </ImageView>
                      </graphic>
                      <GridPane.margin>
-                        <Insets bottom="40.0" />
+                        <Insets bottom="40.0" right="65.0" />
                      </GridPane.margin>
                   </Button>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="icon-image" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
@@ -118,7 +118,7 @@
                         <Image url="@../resources/icons/calendar.png" />
                      </image>
                      <GridPane.margin>
-                        <Insets bottom="70.0" />
+                        <Insets bottom="70.0" left="70.0" top="15.0" />
                      </GridPane.margin>
                   </ImageView>
                   <ImageView fx:id="logoImg" fitHeight="38.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true" styleClass="icon-image" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
@@ -126,7 +126,7 @@
                         <Image url="@../resources/icons/image.png" />
                      </image>
                      <GridPane.margin>
-                        <Insets bottom="55.0" />
+                        <Insets bottom="55.0" left="70.0" top="10.0" />
                      </GridPane.margin>
                   </ImageView>
                   <StackPane fx:id="stackPane" prefHeight="150.0" prefWidth="200.0" visible="false" GridPane.rowIndex="8">
@@ -146,25 +146,28 @@
                   </Button>
                   <Label stylesheets="@../styles/login.css" text="Usuario*" GridPane.columnIndex="1">
                      <GridPane.margin>
-                        <Insets left="5.0" top="40.0" />
+                        <Insets bottom="25.0" left="35.0" top="40.0" />
                      </GridPane.margin>
                   </Label>
                   <Label stylesheets="@../styles/login.css" text="Correo electrónico*" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <GridPane.margin>
-                        <Insets bottom="5.0" left="5.0" top="15.0" />
+                        <Insets bottom="5.0" left="35.0" top="15.0" />
                      </GridPane.margin>
                   </Label>
                   <Label stylesheets="@../styles/login.css" text="Contraseña*" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <GridPane.margin>
-                        <Insets bottom="30.0" left="5.0" top="15.0" />
+                        <Insets bottom="35.0" left="35.0" top="15.0" />
                      </GridPane.margin>
                   </Label>
                   <Label stylesheets="@../styles/login.css" text="Fecha nacimiento*" GridPane.columnIndex="1" GridPane.rowIndex="6">
                      <GridPane.margin>
-                        <Insets bottom="60.0" left="5.0" top="15.0" />
+                        <Insets bottom="60.0" left="35.0" top="30.0" />
                      </GridPane.margin>
                   </Label>
                </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
             </GridPane>
          </children>
          <VBox.margin>
@@ -177,7 +180,7 @@
             <Hyperlink mnemonicParsing="false" onAction="#backLogin" text="Iniciar sesión" />
          </children>
           <VBox.margin>
-             <Insets left="50.0" right="40.0" />
+             <Insets left="55.0" right="40.0" />
           </VBox.margin>
        </TextFlow>
    </children>

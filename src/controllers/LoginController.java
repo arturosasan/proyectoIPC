@@ -66,7 +66,12 @@ public class LoginController implements Initializable {
         //CREACION DEL TEXTFIELD NUEVO PARA MOSTRAR LA CONTRASEÑA
         passwordVisibleField = new TextField();
         passwordVisibleField.setPromptText("Tu contraseña"); // tiene que ser igual al que ya está creado en SceneBuilder
-        passwordVisibleField.setPrefHeight(36);
+        passwordVisibleField.setPrefHeight(passwordField.getPrefHeight());
+        passwordVisibleField.setPrefWidth(passwordField.getPrefWidth());
+        passwordVisibleField.setMaxHeight(passwordField.getMaxHeight());
+        passwordVisibleField.setMaxWidth(passwordField.getMaxWidth());
+        passwordVisibleField.setMinHeight(passwordField.getMinHeight());
+        passwordVisibleField.setMinWidth(passwordField.getMinWidth());
         passwordVisibleField.setVisible(false); // oculto por defecto
         passwordVisibleField.setManaged(false); // no ocupa espacio en el layout
 
@@ -74,7 +79,7 @@ public class LoginController implements Initializable {
         GridPane.setColumnIndex(passwordVisibleField, 1);
         GridPane.setRowIndex(passwordVisibleField, 3); // se me olvidó cambiar este pequeñito detalle ayer :)
         GridPane.setHalignment(passwordVisibleField, javafx.geometry.HPos.CENTER);
-        GridPane.setMargin(passwordVisibleField, new Insets(0, 0, 20, 0)); // esto para que se quede igual visualmente que en SB
+        GridPane.setMargin(passwordVisibleField, new Insets(0, 0, 20, 12)); // esto para que se quede igual visualmente que en SB
 
         gridPane.getChildren().add(passwordVisibleField);
 

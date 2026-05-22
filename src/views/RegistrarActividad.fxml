@@ -1,152 +1,132 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<ScrollPane fitToWidth="true"
-            pannable="true"
-            style="-fx-background: #1d2a3d; -fx-background-color: #1d2a3d;"
-            stylesheets="@../styles/registrar.css"
-            xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controllers.RegistrarActividadController">
+<ScrollPane fitToWidth="true" pannable="true" styleClass="root-scroll" stylesheets="@../styles/registrar.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RegistrarActividadController">
 
     <content>
-        <VBox id="rootVBox"
-              alignment="TOP_CENTER"
-              fillWidth="false"
-              minHeight="900"
-              spacing="14"
-              style="-fx-background-color: #1d2a3d;">
+        <VBox id="rootVBox" alignment="TOP_CENTER" fillWidth="false" minHeight="900" spacing="14" stylesheets="@../styles/registrar.css">
 
             <padding>
-                <Insets top="25" right="45" bottom="60" left="45"/>
+                <Insets bottom="60" left="45" right="45" top="25" />
             </padding>
 
             <children>
-                <HBox alignment="CENTER_LEFT" prefWidth="900">
-                    <Button text="&lt; Volver"
-                            onAction="#handleVolver"
-                            styleClass="volver-btn"/>
+                <HBox alignment="CENTER_LEFT" prefWidth="900" stylesheets="@../styles/registrar.css">
+               <children>
+                  <Button onAction="#volver" styleClass="back-btn" text="← Volver" />
+                  <Region prefHeight="42.0" prefWidth="210.0" />
+                  <Label styleClass="app-title" text="Registrar actividad" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" top="10.0" />
+               </VBox.margin>
                 </HBox>
-
-                <Label text="Registrar actividad" styleClass="app-title"/>
 
                 <HBox alignment="CENTER" spacing="14">
-                    <Button text="Seleccionar GPX"
-                            onAction="#handleSeleccionarGPX"
-                            styleClass="gpx-btn"/>
+                    <Button onAction="#handleSeleccionarGPX" styleClass="gpx-btn" text="Seleccionar GPX" />
 
-                    <Label text="Archivo:" styleClass="file-label"/>
-                    <Label fx:id="archivoSeleccionadoLabel"
-                           text="-"
-                           styleClass="file-value"/>
+                    <Label styleClass="file-label" text="Archivo:" />
+                    <Label fx:id="archivoSeleccionadoLabel" styleClass="file-value" text="-" />
                 </HBox>
 
-                <Button text="Importar actividad"
-                        onAction="#handleImportarActividad"
-                        styleClass="import-btn"/>
+                <Button onAction="#handleImportarActividad" styleClass="import-btn" text="Importar actividad">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin></Button>
 
-                <Label fx:id="estadoLabel"
-                       text=""
-                       style="-fx-text-fill: #e8edf5; -fx-font-size: 13px;"/>
+                <Label fx:id="estadoLabel" styleClass="estado-label" text="" />
 
-                <HBox alignment="CENTER" spacing="10">
+                <HBox alignment="CENTER" spacing="10" stylesheets="@../styles/registrar.css">
                     <children>
-                        <ScrollPane fx:id="mapScrollPane"
-                                    hbarPolicy="AS_NEEDED"
-                                    vbarPolicy="AS_NEEDED"
-                                    pannable="true"
-                                    prefHeight="260"
-                                    prefWidth="620"
-                                    style="-fx-background: #0d1b2a;
-                                           -fx-border-color: #16c7e8;
-                                           -fx-border-radius: 8;
-                                           -fx-background-radius: 8;"/>
+                        <ScrollPane id="mapScrollPane" fx:id="mapScrollPane" hbarPolicy="AS_NEEDED" pannable="true" prefHeight="260" prefWidth="620" stylesheets="@../styles/registrar.css" vbarPolicy="AS_NEEDED" />
 
                         <VBox alignment="CENTER" spacing="12">
-                            <Button text="+"
-                                    onAction="#handleZoomIn"
-                                    style="-fx-background-color: #55d6b3;
-                                           -fx-text-fill: #071323;
-                                           -fx-font-weight: bold;
-                                           -fx-font-size: 16px;
-                                           -fx-background-radius: 8;
-                                           -fx-min-width: 42;
-                                           -fx-min-height: 42;"/>
+                            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="32.0" minWidth="34.0" onAction="#handleZoomIn" prefHeight="32.0" prefWidth="34.0" styleClass="zoom-btn" text="+" />
 
-                            <Slider fx:id="zoomSlider"
-                                    orientation="VERTICAL"
-                                    min="0.5"
-                                    max="5.0"
-                                    value="1.0"
-                                    prefHeight="150"/>
+                            <Slider fx:id="zoomSlider" max="5.0" min="0.5" orientation="VERTICAL" prefHeight="150" value="1.0" />
 
-                            <Button text="-"
-                                    onAction="#handleZoomOut"
-                                    style="-fx-background-color: #55d6b3;
-                                           -fx-text-fill: #071323;
-                                           -fx-font-weight: bold;
-                                           -fx-font-size: 16px;
-                                           -fx-background-radius: 8;
-                                           -fx-min-width: 42;
-                                           -fx-min-height: 42;"/>
+                            <Button onAction="#handleZoomOut" styleClass="zoom-btn" text="-" />
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
                         </VBox>
                     </children>
+               <VBox.margin>
+                  <Insets left="40.0" />
+               </VBox.margin>
                 </HBox>
 
-                <Label fx:id="mapaLabel"
-                       text="-"
-                       style="-fx-text-fill: #55d6b3;
-                              -fx-font-size: 14px;
-                              -fx-font-weight: bold;"/>
+                <Label fx:id="mapaLabel" styleClass="mapa-label" text="-" />
 
-                <VBox alignment="TOP_CENTER"
-                      prefWidth="620"
-                      spacing="14"
-                      styleClass="stats-panel">
+                <VBox alignment="TOP_CENTER" prefWidth="620" spacing="14" styleClass="stats-panel">
 
                     <padding>
-                        <Insets top="22" right="24" bottom="22" left="24"/>
+                        <Insets bottom="22" left="24" right="24" top="22" />
                     </padding>
 
                     <children>
-                        <Label text="Estadísticas" styleClass="stats-title"/>
+                        <Label styleClass="stats-title" text="Estadísticas" />
 
-                        <GridPane hgap="25" vgap="11">
+                        <GridPane hgap="25" prefHeight="245.0" prefWidth="413.0" vgap="11">
                             <columnConstraints>
-                                <ColumnConstraints prefWidth="180"/>
-                                <ColumnConstraints prefWidth="150"/>
+                                <ColumnConstraints prefWidth="180.0" />
+                                <ColumnConstraints prefWidth="150.0" />
                             </columnConstraints>
 
                             <children>
-                                <Label text="Distancia:" styleClass="stat-field"/>
-                                <Label fx:id="distanciaLabel" text="-" styleClass="stat-value" GridPane.columnIndex="1"/>
+                                <Label styleClass="stat-field" text="Distancia:" GridPane.halignment="RIGHT" />
+                                <Label fx:id="distanciaLabel" styleClass="stat-value" text="-" GridPane.columnIndex="1" />
 
-                                <Label text="Duración:" styleClass="stat-field" GridPane.rowIndex="1"/>
-                                <Label fx:id="duracionLabel" text="-" styleClass="stat-value" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                                <Label styleClass="stat-field" text="Duración:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                                <Label fx:id="duracionLabel" styleClass="stat-value" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-                                <Label text="Velocidad media:" styleClass="stat-field" GridPane.rowIndex="2"/>
-                                <Label fx:id="velocidadLabel" text="-" styleClass="stat-value" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                                <Label styleClass="stat-field" text="Velocidad media:" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                                <Label fx:id="velocidadLabel" styleClass="stat-value" text="-" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-                                <Label text="Ritmo medio:" styleClass="stat-field" GridPane.rowIndex="3"/>
-                                <Label fx:id="ritmoLabel" text="-" styleClass="stat-value" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                                <Label styleClass="stat-field" text="Ritmo medio:" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                                <Label fx:id="ritmoLabel" styleClass="stat-value" text="-" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-                                <Label text="Desnivel positivo:" styleClass="stat-field" GridPane.rowIndex="4"/>
-                                <Label fx:id="desnivelPositivoLabel" text="-" styleClass="stat-value" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                                <Label styleClass="stat-field" text="Desnivel positivo:" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+                                <Label fx:id="desnivelPositivoLabel" styleClass="stat-value" text="-" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
-                                <Label text="Desnivel negativo:" styleClass="stat-field" GridPane.rowIndex="5"/>
-                                <Label fx:id="desnivelNegativoLabel" text="-" styleClass="stat-value" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                                <Label styleClass="stat-field" text="Desnivel negativo:" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
+                                <Label fx:id="desnivelNegativoLabel" styleClass="stat-value" text="-" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
-                                <Label text="Altitud mínima:" styleClass="stat-field" GridPane.rowIndex="6"/>
-                                <Label fx:id="altitudMinimaLabel" text="-" styleClass="stat-value" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+                                <Label styleClass="stat-field" text="Altitud mínima:" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
+                                <Label fx:id="altitudMinimaLabel" styleClass="stat-value" text="-" GridPane.columnIndex="1" GridPane.rowIndex="6" />
 
-                                <Label text="Altitud máxima:" styleClass="stat-field" GridPane.rowIndex="7"/>
-                                <Label fx:id="altitudMaximaLabel" text="-" styleClass="stat-value" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+                                <Label styleClass="stat-field" text="Altitud máxima:" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
+                                <Label fx:id="altitudMaximaLabel" styleClass="stat-value" text="-" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                             </children>
+                     <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                     </rowConstraints>
+                     <VBox.margin>
+                        <Insets left="55.0" />
+                     </VBox.margin>
                         </GridPane>
                     </children>
+               <VBox.margin>
+                  <Insets left="30.0" />
+               </VBox.margin>
                 </VBox>
             </children>
         </VBox>

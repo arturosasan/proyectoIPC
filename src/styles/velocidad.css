@@ -4,12 +4,40 @@
 
 #mapPane {
     -fx-background-color: #132033;
-    -fx-background-radius: 18;
+    -fx-background-radius: 16;
     -fx-border-color: #16c7e8;
-    -fx-border-radius: 18;
+    -fx-border-radius: 16;
     -fx-border-width: 2;
 }
 
-#infoLabel {
+#bottomLabel {
     -fx-text-fill: #e8edf5;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+#infoLabel {
+    -fx-font-size: 15px;
+    -fx-font-style: italic;
+}
+
+.top-panel {
+    -fx-padding: 12 10 8 10;
+}
+
+.subtitle {
+    -fx-font-size: 15px;
+}
+
+.center-panel {
+    -fx-padding: 5 20 10 20;
+}
+
+.back-btn {
+    -fx-background-color: #ef4264;
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 12;
+    -fx-padding: 8 42 8 42;
 }

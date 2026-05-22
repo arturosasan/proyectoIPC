@@ -1,107 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
 
-<BorderPane prefWidth="1050" prefHeight="690"
-            style="-fx-background-color: #162235;"
-            xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controllers.VisualizarActividadController">
+<BorderPane id="rootBorder" prefHeight="690" prefWidth="1050" stylesheets="@../styles/visualizar.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.VisualizarActividadController">
 
     <top>
-        <VBox spacing="10" alignment="CENTER" style="-fx-padding: 12;">
+        <VBox alignment="CENTER" spacing="10" styleClass="top-panel">
             <HBox alignment="CENTER_LEFT" spacing="30">
-                <Button text="&lt; Volver"
-                        onAction="#handleVolver"
-                        style="-fx-background-color: transparent; -fx-text-fill: #55d6b3; -fx-font-size: 16px; -fx-font-weight: bold;" />
-
-                <Label text="Running la Safor" textFill="#55d6b3">
-                    <font>
-                        <Font size="34"/>
-                    </font>
-                </Label>
+                <Button onAction="#handleVolver" styleClass="back-btn" text="← Volver">
+               <HBox.margin>
+                  <Insets left="15.0" />
+               </HBox.margin></Button>
+            <Region prefHeight="42.0" prefWidth="228.0" />
+   
+               <Label styleClass="app-title" text="Visualizar actividad" />
+            <VBox.margin>
+               <Insets bottom="10.0" top="10.0" />
+            </VBox.margin>
             </HBox>
 
-            <Label text="Visualizar actividad" textFill="white">
-                <font>
-                    <Font size="28"/>
-                </font>
-            </Label>
-
             <HBox alignment="CENTER" spacing="10">
-                <Label text="Actividad:" textFill="white" style="-fx-font-size: 16px;" />
+                <Label styleClass="field-label" text="Actividad:" />
 
-                <ComboBox fx:id="actividadComboBox"
-                          onAction="#cambiarActividad"
-                          prefWidth="460"
-                          prefHeight="38"
-                          style="-fx-font-size: 14px;
-                                 -fx-background-color: #0f1b2d;
-                                 -fx-border-color: #55d6b3;
-                                 -fx-border-radius: 10;
-                                 -fx-background-radius: 10;" />
+                <ComboBox fx:id="actividadComboBox" onAction="#cambiarActividad" prefHeight="38" prefWidth="276.0" styleClass="actividad-combo" />
             </HBox>
         </VBox>
     </top>
 
     <center>
-        <HBox alignment="CENTER" spacing="18" style="-fx-padding: 5 20 10 20;">
+        <HBox alignment="CENTER" spacing="18" styleClass="center-panel">
 
-            <AnchorPane fx:id="mapPane"
-                        prefWidth="760"
-                        prefHeight="380"
-                        style="-fx-background-color: #0f1b2d;
-                               -fx-border-color: #16c7e8;
-                               -fx-border-radius: 18;
-                               -fx-background-radius: 18;
-                               -fx-border-width: 2;" />
-
-            <VBox spacing="15"
-                  alignment="TOP_LEFT"
-                  prefWidth="220"
-                  prefHeight="380"
-                  style="-fx-background-color: #081a33;
-                         -fx-border-color: #55d6b3;
-                         -fx-border-radius: 18;
-                         -fx-background-radius: 18;
-                         -fx-padding: 20;">
-
-                <Label text="Estadísticas" textFill="white">
-                    <font>
-                        <Font size="24"/>
-                    </font>
-                </Label>
-
-                <Label fx:id="distanciaLabel" text="Distancia: -" textFill="white" style="-fx-font-size: 15px;" />
-                <Label fx:id="duracionLabel" text="Duración: -" textFill="white" style="-fx-font-size: 15px;" />
-                <Label fx:id="velocidadLabel" text="Velocidad: -" textFill="white" style="-fx-font-size: 15px;" />
-                <Label fx:id="desnivelLabel" text="Desnivel: -" textFill="white" style="-fx-font-size: 15px;" />
-
-            </VBox>
+            <AnchorPane fx:id="mapPane" prefHeight="380" prefWidth="760" styleClass="map-pane" HBox.hgrow="NEVER">
+            <HBox.margin>
+               <Insets bottom="10.0" />
+            </HBox.margin></AnchorPane>
         </HBox>
     </center>
 
     <bottom>
-        <VBox alignment="CENTER" spacing="12" style="-fx-padding: 5 0 18 0;">
+        <VBox alignment="CENTER" spacing="12" styleClass="bottom-panel">
 
             <HBox alignment="CENTER" spacing="18">
-                <Button text="Perfil de desnivel"
-                        onAction="#abrirPerfilDesnivel"
-                        prefWidth="260"
-                        prefHeight="48"
-                        style="-fx-background-color: #55d6b3; -fx-text-fill: #132033; -fx-font-size: 17px; -fx-font-weight: bold; -fx-background-radius: 14;" />
+                <Button onAction="#abrirPerfilDesnivel" styleClass="action-btn" text="Perfil de desnivel" />
 
-                <Button text="Velocidad sobre trazado"
-                        onAction="#abrirVelocidad"
-                        prefWidth="260"
-                        prefHeight="48"
-                        style="-fx-background-color: #55d6b3; -fx-text-fill: #132033; -fx-font-size: 17px; -fx-font-weight: bold; -fx-background-radius: 14;" />
+                <Button onAction="#abrirVelocidad" styleClass="action-btn" text="Velocidad sobre trazado" />
 
             </HBox>
 
         </VBox>
     </bottom>
+   <right>
+
+         <VBox alignment="TOP_LEFT" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="275.0" prefWidth="220" spacing="15" styleClass="stats-panel" BorderPane.alignment="CENTER">
+
+             <Label styleClass="stats-title" text="Estadísticas">
+            <VBox.margin>
+               <Insets left="30.0" />
+            </VBox.margin>
+         </Label>
+
+             <Label fx:id="distanciaLabel" styleClass="stat-field" text="Distancia: -" />
+             <Label fx:id="duracionLabel" styleClass="stat-field" text="Duración: -" />
+             <Label fx:id="velocidadLabel" styleClass="stat-field" text="Velocidad: -" />
+             <Label fx:id="desnivelLabel" styleClass="stat-field" text="Desnivel: -" />
+         <BorderPane.margin>
+            <Insets right="25.0" />
+         </BorderPane.margin>
+
+         </VBox>
+   </right>
 
 </BorderPane>
