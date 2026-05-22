@@ -1,75 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
-<BorderPane id="rootBorder" xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controllers.PerfilDesnivelController"
-            stylesheets="@../styles/perfil.css"
-            style="-fx-background-color: #1C2A40;">
+<VBox alignment="TOP_CENTER"
+      spacing="25"
+      prefWidth="1200"
+      prefHeight="780"
+      style="-fx-background-color: #1C2A40;"
+      xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.PerfilDesnivelController">
 
-    <top>
-        <Label text="Perfil de desnivel"
-               BorderPane.alignment="CENTER"
-               style="-fx-text-fill: #55D6B2; -fx-font-size: 30px; -fx-font-weight: bold; -fx-padding: 25;" />
-    </top>
+    <padding>
+        <Insets top="20" right="25" bottom="20" left="25"/>
+    </padding>
 
-    <center>
-        <HBox spacing="25"
-               alignment="CENTER"
-               style="-fx-padding: 20;">
+    <children>
 
-            <StackPane fx:id="mapContainer"
-                       prefWidth="620"
-                       prefHeight="430"
-                       style="-fx-background-color: #162235;
-                              -fx-border-color: #55D6B2;
-                              -fx-border-radius: 12;
-                              -fx-background-radius: 12;" />
+        <HBox alignment="CENTER_LEFT" prefWidth="1100" spacing="25">
+            <children>
+                <Button text="← Volver"
+                        onAction="#volver"
+                        style="-fx-background-color: #1C2A40;
+                               -fx-border-color: #55D6B2;
+                               -fx-border-width: 2;
+                               -fx-border-radius: 8;
+                               -fx-background-radius: 8;
+                               -fx-text-fill: #55D6B2;
+                               -fx-font-size: 17px;
+                               -fx-font-weight: bold;
+                               -fx-padding: 7 16 7 16;"/>
 
-            <VBox spacing="15"
-                  alignment="CENTER">
-
-                <LineChart fx:id="graficaDesnivel"
-                           prefWidth="560"
-                           prefHeight="430"
-                           animated="false"
-                           legendVisible="false">
-
-                    <xAxis>
-                        <NumberAxis fx:id="ejeDistancia"
-                                    label="Distancia (km)" />
-                    </xAxis>
-
-                    <yAxis>
-                        <NumberAxis fx:id="ejeAltitud"
-                                    label="Altitud (m)" />
-                    </yAxis>
-
-                </LineChart>
-
-                <Label fx:id="lblInfoPunto"
-                       text="Pasa el ratón por la gráfica"
-                       style="-fx-text-fill: white;
-                              -fx-font-size: 14px;" />
-
-            </VBox>
-
+                <Label text="Perfil de desnivel"
+                       style="-fx-text-fill: #55D6B2;
+                              -fx-font-size: 30px;
+                              -fx-font-weight: bold;"/>
+            </children>
         </HBox>
-    </center>
 
-    <bottom>
-        <Button text="Volver"
-                onAction="#volver"
-                BorderPane.alignment="CENTER"
-                style="-fx-background-color: #EF4264;
-                       -fx-text-fill: white;
-                       -fx-font-size: 16px;
-                       -fx-font-weight: bold;
-                       -fx-background-radius: 10;
-                       -fx-padding: 10 45 10 45;" />
-    </bottom>
+        <Pane fx:id="mapContainer"
+              prefWidth="1400"
+              prefHeight="380"
+              maxWidth="1400"
+              maxHeight="380"
+              style="-fx-background-color: #162235;
+                     -fx-border-color: #55D6B2;
+                     -fx-border-width: 2;
+                     -fx-border-radius: 12;
+                     -fx-background-radius: 12;"/>
 
-</BorderPane>
+        <LineChart fx:id="graficaDesnivel"
+                   prefWidth="1100"
+                   prefHeight="260"
+                   maxWidth="1100"
+                   maxHeight="260"
+                   animated="false"
+                   legendVisible="false"
+                   style="-fx-background-color: #162235;
+                          -fx-border-color: #55D6B2;
+                          -fx-border-width: 2;">
+
+            <xAxis>
+                <NumberAxis fx:id="ejeDistancia" label="Distancia (km)"/>
+            </xAxis>
+
+            <yAxis>
+                <NumberAxis fx:id="ejeAltitud" label="Altitud (m)"/>
+            </yAxis>
+
+        </LineChart>
+
+        <Label fx:id="lblInfoPunto"
+               text="Pasa el ratón sobre la gráfica"
+               style="-fx-text-fill: white;
+                      -fx-font-size: 14px;"/>
+
+    </children>
+</VBox>
