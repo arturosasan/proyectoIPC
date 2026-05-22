@@ -1,67 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="rootBorder"
-            prefWidth="950"
-            prefHeight="680"
-            xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controllers.VelocidadTrazadoController"
-            stylesheets="@../styles/velocidad.css">
+<BorderPane id="rootBorder" prefHeight="680" prefWidth="950" stylesheets="@../styles/velocidad.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.VelocidadTrazadoController">
 
     <top>
-        <VBox alignment="CENTER" spacing="4" style="-fx-padding: 12 10 8 10;">
+        <VBox alignment="CENTER" spacing="4" styleClass="top-panel" BorderPane.alignment="CENTER">
             <Label text="Velocidad sobre el trazado" textFill="#55d6b3">
                 <font>
-                    <Font name="System Bold" size="30"/>
+                    <Font name="System Bold" size="30" />
                 </font>
             </Label>
 
-            <Label text="Cada tramo se colorea según la velocidad"
-                   textFill="#e8edf5"
-                   style="-fx-font-size: 14px;"/>
+            <Label styleClass="subtitle" text="Cada tramo se colorea según la velocidad" textFill="#e8edf5">
+            <VBox.margin>
+               <Insets top="5.0" />
+            </VBox.margin></Label>
+         <BorderPane.margin>
+            <Insets top="20.0" />
+         </BorderPane.margin>
         </VBox>
     </top>
 
     <center>
-        <VBox alignment="CENTER" spacing="10" style="-fx-padding: 5 20 10 20;">
+        <VBox alignment="CENTER" spacing="10" styleClass="center-panel">
 
-            <AnchorPane fx:id="mapPane"
-                        prefWidth="850"
-                        prefHeight="380"
-                        maxWidth="850"
-                        maxHeight="380"
-                        style="-fx-background-color: #132033;
-                               -fx-background-radius: 16;
-                               -fx-border-color: #16c7e8;
-                               -fx-border-radius: 16;
-                               -fx-border-width: 2;" />
+            <AnchorPane fx:id="mapPane" maxHeight="380" maxWidth="850" prefHeight="380" prefWidth="850" />
 
             <HBox alignment="CENTER" spacing="22">
-                <Label text="Lento" textFill="#e8edf5"/>
-                <Label text="Azul" textFill="#16c7e8"/>
-                <Label text="Medio" textFill="#e8edf5"/>
-                <Label text="Verde" textFill="#55d6b3"/>
-                <Label text="Rápido" textFill="#e8edf5"/>
-                <Label text="Rojo" textFill="#ef4264"/>
+                <Label id="infoLabel" stylesheets="@../styles/velocidad.css" text="Lento" textFill="#e8edf5" />
+                <Label id="infoLabel" stylesheets="@../styles/velocidad.css" text="Azul" textFill="#16c7e8" />
+                <Label id="infoLabel" stylesheets="@../styles/velocidad.css" text="Medio" textFill="#e8edf5" />
+                <Label id="infoLabel" stylesheets="@../styles/velocidad.css" text="Verde" textFill="#55d6b3" />
+                <Label id="infoLabel" stylesheets="@../styles/velocidad.css" text="Rápido" textFill="#e8edf5" />
+                <Label id="infoLabel" stylesheets="@../styles/velocidad.css" text="Rojo" textFill="#ef4264" />
             </HBox>
 
-            <Label fx:id="infoLabel"
-                   text="Pasa el ratón sobre un tramo para ver su velocidad."
-                   textFill="#ffffff"
-                   style="-fx-font-size: 22px; -fx-font-weight: bold;" />
+            <Label id="bottomLabel" fx:id="infoLabel" text="Pasa el ratón sobre un tramo para ver su velocidad" textFill="#ffffff">
+            <VBox.margin>
+               <Insets top="5.0" />
+            </VBox.margin></Label>
 
-            <Button text="Volver"
-                    onAction="#volver"
-                    style="-fx-background-color: #ef4264;
-                           -fx-text-fill: white;
-                           -fx-font-size: 15px;
-                           -fx-font-weight: bold;
-                           -fx-background-radius: 12;
-                           -fx-padding: 8 42 8 42;" />
+            <Button onAction="#volver" styleClass="back-btn" stylesheets="@../styles/velocidad.css" text="Volver">
+            <VBox.margin>
+               <Insets top="10.0" />
+            </VBox.margin></Button>
         </VBox>
     </center>
 
