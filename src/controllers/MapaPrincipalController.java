@@ -473,7 +473,7 @@ public class MapaPrincipalController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         // ── Configuración del slider de zoom ──────────────────────────
-        zoom_slider.setMin(0.85);
+        zoom_slider.setMin(1);
         zoom_slider.setMax(1.5);
         zoom_slider.setValue(1.0);
 
