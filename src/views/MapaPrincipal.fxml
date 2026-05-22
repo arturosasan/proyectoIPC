@@ -19,21 +19,30 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane id="principal" prefHeight="885.0" prefWidth="1275.0" stylesheets="@../styles/main.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MapaPrincipalController">
+<BorderPane id="principal" prefHeight="885.0" prefWidth="1275.0" stylesheets="@../styles/main.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MapaPrincipalController">
    <top>
-      <HBox alignment="CENTER_RIGHT" fillHeight="false" prefHeight="39.0" prefWidth="1263.0" spacing="5.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER_RIGHT" fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="54.0" prefWidth="1263.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
-            <Button id="ayuda" mnemonicParsing="false" onAction="#about" stylesheets="@../styles/main.css" text="Ayuda">
+            <Label styleClass="app-title" stylesheets="@../styles/main.css" text="Running la Safor" />
+            <Region prefHeight="39.0" prefWidth="304.0" />
+            <Button id="ayuda" mnemonicParsing="false" onAction="#about" prefHeight="36.0" prefWidth="71.0" stylesheets="@../styles/main.css" text="Ayuda">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
+               <font>
+                  <Font size="15.0" />
+               </font>
             </Button>
-            <Button id="cambiarMapa" mnemonicParsing="false" onAction="#cambiarMapa" stylesheets="@../styles/main.css" text="Cambiar mapa">
+            <Button id="cambiarMapa" mnemonicParsing="false" onAction="#cambiarMapa" prefHeight="38.0" prefWidth="123.0" stylesheets="@../styles/main.css" text="Cambiar mapa">
                <HBox.margin>
                   <Insets right="10.0" />
-               </HBox.margin></Button>
+               </HBox.margin>
+               <font>
+                  <Font size="15.0" />
+               </font></Button>
          </children>
          <BorderPane.margin>
             <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
@@ -94,7 +103,7 @@
    <left>
       <VBox id="principal" prefHeight="804.0" prefWidth="284.0" spacing="0" stylesheets="@../styles/main.css" BorderPane.alignment="CENTER">
          <children>
-            <StackPane prefHeight="150.0" prefWidth="150.0">
+            <StackPane prefHeight="150.0" prefWidth="150.0" VBox.vgrow="NEVER">
                <children>
                   <Circle fill="#1b263b" radius="66.0" stroke="#e94560" strokeType="INSIDE" strokeWidth="3.0" />
                   <ImageView fx:id="avatarView" fitHeight="126.0" fitWidth="126.0" pickOnBounds="true" preserveRatio="false">
@@ -107,8 +116,8 @@
                   </ImageView>
                </children>
             </StackPane>
-            <Region prefHeight="9.0" prefWidth="225.0" />
-            <StackPane prefWidth="225.0">
+            <Region prefHeight="9.0" prefWidth="225.0" VBox.vgrow="NEVER" />
+            <StackPane prefWidth="225.0" VBox.vgrow="NEVER">
                <children>
                   <Text fx:id="nicknameText" fill="WHITE" style="-fx-font-size: 22; -fx-font-weight: bold;" text="[nickname]" textAlignment="CENTER">
                      <StackPane.margin>
@@ -117,8 +126,8 @@
                   </Text>
                </children>
             </StackPane>
-            <Region prefHeight="21.0" prefWidth="284.0" />
-            <HBox alignment="TOP_CENTER" prefHeight="61.0" prefWidth="284.0">
+            <Region prefHeight="21.0" prefWidth="284.0" VBox.vgrow="NEVER" />
+            <HBox alignment="TOP_CENTER" prefHeight="61.0" prefWidth="284.0" VBox.vgrow="NEVER">
                <children>
                   <Button id="botonesPerfil" mnemonicParsing="false" onAction="#modificarPerfil" prefHeight="44.0" prefWidth="58.0" stylesheets="@../styles/main.css" textFill="WHITE">
                      <graphic>
@@ -147,22 +156,22 @@
                   </Button>
                </children>
             </HBox>
-            <Separator prefWidth="200.0">
+            <Separator prefWidth="200.0" VBox.vgrow="NEVER">
                <VBox.margin>
                   <Insets bottom="20.0" left="12.0" right="12.0" />
                </VBox.margin>
             </Separator>
-            <TabPane prefHeight="106.0" prefWidth="225.0" side="TOP" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+            <TabPane prefHeight="456.0" prefWidth="279.0" side="TOP" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
                <tabs>
-                  <Tab text="Actividades">
+                  <Tab id="tab" text="Actividades">
                      <content>
                         <VBox alignment="CENTER" spacing="12.0">
-                           <Button mnemonicParsing="false" onAction="#nuevaActividad" prefHeight="58.0" prefWidth="196.0" styleClass="btn-primary" text="+ Nueva Actividad">
+                           <Button mnemonicParsing="false" onAction="#nuevaActividad" prefHeight="58.0" prefWidth="196.0" styleClass="btn-primary" text="+ Nueva Actividad" VBox.vgrow="NEVER">
                               <VBox.margin>
-                                 <Insets top="30.0" />
+                                 <Insets />
                               </VBox.margin>
                            </Button>
-                           <Region prefHeight="42.0" prefWidth="284.0" />
+                           <Region prefHeight="42.0" prefWidth="284.0" VBox.vgrow="NEVER" />
                            <Button mnemonicParsing="false" onAction="#visualizarActividad" prefHeight="48.0" prefWidth="196.0" styleClass="btn-secondary" text="Visualizar Actividad" />
                            <Button mnemonicParsing="false" onAction="#anotacionesActividad" prefHeight="48.0" prefWidth="196.0" styleClass="btn-secondary" text="Anotaciones" />
                            <Button mnemonicParsing="false" onAction="#acumuladoActividades" prefHeight="48.0" prefWidth="196.0" styleClass="btn-secondary" text="Acumulado actividades" />
@@ -192,7 +201,7 @@
                   <Insets bottom="10.0" left="5.0" />
                </VBox.margin>
             </TabPane>
-            <Button id="cerrarSesion" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="46.0" prefWidth="153.0" stylesheets="@../styles/main.css" text="Cerrar Sesión">
+            <Button id="cerrarSesion" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="46.0" prefWidth="153.0" stylesheets="@../styles/main.css" text="Cerrar Sesión" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets bottom="10.0" left="67.0" right="55.0" top="10.0" />
                </VBox.margin>

@@ -71,7 +71,7 @@
     -fx-cursor: hand;
 }
 
-/* ── TabPane ─────────────────────────────── */
+
 .tab-pane {
     -fx-tab-min-width: 100;
     -fx-tab-max-height: 30;
@@ -116,13 +116,13 @@
     -fx-padding: 4 0 0 0;
 }
 
-/* ── Botón primario (Nueva Actividad) ────── */
+
 .btn-primary {
     -fx-background-color: #4ecca3;
     -fx-text-fill: #0d1b2a;
     -fx-background-radius: 10;
     -fx-font-weight: bold;
-    -fx-font-size: 15;
+    -fx-font-size: 16;
     -fx-pref-height: 58;
     -fx-pref-width: 196;
 }
@@ -132,7 +132,7 @@
     -fx-cursor: hand;
 }
 
-/* ── Botón secundario ──────────────────────── */
+
 .btn-secondary {
     -fx-background-color: transparent;
     -fx-border-color: #4ecca3;
@@ -141,7 +141,7 @@
     -fx-background-radius: 10;
     -fx-border-radius: 10;
     -fx-font-weight: bold;
-    -fx-font-size: 13;
+    -fx-font-size: 14;
     -fx-pref-height: 48;
     -fx-pref-width: 196;
 }
@@ -152,7 +152,7 @@
     -fx-cursor: hand;
 }
 
-/* ── Separator ──────────────────────────────── */
+
 .separator .line {
     -fx-background-color: #2a3d5c;
     -fx-pref-height: 1;
@@ -170,4 +170,14 @@
     -fx-background-radius: 5px;
     -fx-text-fill: white;
     -fx-cursor: hand;
+}
+
+.app-title {
+    -fx-text-fill: #55d6b3;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+}
+
+#tab {
+    -fx-font-size: 10px;
 }
