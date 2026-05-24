@@ -46,10 +46,22 @@ public class AddMapaController implements Initializable {
 
     private final SportActivityApp app = SportActivityApp.getInstance();
 
+    /**
+     * Inicializa el controlador de añadir mapa.
+     * No requiere configuración adicional.
+     *
+     * @param url  URL del documento FXML (no usado)
+     * @param rb   paquete de recursos (no usado)
+     */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-    }
+    public void initialize(URL url, ResourceBundle rb) {}
 
+    /**
+     * Abre un selector de archivos para elegir la imagen del mapa.
+     * Muestra el nombre del archivo seleccionado.
+     *
+     * @param event evento de acción del botón de selección
+     */
     @FXML
     private void handleSelectImage(ActionEvent event) {
         FileChooser fc = new FileChooser();
@@ -62,9 +74,17 @@ public class AddMapaController implements Initializable {
         if (file != null) {
             selectedImage = file;
             imagePathLabel.setText(file.getName());
+            imagePathLabel.setStyle("-fx-text-fill: #55d6b3; -fx-font-weight: bold");
+            
         }
     }
 
+    /**
+     * Guarda el nuevo mapa en la base de datos con sus coordenadas.
+     * Valida que se haya seleccionado imagen, nombre y coordenadas.
+     *
+     * @param event evento de acción del botón de guardar
+     */
     @FXML
     private void handleSaveMap(ActionEvent event) {
         if (selectedImage == null) {
@@ -100,24 +120,30 @@ public class AddMapaController implements Initializable {
         }
     }
 
+    /**
+     * Vuelve a la pantalla principal cerrando la ventana actual.
+     *
+     * @param event evento de acción del botón de volver
+     */
     @FXML
     private void handleVolver(ActionEvent event) {
         volverPrincipal();
     }
 
+    /**
+     * Cierra la ventana actual del diálogo.
+     */
     private void volverPrincipal() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/MapaPrincipal.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) nameField.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Pantalla principal");
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Stage stage = (Stage) nameField.getScene().getWindow();
+        stage.close();
     }
 
+    /**
+     * Muestra un diálogo de error con título y mensaje personalizados.
+     *
+     * @param titulo  título del diálogo
+     * @param mensaje contenido del mensaje de error
+     */
     private void mostrarAlerta(String titulo, String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(titulo);
