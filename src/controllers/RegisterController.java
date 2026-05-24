@@ -112,6 +112,51 @@ public class RegisterController implements Initializable {
 
         // Sincronización mutua entre ambos campos de contraseña
         passwordField.textProperty().bindBidirectional(passwordVisibleField.textProperty());
+
+        // VALIDACIÓN EN TIEMPO REAL AL PERDER/GANAR FOCO
+        nicknameField.focusedProperty().addListener((obs, oldVal, newVal) -> {    
+            String nick = nicknameField.getText().trim();
+            if (!nick.isEmpty() && !User.checkNickName(nick)) {
+                errores.add("• Nickname: 6-15 caracteres."); mostrarError(errores); 
+            }
+        });
+
+        emailField.focusedProperty().addListener((obs, oldVal, newVal) -> {    
+            String email = emailField.getText().trim();
+            if (!email.isEmpty() && !User.checkEmail(email)) {
+                errores.add("• Email: formato inválido.");
+                mostrarError(errores); 
+            } 
+        });
+
+        passwordField.focusedProperty().addListener((obs, oldVal, newVal) -> {    
+            String pass = passwordField.getText();
+            if (!pass.isEmpty() && !User.checkPassword(pass)) {
+                errores.add("• Contraseña: 8-20 chars, 1 mayúscula, 1 minúscula, 1 dígito, 1 símbolo (!@#$%&*()-+=).");
+                mostrarError(errores); 
+            }
+        });
+
+        passwordVisibleField.focusedProperty().addListener((obs, oldVal, newVal) -> {    
+            String pass = passwordVisibleField.getText();
+            if (!pass.isEmpty() && !User.checkPassword(pass)) {
+                errores.add("• Contraseña: 8-20 chars, 1 mayúscula, 1 minúscula, 1 dígito, 1 símbolo (!@#$%&*()-+=).");
+                mostrarError(errores); 
+            }
+        });
+
+        fechaNac.focusedProperty().addListener((obs, oldVal, newVal) -> {
+            LocalDate birthDate = fechaNac.getValue();
+            if (birthDate != null && !User.isOlderThan(birthDate, 12)) {
+                errores.add("• Debes ser mayor de 12 años."); mostrarError(errores); 
+            }
+        });
+
+        // LIMPIAR ERROR AL HACER CLIC EN UN CAMPO
+        nicknameField.setOnMousePressed(e -> { limpiarError(); errores.clear(); });
+        emailField.setOnMousePressed(e -> { limpiarError(); errores.clear(); });
+        passwordField.setOnMousePressed(e -> { limpiarError(); errores.clear(); });
+        passwordVisibleField.setOnMousePressed(e -> { limpiarError(); errores.clear(); });
     }    
 
     /**
@@ -169,9 +214,7 @@ public class RegisterController implements Initializable {
                 mostrarError("Completa los campos obligatorios por favor.");
                 return;
             }
-        
-        
-        
+            
             errores.clear();
         
             // Uso un Array de Strings para gestionar bien los errores, si no es imposible hacerlo como en el Login
@@ -180,11 +223,10 @@ public class RegisterController implements Initializable {
                 errores.add("• Nickname: 6-15 caracteres.");
             }
             
-            // NO FUNCIONA
-            if (!User.validateNickName(nick)) {
-                errores.add("• Nickname: Nick ya en uso");
-            }
-                
+//            if (User.nicknameAlreadyExists(nick)) {
+//                errores.add("• Nickname ya en uso"); // NO APARECE EN LA LIBRERÍA 
+//            }
+            
             if (!User.checkEmail(email)) {
                 errores.add("• Email: formato inválido.");
             }
@@ -339,6 +381,9 @@ public class RegisterController implements Initializable {
                 stage.setTitle("Login");
             } else {
                 stage.setTitle("Pantalla principal");
+            }
+            if (fxmlDestino.equals("/views/MapaPrincipal.fxml")) {
+                stage.setMaximized(true);
             }
             stage.show();
         } catch (Exception e) {
