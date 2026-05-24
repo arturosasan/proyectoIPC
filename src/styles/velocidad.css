@@ -2,23 +2,31 @@
     -fx-background-color: #1d2a3d;
 }
 
-#mapPane {
+#mapScrollPane {
     -fx-background-color: #132033;
     -fx-background-radius: 16;
     -fx-border-color: #16c7e8;
-    -fx-border-radius: 16;
-    -fx-border-width: 2;
-}
-
-#bottomLabel {
-    -fx-text-fill: #e8edf5;
-    -fx-font-size: 22px;
-    -fx-font-weight: bold;
+    
 }
 
 #infoLabel {
     -fx-font-size: 15px;
     -fx-font-style: italic;
+}
+
+#zoom {
+    -fx-background-color: #4ecca3;
+    -fx-text-fill: #0d1b2a;
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+    -fx-background-radius: 5;
+    -fx-min-width: 35px;
+    -fx-min-height: 35px;
+}
+
+#zoom:hover {
+    -fx-background-color: #3db88f;
+    -fx-cursor: hand;
 }
 
 .top-panel {
@@ -29,15 +37,19 @@
     -fx-font-size: 15px;
 }
 
-.center-panel {
-    -fx-padding: 5 20 10 20;
+.bottom-panel {
+    -fx-padding: 10 20 15 20;
 }
 
-.back-btn {
-    -fx-background-color: #ef4264;
+#volver{
+    -fx-background-color: #e94560;
     -fx-text-fill: white;
-    -fx-font-size: 15px;
+    -fx-background-radius: 10;
+    -fx-font-size: 14;
     -fx-font-weight: bold;
-    -fx-background-radius: 12;
-    -fx-padding: 8 42 8 42;
+}
+
+#volver:hover {
+    -fx-background-color: #701a1a;
+    -fx-cursor: hand;
 }
