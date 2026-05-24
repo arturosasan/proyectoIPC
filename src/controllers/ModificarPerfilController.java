@@ -29,6 +29,12 @@ public class ModificarPerfilController implements Initializable {
     
     private String currentUserNick;
     
+    private Runnable onPerfilActualizadoCallback;
+    
+    public void setOnPerfilActualizadoCallback(Runnable callback) {
+        this.onPerfilActualizadoCallback = callback;
+    }
+    
     @FXML
     private Button salirButton;
     
@@ -148,29 +154,39 @@ public class ModificarPerfilController implements Initializable {
             limpiarError();
             limpiarExito();
         
-            String email = emailField.getText().trim();
-            String password = passwordField.isVisible() ? passwordField.getText() : passwordVisibleField.getText();
-            LocalDate birthDate = birthDatePicker.getValue();
-        
-            if (password == null || password.isEmpty()) {
-                password = app.getCurrentUser().getPassword();
+            User currentUser = app.getCurrentUser();
+            if (currentUser == null) {
+                mostrarError("No hay usuario en sesión.");
+                return;
             }
             
-            // INICIO DE LÓGICA ERRORES
+            errores.clear();
             
-            errores.clear(); // .clear() es método propio de la lista de Strings
-            
+            // Email: solo validar si cambió
+            String email = emailField.getText().trim();
             if (email.isEmpty()) {
-                errores.add("• Email: el campo no puede estar vacío.");
-            } else if (!User.checkEmail(email)) {
+                email = currentUser.getEmail();
+            } else if (!email.equals(currentUser.getEmail()) && !User.checkEmail(email)) {
                 errores.add("• Email: formato inválido.");
             }
         
-            if (!User.checkPassword(password)) {
-                errores.add("• Contraseña: 8-20 chars, 1 mayúscula, 1 minúscula, 1 dígito, 1 símbolo (!@#$%&*()-+=).");
+            // Contraseña: solo validar si el usuario escribió algo nuevo
+            String newPassword = passwordField.isVisible() ? passwordField.getText() : passwordVisibleField.getText();
+            String password;
+            if (newPassword == null || newPassword.isEmpty()) {
+                password = currentUser.getPassword();
+            } else if (!User.checkPassword(newPassword)) {
+                errores.add("• Contraseña: 8-20 chars, 1 mayúscula, \n 1 minúscula, 1 dígito, 1 símbolo (!@#$%&*()-+=).");
+                password = currentUser.getPassword();
+            } else {
+                password = newPassword;
             }
         
-            if (birthDate == null || !User.isOlderThan(birthDate, 12)) {
+            // Fecha nacimiento: solo validar si cambió
+            LocalDate birthDate = birthDatePicker.getValue();
+            if (birthDate == null) {
+                birthDate = currentUser.getBirthDate();
+            } else if (!birthDate.equals(currentUser.getBirthDate()) && !User.isOlderThan(birthDate, 12)) {
                 errores.add("• Debes ser mayor de 12 años.");
             }
         
@@ -180,6 +196,11 @@ public class ModificarPerfilController implements Initializable {
             }
         
             app.updateCurrentUser(email, password, birthDate, avatarPath);
+            
+            if (onPerfilActualizadoCallback != null) {
+                onPerfilActualizadoCallback.run();
+            }
+            
             mostrarExito("Perfil actualizado correctamente.");
         
             savingInProgress = false;

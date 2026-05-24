@@ -53,6 +53,7 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import controllers.ModificarPerfilController;
 import upv.ipc.sportlib.Activity;
 import upv.ipc.sportlib.Annotation;
 import upv.ipc.sportlib.AnnotationType;
@@ -1091,7 +1092,19 @@ public class MapaPrincipalController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
             Parent root = loader.load();
-            Stage stage = new Stage(); // Cambiado para que se quede la ventana a cargar sea un pop-up
+            
+            Object controller = loader.getController();
+            if (controller instanceof ModificarPerfilController mpc) {
+                mpc.setOnPerfilActualizadoCallback(() -> {
+                    User user = app.getCurrentUser();
+                    if (user != null) {
+                        viewAvatar(user.getAvatarPath());
+                        setNickname(user.getNickName());
+                    }
+                });
+            }
+            
+            Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle(titulo);
             stage.show();
