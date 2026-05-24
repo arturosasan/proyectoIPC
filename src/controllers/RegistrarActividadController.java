@@ -6,15 +6,11 @@ import java.time.Duration;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -32,7 +28,6 @@ import upv.ipc.sportlib.TrackPoint;
 
 public class RegistrarActividadController implements Initializable {
 
-    @FXML private Label archivoSeleccionadoLabel;
     @FXML private Label estadoLabel;
     @FXML private Label mapaLabel;
 
@@ -46,13 +41,12 @@ public class RegistrarActividadController implements Initializable {
     @FXML private Label altitudMaximaLabel;
 
     @FXML private ScrollPane mapScrollPane;
-    @FXML private Slider zoomSlider;
 
-    private File archivoGPX;
     private Pane mapPane;
     private Group zoomGroup;
 
     private final SportActivityApp app = SportActivityApp.getInstance();
+    private MapaPrincipalController parentController;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -62,43 +56,29 @@ public class RegistrarActividadController implements Initializable {
         zoomGroup = new Group(mapPane);
         mapScrollPane.setContent(zoomGroup);
         mapScrollPane.setPannable(true);
-
-        zoomSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
-            zoomGroup.setScaleX(newVal.doubleValue());
-            zoomGroup.setScaleY(newVal.doubleValue());
-        });
     }
 
-    @FXML
-    private void handleSeleccionarGPX() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Seleccionar archivo GPX");
-        fileChooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("Archivos GPX", "*.gpx")
-        );
-
-        File file = fileChooser.showOpenDialog(archivoSeleccionadoLabel.getScene().getWindow());
-
-        if (file != null) {
-            archivoGPX = file;
-            archivoSeleccionadoLabel.setText(file.getName());
-            estadoLabel.setText("Archivo seleccionado. Pulsa importar.");
-            limpiarEstadisticas();
-            mapPane.getChildren().clear();
-            mapaLabel.setText("-");
-        }
+    public void setParentController(MapaPrincipalController controller) {
+        this.parentController = controller;
     }
 
     @FXML
     private void handleImportarActividad() {
-        if (archivoGPX == null) {
-            estadoLabel.setText("Selecciona un archivo GPX primero.");
-            mostrarAlerta("Falta archivo", "Primero tienes que seleccionar un fichero GPX.");
-            return;
-        }
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Seleccionar archivo GPX");
+        fileChooser.setInitialDirectory(new File("./gpx"));
+        fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Archivos GPX", "*.gpx")
+        );
+
+        File archivo = fileChooser.showOpenDialog(estadoLabel.getScene().getWindow());
+
+        if (archivo == null) return;
+
+        estadoLabel.setText("Importando...");
 
         try {
-            Activity actividad = app.importActivity(archivoGPX);
+            Activity actividad = app.importActivity(archivo);
 
             if (actividad == null) {
                 estadoLabel.setText("No se ha podido importar la actividad.");
@@ -106,10 +86,16 @@ public class RegistrarActividadController implements Initializable {
                 return;
             }
 
+            String nombreSinExtension = archivo.getName().replaceAll("(?i)\\.gpx$", "");
+            app.renameActivity(actividad, nombreSinExtension);
+
+            estadoLabel.setText("Actividad importada: " + archivo.getName());
             mostrarEstadisticas(actividad);
             dibujarActividad(actividad);
 
-            estadoLabel.setText("Actividad importada correctamente.");
+            if (parentController != null) {
+                parentController.cargarActividad(actividad);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             estadoLabel.setText("Error al importar GPX.");
@@ -191,32 +177,12 @@ public class RegistrarActividadController implements Initializable {
         }
 
         mapaLabel.setText(region.getName());
-        zoomSlider.setValue(1.0);
-    }
-
-    @FXML
-    private void handleZoomIn() {
-        zoomSlider.setValue(Math.min(zoomSlider.getValue() + 0.1, zoomSlider.getMax()));
-    }
-
-    @FXML
-    private void handleZoomOut() {
-        zoomSlider.setValue(Math.max(zoomSlider.getValue() - 0.1, zoomSlider.getMin()));
     }
 
     @FXML
     private void handleVolver() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/MapaPrincipal.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = (Stage) archivoSeleccionadoLabel.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Pantalla principal");
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Stage stage = (Stage) estadoLabel.getScene().getWindow();
+        stage.close();
     }
 
     private void limpiarEstadisticas() {
