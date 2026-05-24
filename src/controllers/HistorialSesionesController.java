@@ -1,6 +1,8 @@
 package controllers;
 
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +18,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import upv.ipc.sportlib.SportActivityApp;
+import upv.ipc.sportlib.Session;
+import upv.ipc.sportlib.User;
 
 public class HistorialSesionesController implements Initializable {
 
@@ -49,18 +54,6 @@ public class HistorialSesionesController implements Initializable {
     @FXML
     private Label totalAnotacionesLabel;
     
-    private String currentUserNick;
-    
-    
-    /**
-     * Almacena el nickname del usuario actual.
-     *
-     * @param nick nickname del usuario
-     */
-    public void setNickname(String nick) {
-        this.currentUserNick = nick;
-    }
-
     /**
      * Inicializa el controlador de historial de sesiones.
      * Configura las columnas de la tabla con los datos de ejemplo
@@ -79,11 +72,26 @@ public class HistorialSesionesController implements Initializable {
         vistasColumn.setCellValueFactory(new PropertyValueFactory<>("vistas"));
         anotacionesColumn.setCellValueFactory(new PropertyValueFactory<>("anotaciones"));
 
-        ObservableList<Sesion> sesiones = FXCollections.observableArrayList(
-                new Sesion("10:00", "10:45", "45 min", 3, 5, 2),
-                new Sesion("11:00", "12:15", "1 h 15 min", 4, 6, 1),
-                new Sesion("16:30", "17:00", "30 min", 2, 3, 0)
-        );
+        SportActivityApp app = SportActivityApp.getInstance();
+        User user = app.getCurrentUser();
+        ObservableList<Sesion> sesiones = FXCollections.observableArrayList();
+
+        if (user != null) {
+            List<Session> realSessions = app.getSessionsByUser(user);
+            for (Session s : realSessions) {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+                String inicio = s.getStartTime().format(dtf);
+                String fin    = s.getEndTime().format(dtf);
+                long mins     = s.getDuration().toMinutes();
+                String dur    = (mins >= 60)
+                        ? (mins / 60) + " h " + (mins % 60) + " min"
+                        : mins + " min";
+                sesiones.add(new Sesion(inicio, fin, dur,
+                        s.getImportedActivities(),
+                        s.getViewedActivities(),
+                        s.getAnnotationsCreated()));
+            }
+        }
 
         tablaSesiones.setItems(sesiones);
 
@@ -181,18 +189,7 @@ public class HistorialSesionesController implements Initializable {
      */
     @FXML
     private void handleSalir(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/MapaPrincipal.fxml"));
-            Parent root = loader.load();
-            MapaPrincipalController controller = loader.getController();
-            
-            controller.setNickname(currentUserNick);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setTitle("Pantalla principal");
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
     }
 }

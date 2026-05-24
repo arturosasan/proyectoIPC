@@ -18,7 +18,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Text?>
 
-<VBox id="profileContainer" alignment="CENTER" fillWidth="false" prefHeight="520.0" prefWidth="420.0" spacing="20.0" stylesheets="@../styles/profile.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ModificarPerfilController">
+<VBox id="profileContainer" alignment="CENTER" fillWidth="false" maxHeight="Infinity" maxWidth="Infinity" prefHeight="520.0" prefWidth="420.0" spacing="20.0" stylesheets="@../styles/profile.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ModificarPerfilController">
    <padding>
       <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
    </padding>
@@ -46,8 +46,8 @@
                   <Cursor fx:constant="TEXT" />
                </cursor></Label>
             <TextField fx:id="emailField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="176.0" promptText="Nuevo correo" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <PasswordField fx:id="passwordField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="167.0" promptText="Nueva contraseña" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <DatePicker fx:id="birthDatePicker" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="149.0" promptText="dd/mm/aaaa*" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <PasswordField fx:id="passwordField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="176.0" promptText="Nueva contraseña" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <DatePicker fx:id="birthDatePicker" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="176.0" promptText="dd/mm/aaaa*" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="icon-image" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../resources/icons/user.png" />
@@ -99,16 +99,17 @@
             </StackPane>
          </children>
          <VBox.margin>
-            <Insets left="35.0" />
+            <Insets bottom="20.0" left="30.0" />
          </VBox.margin>
       </GridPane>
+      <Label fx:id="messageLabel" managed="false" visible="false" wrapText="true" alignment="CENTER" maxWidth="Infinity" style="-fx-font-size: 11px; -fx-font-weight: bold;" />
       <HBox alignment="CENTER" spacing="20.0">
          <children>
             <Button id="saveButton" mnemonicParsing="false" onAction="#handleGuardar" prefHeight="40.0" prefWidth="110.0" text="Guardar" />
             <Button id="exitButton" fx:id="salirButton" mnemonicParsing="false" onAction="#handleSalir" prefHeight="40.0" prefWidth="100.0" text="Salir" />
          </children>
          <VBox.margin>
-            <Insets top="30.0" />
+            <Insets />
          </VBox.margin>
       </HBox>
    </children>

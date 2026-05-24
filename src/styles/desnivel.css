@@ -1,0 +1,99 @@
+#rootBorder {
+    -fx-background-color: #1d2a3d;
+}
+
+.top-panel {
+    -fx-padding: 12 10 8 10;
+}
+
+.back-btn {
+    -fx-background-color: #1C2A40;
+    -fx-border-color: #55D6B2;
+    -fx-border-width: 2;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-text-fill: #55D6B2;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-padding: 7 16 7 16;
+}
+
+.back-btn:hover {
+    -fx-background-color: #55D6B2;
+    -fx-cursor: hand;
+    -fx-text-fill: white;
+}
+
+.app-title {
+    -fx-text-fill: #55d6b3;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+}
+
+.center-panel {
+    -fx-padding: 5 0 10 0;
+}
+
+.map-scroll-pane {
+    -fx-background: #0d1b2a;
+    -fx-background-color: #0d1b2a;
+    -fx-border-color: #16c7e8;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-border-width: 2;
+}
+
+.zoom-btn {
+    -fx-background-color: #55d6b3;
+    -fx-text-fill: #071323;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-background-radius: 8;
+    -fx-min-width: 42;
+    -fx-min-height: 42;
+}
+
+.zoom-btn:hover {
+    -fx-background-color: #22d3ee;
+    -fx-cursor: hand;
+}
+
+#graficaDesnivel {
+    -fx-background-color: transparent;
+}
+
+#graficaDesnivel .chart-plot-background {
+    -fx-background-color: #0d1b2a;
+}
+
+#graficaDesnivel .chart-vertical-grid-lines {
+    -fx-stroke: #1d2a3d;
+}
+
+#graficaDesnivel .chart-horizontal-grid-lines {
+    -fx-stroke: #1d2a3d;
+}
+
+#graficaDesnivel .axis-label {
+    -fx-text-fill: #e8edf5;
+}
+
+#graficaDesnivel .axis {
+    -fx-tick-label-fill: #e8edf5;
+}
+
+#graficaDesnivel .chart-series-line {
+    -fx-stroke: #55d6b3;
+}
+
+#graficaDesnivel .chart-line-symbol {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 5px;
+}
+
+.info-label {
+    -fx-text-fill: #e8edf5;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}

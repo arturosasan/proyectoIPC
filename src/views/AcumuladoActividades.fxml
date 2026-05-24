@@ -9,119 +9,104 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane id="rootBorder" prefHeight="690" prefWidth="1050" stylesheets="@../styles/acumulado.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AcumuladoActividadesController">
+<StackPane style="-fx-background-color: #1d2a3d;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AcumuladoActividadesController">
+   <BorderPane id="rootBorder" maxHeight="690" maxWidth="1050" prefHeight="690" prefWidth="1050" stylesheets="@../styles/acumulado.css">
 
-    <top>
-        <VBox alignment="CENTER" spacing="10" styleClass="top-panel">
-            <HBox alignment="CENTER_LEFT" spacing="30">
-                <Button onAction="#handleVolver" styleClass="back-btn" text="← Volver">
-               <HBox.margin>
-                  <Insets left="15.0" />
-               </HBox.margin></Button>
-            <Region prefHeight="42.0" prefWidth="169.0" />
+      <top>
+         <VBox alignment="CENTER" spacing="4" styleClass="top-panel">
+            <StackPane>
+               <Label alignment="CENTER" styleClass="app-title" text="Acumulado de actividades" StackPane.alignment="CENTER" />
+               <HBox alignment="CENTER_LEFT" spacing="30">
+                  <Button alignment="CENTER" onAction="#handleVolver" styleClass="back-btn" text="← Volver">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </HBox>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </StackPane>
 
-                <Label styleClass="title-label" text="Acumulado de actividades" />
-            <VBox.margin>
-               <Insets bottom="10.0" top="10.0" />
-            </VBox.margin>
+            <HBox alignment="CENTER" spacing="16">
+               <Label styleClass="field-label" text="Mes:" />
+               <ComboBox fx:id="comboMes" prefHeight="36" prefWidth="200.0" styleClass="combo-box" />
             </HBox>
-
-            <HBox alignment="CENTER" spacing="10">
-                <Label styleClass="field-label" text="Mes:" />
-
-                <ComboBox fx:id="comboMes" prefHeight="38" prefWidth="180.0" styleClass="combo-box" />
-                <Label styleClass="field-label" text="Año:" />
-
-                <ComboBox fx:id="comboAnio" prefHeight="38" prefWidth="120.0" styleClass="combo-box" />
-            <VBox.margin>
-               <Insets bottom="10.0" />
-            </VBox.margin>
-            </HBox>
-        </VBox>
-    </top>
-
-    <center>
-        <HBox alignment="CENTER" spacing="18" styleClass="center-panel">
-
-            <VBox prefHeight="380" prefWidth="760" spacing="18" styleClass="actividades-panel" HBox.hgrow="NEVER">
-            <HBox.margin>
-               <Insets bottom="10.0" />
-            </HBox.margin>
-               <children>
-                  <Label styleClass="resumen-title" text="Actividades del mes" />
-                  <ListView fx:id="listaActividades" prefHeight="300.0" prefWidth="700.0" styleClass="actividades-list" VBox.vgrow="ALWAYS" />
-               </children>
-            </VBox>
-        </HBox>
-    </center>
-
-   <right>
-
-         <VBox alignment="TOP_LEFT" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="328.0" prefWidth="302.0" spacing="15" styleClass="resumen-panel" BorderPane.alignment="CENTER">
-
-             <Label alignment="CENTER" contentDisplay="CENTER" styleClass="resumen-title" text="Resumen mensual">
-            <VBox.margin>
-               <Insets left="18.0" />
-            </VBox.margin>
-         </Label>
-
-            <GridPane alignment="CENTER" hgap="15" vgap="11">
-               <columnConstraints>
-                  <ColumnConstraints maxWidth="112.0" minWidth="97.0" prefWidth="112.0" />
-                  <ColumnConstraints maxWidth="58.0" minWidth="43.0" prefWidth="43.0" />
-               </columnConstraints>
-
-               <children>
-                  <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" styleClass="field-label" text="Actividades:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0">
-                  <GridPane.margin>
-                     <Insets />
-                  </GridPane.margin></Label>
-                  <Label fx:id="lblTotalActividades" styleClass="value-label" text="-" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-
-                  <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" styleClass="field-label" text="Tiempo total:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
-                  <GridPane.margin>
-                     <Insets />
-                  </GridPane.margin></Label>
-                  <Label fx:id="lblTiempoTotal" styleClass="value-label" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-
-                  <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" styleClass="field-label" text="Distancia:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
-                  <GridPane.margin>
-                     <Insets />
-                  </GridPane.margin></Label>
-                  <Label fx:id="lblDistanciaTotal" styleClass="value-label" text="-" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-
-                  <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" styleClass="field-label" text="Ascenso:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
-                  <GridPane.margin>
-                     <Insets />
-                  </GridPane.margin></Label>
-                  <Label fx:id="lblAscensoTotal" styleClass="value-label" text="-" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-
-                  <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" styleClass="field-label" text="Descenso:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
-                  <GridPane.margin>
-                     <Insets />
-                  </GridPane.margin></Label>
-                  <Label fx:id="lblDescensoTotal" styleClass="value-label" text="-" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-               </children>
-               <rowConstraints>
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-               </rowConstraints>
-            <VBox.margin>
-               <Insets left="30.0" top="15.0" />
-            </VBox.margin>
-            </GridPane>
-         <BorderPane.margin>
-            <Insets right="25.0" />
-         </BorderPane.margin>
-
+            <Label styleClass="hint-label" text="Pulsa doble clic en la tabla para visualizar la actividad deseada" textFill="#7a8aa8">
+               <font>
+                  <Font name="System Italic" size="13.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </Label>
          </VBox>
-   </right>
+      </top>
 
-</BorderPane>
+      <center>
+         <HBox alignment="TOP_CENTER" spacing="16" styleClass="center-panel" BorderPane.alignment="CENTER">
+            <VBox spacing="14" styleClass="actividades-panel" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="8.0" />
+               </HBox.margin>
+               <Label styleClass="panel-title" text="Actividades del mes">
+                  <VBox.margin>
+                     <Insets bottom="5.0" />
+                  </VBox.margin></Label>
+               <ListView fx:id="listaActividades" styleClass="actividades-list" VBox.vgrow="ALWAYS" />
+            </VBox>
+
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="294.0" prefWidth="370.0" spacing="14" styleClass="resumen-panel" HBox.hgrow="NEVER">
+               <BorderPane.margin>
+                  <Insets right="12.0" />
+               </BorderPane.margin>
+               <Label alignment="CENTER" maxWidth="Infinity" styleClass="panel-title" text="Resumen mensual" />
+
+               <GridPane hgap="12" prefHeight="160.0" prefWidth="427.0" vgap="10">
+                  <columnConstraints>
+                     <ColumnConstraints halignment="RIGHT" maxWidth="153.0" minWidth="100.0" prefWidth="153.0" />
+                     <ColumnConstraints halignment="LEFT" maxWidth="180.0" minWidth="97.0" prefWidth="160.0" />
+                  </columnConstraints>
+
+                  <children>
+                     <Label alignment="CENTER_RIGHT" styleClass="field-label" text="Actividades:" GridPane.halignment="RIGHT" GridPane.rowIndex="0" />
+                     <Label fx:id="lblTotalActividades" styleClass="value-label" text="-" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                     <Label alignment="CENTER_RIGHT" styleClass="field-label" text="Tiempo total:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                     <Label fx:id="lblTiempoTotal" styleClass="value-label" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                     <Label alignment="CENTER_RIGHT" styleClass="field-label" text="Distancia:" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                     <Label fx:id="lblDistanciaTotal" styleClass="value-label" text="-" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                     <Label alignment="CENTER_RIGHT" styleClass="field-label" text="Ascenso:" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                     <Label fx:id="lblAscensoTotal" styleClass="value-label" text="-" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                     <Label alignment="CENTER_RIGHT" styleClass="field-label" text="Descenso:" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+                     <Label fx:id="lblDescensoTotal" styleClass="value-label" text="-" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  </children>
+
+                  <rowConstraints>
+                     <RowConstraints />
+                     <RowConstraints />
+                     <RowConstraints />
+                     <RowConstraints />
+                     <RowConstraints />
+                  </rowConstraints>
+                  <VBox.margin>
+                     <Insets top="5.0" />
+                  </VBox.margin>
+               </GridPane>
+               <HBox.margin>
+                  <Insets right="10.0" top="120.0" />
+               </HBox.margin>
+            </VBox>
+         </HBox>
+      </center>
+
+   </BorderPane>
+</StackPane>

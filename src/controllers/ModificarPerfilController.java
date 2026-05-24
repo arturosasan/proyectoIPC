@@ -13,19 +13,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.geometry.HPos;
-import javafx.geometry.Insets;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.RowConstraints;
 import javafx.stage.FileChooser;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
@@ -54,10 +47,9 @@ public class ModificarPerfilController implements Initializable {
     @FXML
     private GridPane gridPane;
     
-    private Label errorLabel = null;
-    private int errorRowIndex = -1;
-    private Label successLabel = null;
-    private int successRowIndex = -1;
+    @FXML
+    private Label messageLabel;
+    
     private boolean savingInProgress = false;
     
     @FXML
@@ -188,63 +180,27 @@ public class ModificarPerfilController implements Initializable {
             }
         
             app.updateCurrentUser(email, password, birthDate, avatarPath);
-            app.getCurrentUser().setEmail(email);
-            app.getCurrentUser().setPassword(password);
-            app.getCurrentUser().setBirthDate(birthDate);
-            app.getCurrentUser().setAvatarPath(avatarPath);
             mostrarExito("Perfil actualizado correctamente.");
         
             savingInProgress = false;
-        } catch (java.time.format.DateTimeParseException e) { // error en fecha
-            errores.add("Error de tipo en fecha de nacimiento");
+        } catch (java.time.format.DateTimeParseException e) {
+            mostrarError("Fecha de nacimiento inválida.");
         } catch (Exception e) {
-            errores.add("Error al actualizar perfil" + e.getMessage());
+            mostrarError("Error al actualizar perfil: " + e.getMessage());
         }
     }
     
     /**
      * Muestra un mensaje de error en el formulario de modificación.
-     * Crea dinámicamente una fila de error en el GridPane.
      *
      * @param mensaje texto del error a mostrar
      */
     private void mostrarError(String mensaje) {
         limpiarExito();
-        
-        if (errorLabel != null) {
-            errorLabel.setText(mensaje);
-            savingInProgress = false;
-            return;
-        }
-
-        errorLabel = new Label(mensaje);
-        errorLabel.setStyle(
-            "-fx-text-fill: #cc0000;" +
-            "-fx-font-size: 11px;" +
-            "-fx-font-weight: bold;" +
-            "-fx-wrap-text: true;"
-        );
-        errorLabel.setMaxWidth(Double.MAX_VALUE);
-        errorLabel.setWrapText(true);
-        errorLabel.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
-        errorLabel.setAlignment(javafx.geometry.Pos.CENTER);
-
-        errorRowIndex = gridPane.getRowCount();
-        GridPane.setRowIndex(errorLabel, errorRowIndex);
-        GridPane.setColumnIndex(errorLabel, 0);
-        GridPane.setColumnSpan(errorLabel, 3);
-        GridPane.setHalignment(errorLabel, HPos.CENTER);
-        GridPane.setValignment(errorLabel, javafx.geometry.VPos.CENTER);
-        GridPane.setMargin(errorLabel, new Insets(8, 10, 0, 10));
-
-        RowConstraints rc = new RowConstraints();
-        rc.setMinHeight(25);
-        rc.setPrefHeight(Region.USE_COMPUTED_SIZE);
-        rc.setMaxHeight(Double.MAX_VALUE);
-        rc.setVgrow(Priority.SOMETIMES);
-        gridPane.getRowConstraints().add(rc);
-
-        gridPane.getChildren().add(errorLabel);
+        messageLabel.setText(mensaje);
+        messageLabel.setStyle("-fx-text-fill: #cc0000; -fx-font-size: 11px; -fx-font-weight: bold; -fx-wrap-text: true;");
+        messageLabel.setManaged(true);
+        messageLabel.setVisible(true);
         savingInProgress = false;
     }
     
@@ -267,31 +223,12 @@ public class ModificarPerfilController implements Initializable {
         limpiarError();
         limpiarExito();
         
-        successLabel = new Label(mensaje);
-        successLabel.setStyle("-fx-text-fill: #4ecca3; -fx-font-size: 11px; -fx-font-weight: bold; -fx-wrap-text: true;");
-        successLabel.setMaxWidth(Double.MAX_VALUE);
-        successLabel.setWrapText(true);
-        successLabel.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
-        successLabel.setAlignment(javafx.geometry.Pos.CENTER);
+        messageLabel.setText(mensaje);
+        messageLabel.setStyle("-fx-text-fill: #4ecca3; -fx-font-size: 11px; -fx-font-weight: bold; -fx-wrap-text: true;");
+        messageLabel.setManaged(true);
+        messageLabel.setVisible(true);
         
-        successRowIndex = gridPane.getRowCount();
-        GridPane.setRowIndex(successLabel, successRowIndex);
-        GridPane.setColumnIndex(successLabel, 0);
-        GridPane.setColumnSpan(successLabel, 3);
-        GridPane.setHalignment(successLabel, HPos.CENTER);
-        GridPane.setValignment(successLabel, javafx.geometry.VPos.CENTER);
-        GridPane.setMargin(successLabel, new Insets(8, 10, 0, 10));
-        
-        RowConstraints rc = new RowConstraints();
-        rc.setMinHeight(Region.USE_COMPUTED_SIZE);
-        rc.setPrefHeight(Region.USE_COMPUTED_SIZE);
-        rc.setMaxHeight(Region.USE_COMPUTED_SIZE);
-        rc.setVgrow(Priority.NEVER);
-        
-        gridPane.getRowConstraints().add(rc);
-        gridPane.getChildren().add(successLabel);
-        
-        new Thread(() -> { // CSD siendo útil?
+        new Thread(() -> {
             try { Thread.sleep(2000); } catch (InterruptedException e) {}
             javafx.application.Platform.runLater(() -> {
                 limpiarExito();
@@ -304,28 +241,16 @@ public class ModificarPerfilController implements Initializable {
      * Elimina el mensaje de éxito del formulario si existe.
      */
     private void limpiarExito() {
-        if (successLabel != null) {
-            gridPane.getChildren().remove(successLabel);
-            if (successRowIndex >= 0 && successRowIndex < gridPane.getRowConstraints().size()) {
-                gridPane.getRowConstraints().remove(successRowIndex);
-            }
-            successLabel = null;
-            successRowIndex = -1;
-        }
+        messageLabel.setManaged(false);
+        messageLabel.setVisible(false);
     }
     
     /**
      * Elimina el mensaje de error del formulario si existe.
      */
     private void limpiarError() {
-        if (errorLabel != null) {
-            gridPane.getChildren().remove(errorLabel);
-            if (errorRowIndex >= 0 && errorRowIndex < gridPane.getRowConstraints().size()) {
-                gridPane.getRowConstraints().remove(errorRowIndex);
-            }
-            errorLabel = null;
-            errorRowIndex = -1;
-        }
+        messageLabel.setManaged(false);
+        messageLabel.setVisible(false);
     }
     
     /**
@@ -371,17 +296,7 @@ public class ModificarPerfilController implements Initializable {
      */
     @FXML
     private void handleSalir(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/MapaPrincipal.fxml"));
-            Parent root = loader.load();
-            MapaPrincipalController controller = loader.getController();
-            controller.setNickname(currentUserNick);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setTitle("Pantalla principal");
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
         }
     }
-}

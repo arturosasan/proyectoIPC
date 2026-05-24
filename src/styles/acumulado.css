@@ -3,7 +3,11 @@
 }
 
 .top-panel {
-    -fx-padding: 12 10 8 10;
+    -fx-padding: 16 10 6 10;
+}
+
+.hint-label {
+    -fx-font-style: italic;
 }
 
 .back-btn {
@@ -24,9 +28,15 @@
     -fx-text-fill: white;
 }
 
-.title-label {
+.app-title {
     -fx-text-fill: #55d6b3;
     -fx-font-size: 30px;
+    -fx-font-weight: bold;
+}
+
+.field-label {
+    -fx-text-fill: #e8edf5;
+    -fx-font-size: 15px;
     -fx-font-weight: bold;
 }
 
@@ -39,26 +49,107 @@
     -fx-font-size: 14px;
 }
 
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0 10 10 0;
+}
+
+.combo-box .arrow {
+    -fx-background-color: #55d6b3;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: white;
+    -fx-background-color: transparent;
+    -fx-padding: 4 8 4 8;
+}
+
+.combo-box .list-view {
+    -fx-background-color: #132033;
+    -fx-border-color: #55d6b3;
+    -fx-border-width: 1;
+}
+
+.combo-box .list-view .list-cell {
+    -fx-text-fill: white;
+    -fx-background-color: #132033;
+    -fx-padding: 6 10 6 10;
+}
+
+.combo-box .list-view .list-cell:hover {
+    -fx-background-color: #1b2a45;
+    -fx-cursor: hand;
+}
+
+.combo-box .list-view .list-cell:selected {
+    -fx-background-color: #1b2a45;
+    -fx-text-fill: #55d6b3;
+}
+
 .center-panel {
-    -fx-padding: 5 20 10 20;
+    -fx-padding: 6 16 10 16;
 }
 
 .actividades-panel {
-    -fx-background-color: #132033;
-    -fx-border-color: #55d6b3;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
     -fx-border-width: 2;
     -fx-border-radius: 18;
     -fx-background-radius: 18;
-    -fx-padding: 30;
+    -fx-padding: 18 16 16 18;
+}
+
+.panel-title {
+    -fx-text-fill: #e8edf5;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
 }
 
 .actividades-list {
     -fx-control-inner-background: #0d1b2a;
     -fx-background-color: #0d1b2a;
-    -fx-text-fill: #e8edf5;
-    -fx-border-color: #16c7e8;
+    -fx-border-color: #55d6b3;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
+    -fx-padding: 4;
+}
+
+.actividades-list .list-cell {
+    -fx-text-fill: #e8edf5;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 12 10 12;
+    -fx-background-color: #0d1b2a;
+    -fx-border-color: transparent transparent #1a2a40 transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.actividades-list .list-cell:odd {
+    -fx-background-color: #0f1e30;
+}
+
+.actividades-list .list-cell:hover {
+    -fx-background-color: #1b2a45;
+    -fx-cursor: hand;
+}
+
+.actividades-list .list-cell:selected {
+    -fx-background-color: #1b2a45;
+    -fx-text-fill: #55d6b3;
+}
+
+.actividades-list .scroll-bar {
+    -fx-background-color: #0d1b2a;
+    -fx-background-radius: 6;
+}
+
+.actividades-list .scroll-bar .thumb {
+    -fx-background-color: #2a3d5c;
+    -fx-background-radius: 6;
+}
+
+.actividades-list .scroll-bar .thumb:hover {
+    -fx-background-color: #3d5a7a;
 }
 
 .resumen-panel {
@@ -67,23 +158,11 @@
     -fx-border-width: 2;
     -fx-border-radius: 18;
     -fx-background-radius: 18;
-    -fx-padding: 30;
-}
-
-.resumen-title {
-    -fx-text-fill: #e8edf5;
-    -fx-font-size: 22px;
-    -fx-font-weight: bold;
-}
-
-.field-label {
-    -fx-text-fill: #e8edf5;
-    -fx-font-size: 15px;
-    -fx-font-weight: bold;
+    -fx-padding: 18 15 20 15;
 }
 
 .value-label {
     -fx-text-fill: #55d6b3;
-    -fx-font-size: 18px;
+    -fx-font-size: 17px;
     -fx-font-weight: bold;
 }

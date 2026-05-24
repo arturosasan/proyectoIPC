@@ -5,67 +5,92 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="848.0" prefWidth="1290.0" spacing="25" style="-fx-background-color: #1C2A40;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PerfilDesnivelController">
+<BorderPane id="rootBorder" prefHeight="800" prefWidth="1100" stylesheets="@../styles/desnivel.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PerfilDesnivelController">
 
-    <padding>
-        <Insets bottom="20" left="25" right="25" top="20" />
-    </padding>
+    <top>
+        <VBox alignment="CENTER" spacing="10" styleClass="top-panel">
+            <StackPane>
+                <Label styleClass="app-title" text="Perfil de desnivel" StackPane.alignment="CENTER" />
+                <HBox alignment="CENTER_LEFT" spacing="30">
+                    <Button onAction="#volver" styleClass="back-btn" text="← Volver">
+                        <HBox.margin>
+                            <Insets left="15.0" />
+                        </HBox.margin>
+                    </Button>
+                </HBox>
+                <VBox.margin>
+                    <Insets bottom="10.0" top="10.0" />
+                </VBox.margin>
+            </StackPane>
+        </VBox>
+    </top>
 
-    <children>
+    <center>
+        <VBox alignment="CENTER" spacing="20" styleClass="center-panel">
 
-        <HBox alignment="CENTER" prefWidth="1100" spacing="25" VBox.vgrow="NEVER">
-            <children>
-                <Button onAction="#volver" style="-fx-background-color: #1C2A40;                                -fx-border-color: #55D6B2;                                -fx-border-width: 2;                                -fx-border-radius: 8;                                -fx-background-radius: 8;                                -fx-text-fill: #55D6B2;                                -fx-font-size: 17px;                                -fx-font-weight: bold;                                -fx-padding: 7 16 7 16;" text="← Volver" HBox.hgrow="NEVER">
-               <HBox.margin>
-                  <Insets right="30.0" />
-               </HBox.margin></Button>
-            <Region prefHeight="42.0" prefWidth="332.0" HBox.hgrow="NEVER">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </Region>
+            <BorderPane prefHeight="380" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets left="25.0" right="25.0" />
+               </VBox.margin>
+                <center>
+                    <ScrollPane fx:id="mapScrollPane" hbarPolicy="ALWAYS" pannable="true" styleClass="map-scroll-pane" vbarPolicy="ALWAYS" />
+                </center>
+                <right>
+                    <VBox alignment="CENTER" spacing="0">
+                        <Button mnemonicParsing="false" onAction="#zoomIn" styleClass="zoom-btn" text="+">
+                            <VBox.margin>
+                                <Insets top="30.0" />
+                            </VBox.margin>
+                        </Button>
+                        <Slider fx:id="zoomSlider" orientation="VERTICAL" prefHeight="200.0" prefWidth="16.0">
+                            <VBox.margin>
+                                <Insets bottom="10.0" top="10.0" />
+                            </VBox.margin>
+                        </Slider>
+                        <Button mnemonicParsing="false" onAction="#zoomOut" styleClass="zoom-btn" text="-">
+                            <VBox.margin>
+                                <Insets bottom="30.0" />
+                            </VBox.margin>
+                        </Button>
+                  <BorderPane.margin>
+                     <Insets left="20.0" />
+                  </BorderPane.margin>
+                    </VBox>
+                </right>
+            </BorderPane>
 
-                <Label style="-fx-text-fill: #55D6B2;                               -fx-font-size: 30px;                               -fx-font-weight: bold;" text="Perfil de desnivel" HBox.hgrow="NEVER" />
-            <Region layoutX="411.0" layoutY="10.0" prefHeight="42.0" prefWidth="413.0" HBox.hgrow="NEVER" />
-            </children>
-        </HBox>
+            <LineChart fx:id="graficaDesnivel" animated="false" legendVisible="false" prefHeight="350.0" VBox.vgrow="NEVER">
+                <xAxis>
+                    <NumberAxis fx:id="ejeDistancia" label="Distancia (km)" tickLabelFill="WHITE">
+                        <tickLabelFont>
+                            <Font size="12.0" />
+                        </tickLabelFont>
+                    </NumberAxis>
+                </xAxis>
+                <yAxis>
+                    <NumberAxis fx:id="ejeAltitud" label="Altitud (m)" tickLabelFill="WHITE">
+                        <tickLabelFont>
+                            <Font size="12.0" />
+                        </tickLabelFont>
+                    </NumberAxis>
+                </yAxis>
+            <VBox.margin>
+               <Insets left="25.0" right="25.0" />
+            </VBox.margin>
+            </LineChart>
 
-        <Pane fx:id="mapContainer" maxHeight="380" maxWidth="1400" prefHeight="364.0" prefWidth="1240.0" style="-fx-background-color: #162235;                      -fx-border-color: #55D6B2;                      -fx-border-width: 2;                      -fx-border-radius: 12;                      -fx-background-radius: 12;">
-         <VBox.margin>
-            <Insets left="20.0" right="20.0" />
-         </VBox.margin></Pane>
+            <Label fx:id="lblInfoPunto" styleClass="info-label" text="Pasa el ratón sobre la gráfica" />
 
-        <LineChart fx:id="graficaDesnivel" animated="false" legendVisible="false" maxHeight="390.0" maxWidth="1184.0" prefHeight="390.0" prefWidth="1184.0">
+        </VBox>
+    </center>
 
-            <xAxis>
-                <NumberAxis fx:id="ejeDistancia" label="Distancia (km)" tickLabelFill="WHITE">
-               <tickLabelFont>
-                  <Font size="12.0" />
-               </tickLabelFont></NumberAxis>
-            </xAxis>
-
-            <yAxis>
-                <NumberAxis fx:id="ejeAltitud" label="Altitud (m)" tickLabelFill="WHITE">
-               <tickLabelFont>
-                  <Font size="12.0" />
-               </tickLabelFont></NumberAxis>
-            </yAxis>
-         <VBox.margin>
-            <Insets right="10.0" top="20.0" />
-         </VBox.margin>
-
-        </LineChart>
-
-        <Label fx:id="lblInfoPunto" style="-fx-text-fill: white; -fx-font-size: 18; -fx-font-weight: bold;" text="Pasa el ratón sobre la gráfica">
-         <VBox.margin>
-            <Insets bottom="20.0" />
-         </VBox.margin></Label>
-
-    </children>
-</VBox>
+</BorderPane>

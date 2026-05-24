@@ -7,11 +7,14 @@
     -fx-text-fill: #0d1b2a;
     -fx-background-radius: 5;
     -fx-font-weight: bold;
+    -fx-font-size: 13px;
 }
 
 #cambiarMapa:hover {
     -fx-background-color: #007672;
     -fx-cursor: hand;
+    -fx-background-radius: 5;
+    -fx-font-size: 13px;
 }
 
 #ayuda {
@@ -23,7 +26,9 @@
 
 #ayuda:hover {
     -fx-background-color: #7c7c7c;
-    -fx-cursor: hand; 
+    -fx-cursor: hand;
+    -fx-background-radius: 5;
+    -fx-font-size: 13px;
 }   
 
 #botonesPerfil {
@@ -94,6 +99,7 @@
     -fx-border-width: 1 1 0 1;
     -fx-border-radius: 6 6 0 0;
     -fx-padding: 6 12 6 12;
+    -fx-cursor: hand;
 }
 
 .tab-pane .tab:selected {
@@ -109,6 +115,23 @@
 
 .tab-pane .tab:selected .tab-label {
     -fx-text-fill: #4ecca3;
+}
+
+.tab-pane: focused { /* No sé porqué es este fallo, pero si lo quito no funcionan bien las tabs */
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.tab-pane .tab:selected:focused {
+    -fx-background-color: #1b263b;
+    -fx-border-color: #4ecca3;
+    -fx-background-insets: 0;
+}
+
+.tab-pane .tab:focused {
+    -fx-background-color: #0d1b2a;
+    -fx-border-color: #2a3d5c;
+    -fx-background-insets: 0;
 }
 
 .tab-pane .tab-content-area {
@@ -181,3 +204,137 @@
 #tab {
     -fx-font-size: 10px;
 }
+
+.stats-title {
+    -fx-text-fill: #e8edf5;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.stat-field {
+    -fx-text-fill: #e8edf5;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.stat-value {
+    -fx-text-fill: #55d6b3;
+    -fx-font-size: 12px;
+}
+
+.add-annot-btn {
+    -fx-background-color: #55d6b3;
+    -fx-text-fill: #132033;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-font-size: 13px;
+    -fx-pref-height: 32;
+}
+
+.add-annot-btn:hover {
+    -fx-background-color: #22d3ee;
+    -fx-cursor: hand;
+}
+
+.no-annot-label {
+    -fx-text-fill: #cfd8e3;
+    -fx-font-size: 12px;
+    -fx-font-style: italic;
+}
+
+.annot-list {
+    -fx-control-inner-background: #0d1b2a;
+    -fx-background-color: #0d1b2a;
+    -fx-border-color: #55d6b3;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+}
+
+
+.action-btn {
+    -fx-background-color: #55d6b3;
+    -fx-text-fill: #132033;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-pref-height: 38;
+}
+
+.action-btn:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #22d3ee;
+}
+
+
+.delete-annot-btn {
+    -fx-background-color: #e94560;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-font-size: 13px;
+    -fx-pref-height: 32;
+}
+
+.delete-annot-btn:hover {
+    -fx-background-color: #c73e55;
+    -fx-cursor: hand;
+}
+
+.delete-annot-btn:disabled {
+    -fx-background-color: #555555;
+    -fx-text-fill: #999999;
+}
+
+
+.activity-card {
+    -fx-background-color: #132033;
+    -fx-background-radius: 14;
+    -fx-border-color: #2a3d5c;
+    -fx-border-radius: 14;
+    -fx-border-width: 1.5;
+    -fx-padding: 14 8 12 8;
+    -fx-spacing: 10;
+}
+
+.activity-card .stat-field,
+.activity-card .stat-value {
+    -fx-padding: 0;
+}
+
+.activity-card .stat-field {
+    -fx-font-size: 12px;
+}
+
+.activity-card .stat-value {
+    -fx-font-size: 13px;
+}
+
+.activity-card .action-btn {
+    -fx-pref-height: 32;
+    -fx-font-size: 12px;
+    -fx-padding: 6 14;
+}
+
+.status-label {
+    -fx-text-fill: #7a8aa8;
+    -fx-font-size: 12px;
+    -fx-font-style: italic;
+}
+
+.zoom-btn {
+    -fx-background-color: #55d6b3;
+    -fx-text-fill: #071323;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-background-radius: 8;
+    -fx-min-width: 42;
+    -fx-min-height: 42;
+}
+
+.zoom-btn:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #22d3ee;
+}
+

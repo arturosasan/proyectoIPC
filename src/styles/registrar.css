@@ -1,4 +1,4 @@
-#rootVBox {
+#rootBorder {
     -fx-background-color: #1d2a3d;
 }
 
@@ -16,13 +16,6 @@
     -fx-font-weight: bold;
 }
 
-.gpx-btn {
-    -fx-background-color: #55d6b3;
-    -fx-background-radius: 12;
-    -fx-padding: 10 18 10 18;
-    -fx-font-weight: bold;
-    -fx-text-fill: #071323;
-}
 
 .file-label {
     -fx-text-fill: #e8edf5;
@@ -43,28 +36,38 @@
     -fx-font-size: 15px;
 }
 
+.import-btn:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #22d3ee;
+}
 .stats-panel {
     -fx-background-color: #132033;
     -fx-background-radius: 18;
-    -fx-border-color: #16c7e8;
+    -fx-border-color: #55d6b3;
     -fx-border-radius: 18;
     -fx-border-width: 2;
+    -fx-padding: 18 15 20 15;
 }
 
+.panel-title,
 .stats-title {
     -fx-text-fill: #e8edf5;
     -fx-font-size: 20px;
     -fx-font-weight: bold;
 }
 
+.field-label,
 .stat-field {
     -fx-text-fill: #e8edf5;
     -fx-font-size: 15px;
     -fx-font-weight: bold;
 }
 
+.value-label,
 .stat-value {
     -fx-text-fill: #55d6b3;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
 }
 
 .root-scroll {
@@ -113,8 +116,29 @@
     -fx-min-height: 42;
 }
 
+.zoom-btn:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #22d3ee;
+}
+
 .mapa-label {
     -fx-text-fill: #55d6b3;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
 }
+
+.gpx-btn {
+    -fx-background-color: #55d6b3;
+    -fx-text-fill: #132033;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-pref-height: 38;
+}
+
+.gpx-btn:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #22d3ee;
+}
+
+
