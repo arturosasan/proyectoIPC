@@ -90,6 +90,7 @@ public class LoginController implements Initializable {
         passwordVisibleField.textProperty().addListener((obs, oldVal, newVal) -> {
             if (passwordVisibleField.isVisible()) passwordField.setText(newVal);
         });
+
     }
 
     /**
@@ -187,6 +188,9 @@ public class LoginController implements Initializable {
                 stage.setTitle("Registro");
             } else {
                 stage.setTitle("Pantalla principal");
+            }
+            if (fxmlDestino.equals("/views/MapaPrincipal.fxml")) {
+                stage.setMaximized(true);
             }
             stage.show();
         } catch (Exception e) {
